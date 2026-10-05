@@ -1,0 +1,4691 @@
+{
+  "summary": {
+    "status": "verified",
+    "destination": "/home/felix/Workspace/cardiacUDC-Segmentation/data/cardiacUDC_dataset",
+    "volume_count": 7,
+    "file_count": 658,
+    "entry_count": 666,
+    "uncompressed_bytes": 4547904911,
+    "size_GiB": 4.236,
+    "files_by_folder": {
+      "Site_G_100": 194,
+      "Site_G_20": 42,
+      "Site_G_29": 58,
+      "Site_R_126": 170,
+      "Site_R_52": 104,
+      "Site_R_73": 70,
+      "label_all_frame": 20
+    },
+    "valid_nifti_headers": 658,
+    "outer_volume_crc_checks": "all passed",
+    "extraction_crc_checks": "all passed",
+    "independent_disk_crc_checks": "all passed",
+    "original_downloads_preserved": true
+  },
+  "sources": [
+    {
+      "source": "/home/felix/Workspace/cardiacUDC-Segmentation/data/cardiacUDC_dataset.z01.zip",
+      "member": "cardiacUDC_dataset.z01",
+      "volume": "cardiacUDC_dataset.z01",
+      "bytes": 734003200,
+      "crc32": "6bb60d25",
+      "outer_crc_verified": true
+    },
+    {
+      "source": "/home/felix/Workspace/cardiacUDC-Segmentation/data/cardiacUDC_dataset.z02.zip",
+      "member": "cardiacUDC_dataset.z02",
+      "volume": "cardiacUDC_dataset.z02",
+      "bytes": 734003200,
+      "crc32": "a4cc6bcf",
+      "outer_crc_verified": true
+    },
+    {
+      "source": "/home/felix/Workspace/cardiacUDC-Segmentation/data/cardiacUDC_dataset.z03.zip",
+      "member": "cardiacUDC_dataset.z03",
+      "volume": "cardiacUDC_dataset.z03",
+      "bytes": 734003200,
+      "crc32": "c02fb494",
+      "outer_crc_verified": true
+    },
+    {
+      "source": "/home/felix/Workspace/cardiacUDC-Segmentation/data/cardiacUDC_dataset.z04.zip",
+      "member": "cardiacUDC_dataset.z04",
+      "volume": "cardiacUDC_dataset.z04",
+      "bytes": 734003200,
+      "crc32": "fb640436",
+      "outer_crc_verified": true
+    },
+    {
+      "source": "/home/felix/Workspace/cardiacUDC-Segmentation/data/cardiacUDC_dataset.z05.zip",
+      "member": "cardiacUDC_dataset.z05",
+      "volume": "cardiacUDC_dataset.z05",
+      "bytes": 734003200,
+      "crc32": "8e7ccd21",
+      "outer_crc_verified": true
+    },
+    {
+      "source": "/home/felix/Workspace/cardiacUDC-Segmentation/data/cardiacUDC_dataset.z06.zip",
+      "member": "cardiacUDC_dataset.z06",
+      "volume": "cardiacUDC_dataset.z06",
+      "bytes": 734003200,
+      "crc32": "5d3cf08d",
+      "outer_crc_verified": true
+    },
+    {
+      "source": "/home/felix/Workspace/cardiacUDC-Segmentation/data/cardiacUDC_dataset.change2zip.zip",
+      "member": "cardiacUDC_dataset.change2zip",
+      "volume": "cardiacUDC_dataset.zip",
+      "bytes": 111901093,
+      "crc32": "f8003d32",
+      "outer_crc_verified": true
+    }
+  ],
+  "files": [
+    {
+      "path": "cardiacUDC_dataset/label_all_frame/normal-23-4_image.nii.gz",
+      "directory": false,
+      "bytes": 8659241,
+      "crc32": "41b92f3e",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/label_all_frame/normal-23-4_label.nii.gz",
+      "directory": false,
+      "bytes": 180566,
+      "crc32": "c0752b91",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/label_all_frame/normal-27-4_image.nii.gz",
+      "directory": false,
+      "bytes": 5794518,
+      "crc32": "13d5a5e3",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/label_all_frame/normal-27-4_label.nii.gz",
+      "directory": false,
+      "bytes": 178546,
+      "crc32": "c9e4828d",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/label_all_frame/patient-17-4_image.nii.gz",
+      "directory": false,
+      "bytes": 7247703,
+      "crc32": "ccdc6bea",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/label_all_frame/patient-17-4_label.nii.gz",
+      "directory": false,
+      "bytes": 160226,
+      "crc32": "2e717107",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/label_all_frame/patient-35-4_image.nii.gz",
+      "directory": false,
+      "bytes": 6028337,
+      "crc32": "b908f7c2",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/label_all_frame/patient-35-4_label.nii.gz",
+      "directory": false,
+      "bytes": 119419,
+      "crc32": "011067d7",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/label_all_frame/patient-39-4_image.nii.gz",
+      "directory": false,
+      "bytes": 7310593,
+      "crc32": "0b0fb012",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/label_all_frame/patient-39-4_label.nii.gz",
+      "directory": false,
+      "bytes": 133724,
+      "crc32": "5acb3b6b",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/label_all_frame/patient-44-4_image.nii.gz",
+      "directory": false,
+      "bytes": 8079815,
+      "crc32": "1d286846",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/label_all_frame/patient-44-4_label.nii.gz",
+      "directory": false,
+      "bytes": 139916,
+      "crc32": "401f17e0",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/label_all_frame/patient-5-4_image.nii.gz",
+      "directory": false,
+      "bytes": 6309150,
+      "crc32": "b76517b9",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/label_all_frame/patient-5-4_label.nii.gz",
+      "directory": false,
+      "bytes": 166491,
+      "crc32": "83dc52f5",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/label_all_frame/patient-60-4_image.nii.gz",
+      "directory": false,
+      "bytes": 6565105,
+      "crc32": "0be6aa2f",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/label_all_frame/patient-60-4_label.nii.gz",
+      "directory": false,
+      "bytes": 136131,
+      "crc32": "84407095",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/label_all_frame/patient-64-4_image.nii.gz",
+      "directory": false,
+      "bytes": 5478735,
+      "crc32": "54dbdb29",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/label_all_frame/patient-64-4_label.nii.gz",
+      "directory": false,
+      "bytes": 160491,
+      "crc32": "6fe97cd9",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/label_all_frame/patient-67-4_image.nii.gz",
+      "directory": false,
+      "bytes": 5648122,
+      "crc32": "f06b944b",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/label_all_frame/patient-67-4_label.nii.gz",
+      "directory": false,
+      "bytes": 132564,
+      "crc32": "45118ca9",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient1-4_image.nii.gz",
+      "directory": false,
+      "bytes": 11257447,
+      "crc32": "2eb5343a",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient1-4_label.nii.gz",
+      "directory": false,
+      "bytes": 51322,
+      "crc32": "508ac22f",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient10-4_image.nii.gz",
+      "directory": false,
+      "bytes": 11456130,
+      "crc32": "d09188a4",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient10-4_label.nii.gz",
+      "directory": false,
+      "bytes": 57576,
+      "crc32": "6b692b03",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient100-4_image.nii.gz",
+      "directory": false,
+      "bytes": 10743617,
+      "crc32": "6d907d88",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient100-4_label.nii.gz",
+      "directory": false,
+      "bytes": 47868,
+      "crc32": "d98bff76",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient11-4_image.nii.gz",
+      "directory": false,
+      "bytes": 11451674,
+      "crc32": "31400444",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient11-4_label.nii.gz",
+      "directory": false,
+      "bytes": 57821,
+      "crc32": "4055fccb",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient12-4_image.nii.gz",
+      "directory": false,
+      "bytes": 9464281,
+      "crc32": "affa31b4",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient12-4_label.nii.gz",
+      "directory": false,
+      "bytes": 59799,
+      "crc32": "2dbc5983",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient14-4_image.nii.gz",
+      "directory": false,
+      "bytes": 10035835,
+      "crc32": "cd57312d",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient14-4_label.nii.gz",
+      "directory": false,
+      "bytes": 51746,
+      "crc32": "868c2135",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient15-4_image.nii.gz",
+      "directory": false,
+      "bytes": 9981512,
+      "crc32": "772c5f0d",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient15-4_label.nii.gz",
+      "directory": false,
+      "bytes": 58743,
+      "crc32": "515615eb",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient16-4_image.nii.gz",
+      "directory": false,
+      "bytes": 11629676,
+      "crc32": "34ef026f",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient16-4_label.nii.gz",
+      "directory": false,
+      "bytes": 52847,
+      "crc32": "a710f9db",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient17-4_image.nii.gz",
+      "directory": false,
+      "bytes": 9171573,
+      "crc32": "6e5ca7a6",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient17-4_label.nii.gz",
+      "directory": false,
+      "bytes": 56949,
+      "crc32": "b5eb4a32",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient18-4_image.nii.gz",
+      "directory": false,
+      "bytes": 11513202,
+      "crc32": "3ec4e84a",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient18-4_label.nii.gz",
+      "directory": false,
+      "bytes": 57861,
+      "crc32": "a1d86660",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient19-4_image.nii.gz",
+      "directory": false,
+      "bytes": 8921781,
+      "crc32": "4f89a0f5",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient19-4_label.nii.gz",
+      "directory": false,
+      "bytes": 47603,
+      "crc32": "7e0f96ee",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient2-4_image.nii.gz",
+      "directory": false,
+      "bytes": 11806421,
+      "crc32": "980f022b",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient2-4_label.nii.gz",
+      "directory": false,
+      "bytes": 57442,
+      "crc32": "c346b613",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient20-4_image.nii.gz",
+      "directory": false,
+      "bytes": 11668626,
+      "crc32": "7f9b026b",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient20-4_label.nii.gz",
+      "directory": false,
+      "bytes": 61038,
+      "crc32": "05290432",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient21-4_image.nii.gz",
+      "directory": false,
+      "bytes": 20569938,
+      "crc32": "ed8f5930",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient21-4_label.nii.gz",
+      "directory": false,
+      "bytes": 93203,
+      "crc32": "e9a83c19",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient22-4_image.nii.gz",
+      "directory": false,
+      "bytes": 11354732,
+      "crc32": "0c150454",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient22-4_label.nii.gz",
+      "directory": false,
+      "bytes": 49524,
+      "crc32": "6c70b56e",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient23-4_image.nii.gz",
+      "directory": false,
+      "bytes": 15378108,
+      "crc32": "6bddd43b",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient23-4_label.nii.gz",
+      "directory": false,
+      "bytes": 59504,
+      "crc32": "71a99baf",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient24-4_image.nii.gz",
+      "directory": false,
+      "bytes": 13167403,
+      "crc32": "0c38c3c3",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient24-4_label.nii.gz",
+      "directory": false,
+      "bytes": 56425,
+      "crc32": "0424b545",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient25-4_image.nii.gz",
+      "directory": false,
+      "bytes": 16286713,
+      "crc32": "f2f8c9c0",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient25-4_label.nii.gz",
+      "directory": false,
+      "bytes": 86071,
+      "crc32": "dbaa4ac2",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient26-4_image.nii.gz",
+      "directory": false,
+      "bytes": 14731209,
+      "crc32": "d5055039",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient26-4_label.nii.gz",
+      "directory": false,
+      "bytes": 66448,
+      "crc32": "4d91e5fe",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient27-4_image.nii.gz",
+      "directory": false,
+      "bytes": 13637212,
+      "crc32": "e593861b",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient27-4_label.nii.gz",
+      "directory": false,
+      "bytes": 57359,
+      "crc32": "7a653cbe",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient28-4_image.nii.gz",
+      "directory": false,
+      "bytes": 7582786,
+      "crc32": "ebd76801",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient28-4_label.nii.gz",
+      "directory": false,
+      "bytes": 42167,
+      "crc32": "b37a2c28",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient29-4_image.nii.gz",
+      "directory": false,
+      "bytes": 9325684,
+      "crc32": "65a24c94",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient29-4_label.nii.gz",
+      "directory": false,
+      "bytes": 43385,
+      "crc32": "a827e4b4",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient3-4_image.nii.gz",
+      "directory": false,
+      "bytes": 9048412,
+      "crc32": "580fb0b8",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient3-4_label.nii.gz",
+      "directory": false,
+      "bytes": 57093,
+      "crc32": "5c66926c",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient30-4_image.nii.gz",
+      "directory": false,
+      "bytes": 26089491,
+      "crc32": "29534e85",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient30-4_label.nii.gz",
+      "directory": false,
+      "bytes": 108356,
+      "crc32": "4c1f9a69",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient31-4_image.nii.gz",
+      "directory": false,
+      "bytes": 15364347,
+      "crc32": "502894ff",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient31-4_label.nii.gz",
+      "directory": false,
+      "bytes": 68022,
+      "crc32": "e91df073",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient32-4_image.nii.gz",
+      "directory": false,
+      "bytes": 10234239,
+      "crc32": "ccc362e9",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient32-4_label.nii.gz",
+      "directory": false,
+      "bytes": 52918,
+      "crc32": "50f34cbc",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient33-4_image.nii.gz",
+      "directory": false,
+      "bytes": 17297119,
+      "crc32": "9a2a2017",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient33-4_label.nii.gz",
+      "directory": false,
+      "bytes": 91849,
+      "crc32": "25733526",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient34-4_image.nii.gz",
+      "directory": false,
+      "bytes": 15366690,
+      "crc32": "f7887c85",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient34-4_label.nii.gz",
+      "directory": false,
+      "bytes": 55698,
+      "crc32": "66802b5d",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient35-4_image.nii.gz",
+      "directory": false,
+      "bytes": 12698125,
+      "crc32": "b0607a45",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient35-4_label.nii.gz",
+      "directory": false,
+      "bytes": 64194,
+      "crc32": "5f81a1b3",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient36-4_image.nii.gz",
+      "directory": false,
+      "bytes": 17685789,
+      "crc32": "fd36f0f8",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient36-4_label.nii.gz",
+      "directory": false,
+      "bytes": 104832,
+      "crc32": "6c6ff167",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient37-4_image.nii.gz",
+      "directory": false,
+      "bytes": 10695691,
+      "crc32": "b7d40c05",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient37-4_label.nii.gz",
+      "directory": false,
+      "bytes": 57938,
+      "crc32": "930aba29",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient38-4_image.nii.gz",
+      "directory": false,
+      "bytes": 10107980,
+      "crc32": "dcd599a2",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient38-4_label.nii.gz",
+      "directory": false,
+      "bytes": 49237,
+      "crc32": "f2cdb151",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient39-4_image.nii.gz",
+      "directory": false,
+      "bytes": 18704236,
+      "crc32": "6bcbf7a4",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient39-4_label.nii.gz",
+      "directory": false,
+      "bytes": 107954,
+      "crc32": "502e58ea",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient4-4_image.nii.gz",
+      "directory": false,
+      "bytes": 14482299,
+      "crc32": "2b4ad917",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient4-4_label.nii.gz",
+      "directory": false,
+      "bytes": 59661,
+      "crc32": "9215b3bd",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient40-4_image.nii.gz",
+      "directory": false,
+      "bytes": 13545625,
+      "crc32": "e36b6bb1",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient40-4_label.nii.gz",
+      "directory": false,
+      "bytes": 57772,
+      "crc32": "802e5aac",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient41-4_image.nii.gz",
+      "directory": false,
+      "bytes": 12440134,
+      "crc32": "a536b899",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient41-4_label.nii.gz",
+      "directory": false,
+      "bytes": 71520,
+      "crc32": "8226779e",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient42-4_image.nii.gz",
+      "directory": false,
+      "bytes": 19278614,
+      "crc32": "b2a68f8e",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient42-4_label.nii.gz",
+      "directory": false,
+      "bytes": 89524,
+      "crc32": "8f6b661e",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient43-4_image.nii.gz",
+      "directory": false,
+      "bytes": 15283314,
+      "crc32": "8062c275",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient43-4_label.nii.gz",
+      "directory": false,
+      "bytes": 61839,
+      "crc32": "0dfad5d8",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient44-4_image.nii.gz",
+      "directory": false,
+      "bytes": 28883926,
+      "crc32": "892fd1dd",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient44-4_label.nii.gz",
+      "directory": false,
+      "bytes": 143726,
+      "crc32": "b1ac3734",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient45-4_image.nii.gz",
+      "directory": false,
+      "bytes": 12813610,
+      "crc32": "b644b0bb",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient45-4_label.nii.gz",
+      "directory": false,
+      "bytes": 56848,
+      "crc32": "5956c207",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient46-4_image.nii.gz",
+      "directory": false,
+      "bytes": 20330953,
+      "crc32": "05c57561",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient46-4_label.nii.gz",
+      "directory": false,
+      "bytes": 85994,
+      "crc32": "c1db8910",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient47-4_image.nii.gz",
+      "directory": false,
+      "bytes": 11357838,
+      "crc32": "084c1433",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient47-4_label.nii.gz",
+      "directory": false,
+      "bytes": 61855,
+      "crc32": "82891069",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient48-4_image.nii.gz",
+      "directory": false,
+      "bytes": 15120374,
+      "crc32": "8ca512fa",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient48-4_label.nii.gz",
+      "directory": false,
+      "bytes": 64002,
+      "crc32": "2c300c4a",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient49-4_image.nii.gz",
+      "directory": false,
+      "bytes": 27661015,
+      "crc32": "8e7c369e",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient49-4_label.nii.gz",
+      "directory": false,
+      "bytes": 127435,
+      "crc32": "7af65b92",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient50-4_image.nii.gz",
+      "directory": false,
+      "bytes": 12447752,
+      "crc32": "635d27db",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient50-4_label.nii.gz",
+      "directory": false,
+      "bytes": 65663,
+      "crc32": "0bdd4897",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient51-4_image.nii.gz",
+      "directory": false,
+      "bytes": 8346224,
+      "crc32": "5abfcfc2",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient51-4_label.nii.gz",
+      "directory": false,
+      "bytes": 45906,
+      "crc32": "5b683c13",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient52-4_image.nii.gz",
+      "directory": false,
+      "bytes": 13458101,
+      "crc32": "77645abb",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient52-4_label.nii.gz",
+      "directory": false,
+      "bytes": 65771,
+      "crc32": "662c8d3f",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient53-4_image.nii.gz",
+      "directory": false,
+      "bytes": 14893669,
+      "crc32": "e1fc02c9",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient53-4_label.nii.gz",
+      "directory": false,
+      "bytes": 72115,
+      "crc32": "788930aa",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient54-4_image.nii.gz",
+      "directory": false,
+      "bytes": 12316437,
+      "crc32": "1c67dd43",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient54-4_label.nii.gz",
+      "directory": false,
+      "bytes": 62200,
+      "crc32": "05f6a498",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient55-4_image.nii.gz",
+      "directory": false,
+      "bytes": 7337848,
+      "crc32": "b793b4c0",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient55-4_label.nii.gz",
+      "directory": false,
+      "bytes": 40560,
+      "crc32": "f4905baa",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient56-4_image.nii.gz",
+      "directory": false,
+      "bytes": 11844441,
+      "crc32": "7f884888",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient56-4_label.nii.gz",
+      "directory": false,
+      "bytes": 63314,
+      "crc32": "2972a742",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient57-4_image.nii.gz",
+      "directory": false,
+      "bytes": 13516240,
+      "crc32": "8e3088d8",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient57-4_label.nii.gz",
+      "directory": false,
+      "bytes": 75769,
+      "crc32": "071cd611",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient58-4_image.nii.gz",
+      "directory": false,
+      "bytes": 11927064,
+      "crc32": "537c97a1",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient58-4_label.nii.gz",
+      "directory": false,
+      "bytes": 72088,
+      "crc32": "6a45a61b",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient59-4_image.nii.gz",
+      "directory": false,
+      "bytes": 12275027,
+      "crc32": "fdc209f7",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient59-4_label.nii.gz",
+      "directory": false,
+      "bytes": 61129,
+      "crc32": "0b9cbb57",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient6-4_image.nii.gz",
+      "directory": false,
+      "bytes": 11052123,
+      "crc32": "f58de90b",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient6-4_label.nii.gz",
+      "directory": false,
+      "bytes": 56085,
+      "crc32": "36b516f3",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient60-4_image.nii.gz",
+      "directory": false,
+      "bytes": 11620831,
+      "crc32": "bd52e713",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient60-4_label.nii.gz",
+      "directory": false,
+      "bytes": 64664,
+      "crc32": "ab2e4af4",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient61-4_image.nii.gz",
+      "directory": false,
+      "bytes": 24334760,
+      "crc32": "b0aaf9f0",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient61-4_label.nii.gz",
+      "directory": false,
+      "bytes": 112838,
+      "crc32": "a2718c38",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient62-4_image.nii.gz",
+      "directory": false,
+      "bytes": 14009307,
+      "crc32": "59219381",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient62-4_label.nii.gz",
+      "directory": false,
+      "bytes": 68091,
+      "crc32": "9ac5482c",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient63-4_image.nii.gz",
+      "directory": false,
+      "bytes": 11504288,
+      "crc32": "760e3c23",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient63-4_label.nii.gz",
+      "directory": false,
+      "bytes": 70145,
+      "crc32": "7d986b07",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient64-4_image.nii.gz",
+      "directory": false,
+      "bytes": 13853369,
+      "crc32": "00130a70",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient64-4_label.nii.gz",
+      "directory": false,
+      "bytes": 83446,
+      "crc32": "2c568f45",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient65-4_image.nii.gz",
+      "directory": false,
+      "bytes": 6801241,
+      "crc32": "aaa166a0",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient65-4_label.nii.gz",
+      "directory": false,
+      "bytes": 49379,
+      "crc32": "161c1fba",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient66-4_image.nii.gz",
+      "directory": false,
+      "bytes": 11588743,
+      "crc32": "ca88ee0f",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient66-4_label.nii.gz",
+      "directory": false,
+      "bytes": 55292,
+      "crc32": "0b9cfc39",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient67-4_image.nii.gz",
+      "directory": false,
+      "bytes": 11009575,
+      "crc32": "683d12f2",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient67-4_label.nii.gz",
+      "directory": false,
+      "bytes": 58863,
+      "crc32": "6737ddca",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient68-4_image.nii.gz",
+      "directory": false,
+      "bytes": 13508238,
+      "crc32": "4d369e3e",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient68-4_label.nii.gz",
+      "directory": false,
+      "bytes": 64054,
+      "crc32": "69bf2795",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient7-4_image.nii.gz",
+      "directory": false,
+      "bytes": 15870024,
+      "crc32": "4887555a",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient7-4_label.nii.gz",
+      "directory": false,
+      "bytes": 71702,
+      "crc32": "58a64d2f",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient70-4_image.nii.gz",
+      "directory": false,
+      "bytes": 11435889,
+      "crc32": "c0239e45",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient70-4_label.nii.gz",
+      "directory": false,
+      "bytes": 60340,
+      "crc32": "356aa6b7",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient71-4_image.nii.gz",
+      "directory": false,
+      "bytes": 13993307,
+      "crc32": "10618f4f",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient71-4_label.nii.gz",
+      "directory": false,
+      "bytes": 65606,
+      "crc32": "d6cb203a",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient72-4_image.nii.gz",
+      "directory": false,
+      "bytes": 10286951,
+      "crc32": "141e4e33",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient72-4_label.nii.gz",
+      "directory": false,
+      "bytes": 61672,
+      "crc32": "3c639b97",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient73-4_image.nii.gz",
+      "directory": false,
+      "bytes": 8219946,
+      "crc32": "a58975b8",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient73-4_label.nii.gz",
+      "directory": false,
+      "bytes": 60746,
+      "crc32": "b32c45a8",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient74-4_image.nii.gz",
+      "directory": false,
+      "bytes": 11020983,
+      "crc32": "a264d541",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient74-4_label.nii.gz",
+      "directory": false,
+      "bytes": 66153,
+      "crc32": "43f038cc",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient75-4_image.nii.gz",
+      "directory": false,
+      "bytes": 12278791,
+      "crc32": "a8b88246",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient75-4_label.nii.gz",
+      "directory": false,
+      "bytes": 66802,
+      "crc32": "e69f9ba5",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient76-4_image.nii.gz",
+      "directory": false,
+      "bytes": 12434776,
+      "crc32": "c5087ff0",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient76-4_label.nii.gz",
+      "directory": false,
+      "bytes": 60727,
+      "crc32": "9e063b9b",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient77-4_image.nii.gz",
+      "directory": false,
+      "bytes": 10973672,
+      "crc32": "537322f6",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient77-4_label.nii.gz",
+      "directory": false,
+      "bytes": 61595,
+      "crc32": "de4afe14",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient78-4_image.nii.gz",
+      "directory": false,
+      "bytes": 14899818,
+      "crc32": "b1194a83",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient78-4_label.nii.gz",
+      "directory": false,
+      "bytes": 80167,
+      "crc32": "58a52504",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient79-4_image.nii.gz",
+      "directory": false,
+      "bytes": 12384373,
+      "crc32": "45630d0f",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient79-4_label.nii.gz",
+      "directory": false,
+      "bytes": 63858,
+      "crc32": "e942061f",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient8-4_image.nii.gz",
+      "directory": false,
+      "bytes": 12582992,
+      "crc32": "57d070dd",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient8-4_label.nii.gz",
+      "directory": false,
+      "bytes": 58388,
+      "crc32": "ffa1a8c5",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient80-4_image.nii.gz",
+      "directory": false,
+      "bytes": 12716918,
+      "crc32": "1f8812aa",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient80-4_label.nii.gz",
+      "directory": false,
+      "bytes": 59767,
+      "crc32": "2c20d9af",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient81-4_image.nii.gz",
+      "directory": false,
+      "bytes": 13364434,
+      "crc32": "392002ce",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient81-4_label.nii.gz",
+      "directory": false,
+      "bytes": 63500,
+      "crc32": "c5c67859",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient82-4_image.nii.gz",
+      "directory": false,
+      "bytes": 13581376,
+      "crc32": "6237248e",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient82-4_label.nii.gz",
+      "directory": false,
+      "bytes": 59819,
+      "crc32": "3bde59b7",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient83-4_image.nii.gz",
+      "directory": false,
+      "bytes": 17910392,
+      "crc32": "d109f488",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient83-4_label.nii.gz",
+      "directory": false,
+      "bytes": 84752,
+      "crc32": "bfc77ecd",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient84-4_image.nii.gz",
+      "directory": false,
+      "bytes": 11763943,
+      "crc32": "85496ed9",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient84-4_label.nii.gz",
+      "directory": false,
+      "bytes": 61629,
+      "crc32": "f9318853",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient85-4_image.nii.gz",
+      "directory": false,
+      "bytes": 11101538,
+      "crc32": "ae4c4e1b",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient85-4_label.nii.gz",
+      "directory": false,
+      "bytes": 56309,
+      "crc32": "0d3817a8",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient86-4_image.nii.gz",
+      "directory": false,
+      "bytes": 12220755,
+      "crc32": "e7116d9d",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient86-4_label.nii.gz",
+      "directory": false,
+      "bytes": 63047,
+      "crc32": "b29a76ff",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient87-4_image.nii.gz",
+      "directory": false,
+      "bytes": 7266330,
+      "crc32": "503ad60a",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient87-4_label.nii.gz",
+      "directory": false,
+      "bytes": 42271,
+      "crc32": "f170eaa3",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient88-4_image.nii.gz",
+      "directory": false,
+      "bytes": 12786106,
+      "crc32": "afa4cca0",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient88-4_label.nii.gz",
+      "directory": false,
+      "bytes": 70578,
+      "crc32": "23d84cca",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient89-4_image.nii.gz",
+      "directory": false,
+      "bytes": 18330089,
+      "crc32": "ddbb0d56",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient89-4_label.nii.gz",
+      "directory": false,
+      "bytes": 110202,
+      "crc32": "b61b1066",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient9-4_image.nii.gz",
+      "directory": false,
+      "bytes": 12080772,
+      "crc32": "5f06cdf3",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient9-4_label.nii.gz",
+      "directory": false,
+      "bytes": 59837,
+      "crc32": "cb6d9b3a",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient90-4_image.nii.gz",
+      "directory": false,
+      "bytes": 9526695,
+      "crc32": "0d4a305a",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient90-4_label.nii.gz",
+      "directory": false,
+      "bytes": 58269,
+      "crc32": "5e0a4556",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient91-4_image.nii.gz",
+      "directory": false,
+      "bytes": 10550389,
+      "crc32": "dd7fb89e",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient91-4_label.nii.gz",
+      "directory": false,
+      "bytes": 56710,
+      "crc32": "07f7b4b4",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient92-4_image.nii.gz",
+      "directory": false,
+      "bytes": 24093536,
+      "crc32": "54b3fb91",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient92-4_label.nii.gz",
+      "directory": false,
+      "bytes": 112434,
+      "crc32": "584dd634",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient93-4_image.nii.gz",
+      "directory": false,
+      "bytes": 11454360,
+      "crc32": "41048b68",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient93-4_label.nii.gz",
+      "directory": false,
+      "bytes": 56455,
+      "crc32": "c7f74d23",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient94-4_image.nii.gz",
+      "directory": false,
+      "bytes": 23661424,
+      "crc32": "d12db514",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient94-4_label.nii.gz",
+      "directory": false,
+      "bytes": 104568,
+      "crc32": "b3531fe8",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient95-4_image.nii.gz",
+      "directory": false,
+      "bytes": 15176062,
+      "crc32": "9568c2ea",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient95-4_label.nii.gz",
+      "directory": false,
+      "bytes": 76695,
+      "crc32": "667bc47d",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient96-4_image.nii.gz",
+      "directory": false,
+      "bytes": 7908851,
+      "crc32": "99b41f5a",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient96-4_label.nii.gz",
+      "directory": false,
+      "bytes": 49704,
+      "crc32": "45214588",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient97-4_image.nii.gz",
+      "directory": false,
+      "bytes": 13677648,
+      "crc32": "ac0fb4b9",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient97-4_label.nii.gz",
+      "directory": false,
+      "bytes": 70597,
+      "crc32": "afa02ffb",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient98-4_image.nii.gz",
+      "directory": false,
+      "bytes": 14984137,
+      "crc32": "972bfae6",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient98-4_label.nii.gz",
+      "directory": false,
+      "bytes": 69246,
+      "crc32": "33dff4ee",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient99-4_image.nii.gz",
+      "directory": false,
+      "bytes": 8872417,
+      "crc32": "9eb2032e",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_100/patient99-4_label.nii.gz",
+      "directory": false,
+      "bytes": 54195,
+      "crc32": "d380a6c1",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_20/patient-1-4_image.nii.gz",
+      "directory": false,
+      "bytes": 12760511,
+      "crc32": "76959054",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_20/patient-1-4_label.nii.gz",
+      "directory": false,
+      "bytes": 53821,
+      "crc32": "f66173ae",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_20/patient-10-4_image.nii.gz",
+      "directory": false,
+      "bytes": 14006360,
+      "crc32": "8a8bb111",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_20/patient-10-4_label.nii.gz",
+      "directory": false,
+      "bytes": 63034,
+      "crc32": "e69a255a",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_20/patient-11-4_image.nii.gz",
+      "directory": false,
+      "bytes": 13120859,
+      "crc32": "6712d715",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_20/patient-11-4_label.nii.gz",
+      "directory": false,
+      "bytes": 62570,
+      "crc32": "a75bc27e",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_20/patient-12-4_image.nii.gz",
+      "directory": false,
+      "bytes": 10167127,
+      "crc32": "0552e4c1",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_20/patient-12-4_label.nii.gz",
+      "directory": false,
+      "bytes": 53626,
+      "crc32": "03924569",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_20/patient-13-4_image.nii.gz",
+      "directory": false,
+      "bytes": 8266331,
+      "crc32": "9c76d2a4",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_20/patient-13-4_label.nii.gz",
+      "directory": false,
+      "bytes": 48595,
+      "crc32": "5886dd0e",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_20/patient-14-4_image.nii.gz",
+      "directory": false,
+      "bytes": 8380320,
+      "crc32": "c95241bc",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_20/patient-14-4_label.nii.gz",
+      "directory": false,
+      "bytes": 59708,
+      "crc32": "b345f9b7",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_20/patient-15-4_image.nii.gz",
+      "directory": false,
+      "bytes": 9353286,
+      "crc32": "f363efc3",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_20/patient-15-4_label.nii.gz",
+      "directory": false,
+      "bytes": 55985,
+      "crc32": "9fbe32b3",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_20/patient-16-4_image.nii.gz",
+      "directory": false,
+      "bytes": 8620286,
+      "crc32": "049c15bf",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_20/patient-16-4_label.nii.gz",
+      "directory": false,
+      "bytes": 54693,
+      "crc32": "8f77b85c",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_20/patient-17-4_image.nii.gz",
+      "directory": false,
+      "bytes": 9246025,
+      "crc32": "d1c7be3f",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_20/patient-17-4_label.nii.gz",
+      "directory": false,
+      "bytes": 57111,
+      "crc32": "7103d86d",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_20/patient-18-4_image.nii.gz",
+      "directory": false,
+      "bytes": 10113211,
+      "crc32": "f9a78a39",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_20/patient-18-4_label.nii.gz",
+      "directory": false,
+      "bytes": 54890,
+      "crc32": "313d1419",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_20/patient-19-4_image.nii.gz",
+      "directory": false,
+      "bytes": 12639099,
+      "crc32": "9580a4de",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_20/patient-19-4_label.nii.gz",
+      "directory": false,
+      "bytes": 71712,
+      "crc32": "96fde701",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_20/patient-2-4_image.nii.gz",
+      "directory": false,
+      "bytes": 10038341,
+      "crc32": "951a3e35",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_20/patient-2-4_label.nii.gz",
+      "directory": false,
+      "bytes": 57330,
+      "crc32": "0b6af7dc",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_20/patient-20-4_image.nii.gz",
+      "directory": false,
+      "bytes": 9604062,
+      "crc32": "3510e0ed",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_20/patient-20-4_label.nii.gz",
+      "directory": false,
+      "bytes": 45955,
+      "crc32": "0d8e7472",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_20/patient-21-4_image.nii.gz",
+      "directory": false,
+      "bytes": 7606585,
+      "crc32": "9eb6c787",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_20/patient-21-4_label.nii.gz",
+      "directory": false,
+      "bytes": 45685,
+      "crc32": "bb3219f4",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_20/patient-3-4_image.nii.gz",
+      "directory": false,
+      "bytes": 9330946,
+      "crc32": "9e57fba7",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_20/patient-3-4_label.nii.gz",
+      "directory": false,
+      "bytes": 48334,
+      "crc32": "d9cc6fd6",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_20/patient-4-4_image.nii.gz",
+      "directory": false,
+      "bytes": 15714478,
+      "crc32": "f40b58d6",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_20/patient-4-4_label.nii.gz",
+      "directory": false,
+      "bytes": 80646,
+      "crc32": "d9ba305c",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_20/patient-5-4_image.nii.gz",
+      "directory": false,
+      "bytes": 9911111,
+      "crc32": "f5e6ae94",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_20/patient-5-4_label.nii.gz",
+      "directory": false,
+      "bytes": 48641,
+      "crc32": "be7f9e20",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_20/patient-6-4_image.nii.gz",
+      "directory": false,
+      "bytes": 9430298,
+      "crc32": "dd6ff0bd",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_20/patient-6-4_label.nii.gz",
+      "directory": false,
+      "bytes": 46775,
+      "crc32": "5a387735",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_20/patient-7-4_image.nii.gz",
+      "directory": false,
+      "bytes": 10267450,
+      "crc32": "455299ee",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_20/patient-7-4_label.nii.gz",
+      "directory": false,
+      "bytes": 56910,
+      "crc32": "5c3e8a30",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_20/patient-8-4_image.nii.gz",
+      "directory": false,
+      "bytes": 10783237,
+      "crc32": "15d9a580",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_20/patient-8-4_label.nii.gz",
+      "directory": false,
+      "bytes": 53257,
+      "crc32": "37124a5e",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_20/patient-9-4_image.nii.gz",
+      "directory": false,
+      "bytes": 9314399,
+      "crc32": "9a9d7f2d",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_20/patient-9-4_label.nii.gz",
+      "directory": false,
+      "bytes": 47499,
+      "crc32": "02ab371c",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-1-4_image.nii.gz",
+      "directory": false,
+      "bytes": 18327225,
+      "crc32": "e67e72e4",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-1-4_label.nii.gz",
+      "directory": false,
+      "bytes": 80352,
+      "crc32": "f4f55a67",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-10-4_image.nii.gz",
+      "directory": false,
+      "bytes": 8448011,
+      "crc32": "fab0816d",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-10-4_label.nii.gz",
+      "directory": false,
+      "bytes": 44628,
+      "crc32": "2d294872",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-11-4_image.nii.gz",
+      "directory": false,
+      "bytes": 9167273,
+      "crc32": "eb586183",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-11-4_label.nii.gz",
+      "directory": false,
+      "bytes": 48745,
+      "crc32": "6dc55e60",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-12-4_image.nii.gz",
+      "directory": false,
+      "bytes": 9920842,
+      "crc32": "f0d34967",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-12-4_label.nii.gz",
+      "directory": false,
+      "bytes": 49063,
+      "crc32": "5fb9d458",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-13-4_image.nii.gz",
+      "directory": false,
+      "bytes": 13916188,
+      "crc32": "0648519e",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-13-4_label.nii.gz",
+      "directory": false,
+      "bytes": 53937,
+      "crc32": "3bc44191",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-14-4_image.nii.gz",
+      "directory": false,
+      "bytes": 17237032,
+      "crc32": "bd8644bd",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-14-4_label.nii.gz",
+      "directory": false,
+      "bytes": 83827,
+      "crc32": "75cb1282",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-15-4_image.nii.gz",
+      "directory": false,
+      "bytes": 14915764,
+      "crc32": "bc8c1207",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-15-4_label.nii.gz",
+      "directory": false,
+      "bytes": 64001,
+      "crc32": "e7b7e57e",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-16-4_image.nii.gz",
+      "directory": false,
+      "bytes": 10793217,
+      "crc32": "798fccbd",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-16-4_label.nii.gz",
+      "directory": false,
+      "bytes": 47263,
+      "crc32": "f8e97804",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-17-4_image.nii.gz",
+      "directory": false,
+      "bytes": 13517473,
+      "crc32": "f87e3517",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-17-4_label.nii.gz",
+      "directory": false,
+      "bytes": 62927,
+      "crc32": "87997b59",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-18-4_image.nii.gz",
+      "directory": false,
+      "bytes": 17811717,
+      "crc32": "8e200b4b",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-18-4_label.nii.gz",
+      "directory": false,
+      "bytes": 79147,
+      "crc32": "b14df6e7",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-19-4_image.nii.gz",
+      "directory": false,
+      "bytes": 16233706,
+      "crc32": "a788ca97",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-19-4_label.nii.gz",
+      "directory": false,
+      "bytes": 64929,
+      "crc32": "00853cff",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-2-4_image.nii.gz",
+      "directory": false,
+      "bytes": 9913448,
+      "crc32": "d6b6c7e2",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-2-4_label.nii.gz",
+      "directory": false,
+      "bytes": 58444,
+      "crc32": "d03e937c",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-20-4_image.nii.gz",
+      "directory": false,
+      "bytes": 15296647,
+      "crc32": "ff087560",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-20-4_label.nii.gz",
+      "directory": false,
+      "bytes": 70446,
+      "crc32": "1078020b",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-21-4_image.nii.gz",
+      "directory": false,
+      "bytes": 16900875,
+      "crc32": "dafd94c5",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-21-4_label.nii.gz",
+      "directory": false,
+      "bytes": 68683,
+      "crc32": "a482ce0c",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-22-4_image.nii.gz",
+      "directory": false,
+      "bytes": 15676839,
+      "crc32": "86c73e84",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-22-4_label.nii.gz",
+      "directory": false,
+      "bytes": 84256,
+      "crc32": "39541c1e",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-23-4_image.nii.gz",
+      "directory": false,
+      "bytes": 13610746,
+      "crc32": "392d2e5a",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-23-4_label.nii.gz",
+      "directory": false,
+      "bytes": 55914,
+      "crc32": "d9ace24a",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-24-4_image.nii.gz",
+      "directory": false,
+      "bytes": 10437148,
+      "crc32": "9c35570a",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-24-4_label.nii.gz",
+      "directory": false,
+      "bytes": 57151,
+      "crc32": "2ab01b0c",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-25-4_image.nii.gz",
+      "directory": false,
+      "bytes": 9939035,
+      "crc32": "6ae95433",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-25-4_label.nii.gz",
+      "directory": false,
+      "bytes": 53156,
+      "crc32": "61dc22ac",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-26-4_image.nii.gz",
+      "directory": false,
+      "bytes": 10602445,
+      "crc32": "033351f1",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-26-4_label.nii.gz",
+      "directory": false,
+      "bytes": 55861,
+      "crc32": "82f91ec3",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-27-4_image.nii.gz",
+      "directory": false,
+      "bytes": 22023090,
+      "crc32": "df32b11a",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-27-4_label.nii.gz",
+      "directory": false,
+      "bytes": 84164,
+      "crc32": "8f30a349",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-28-4_image.nii.gz",
+      "directory": false,
+      "bytes": 17321160,
+      "crc32": "cfc6ba5f",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-28-4_label.nii.gz",
+      "directory": false,
+      "bytes": 69733,
+      "crc32": "7a3d9093",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-29-4_image.nii.gz",
+      "directory": false,
+      "bytes": 16507263,
+      "crc32": "d7ad3507",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-29-4_label.nii.gz",
+      "directory": false,
+      "bytes": 75086,
+      "crc32": "8b47d903",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-3-4_image.nii.gz",
+      "directory": false,
+      "bytes": 11911819,
+      "crc32": "775a29d6",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-3-4_label.nii.gz",
+      "directory": false,
+      "bytes": 62444,
+      "crc32": "b04e4ba5",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-4-4_image.nii.gz",
+      "directory": false,
+      "bytes": 15343837,
+      "crc32": "12302ee9",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-4-4_label.nii.gz",
+      "directory": false,
+      "bytes": 61839,
+      "crc32": "6bebdd85",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-5-4_image.nii.gz",
+      "directory": false,
+      "bytes": 12802137,
+      "crc32": "b3d603f7",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-5-4_label.nii.gz",
+      "directory": false,
+      "bytes": 66935,
+      "crc32": "f3adc3c8",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-6-4_image.nii.gz",
+      "directory": false,
+      "bytes": 13715812,
+      "crc32": "14e9e3e9",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-6-4_label.nii.gz",
+      "directory": false,
+      "bytes": 64796,
+      "crc32": "5d75dcb1",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-7-4_image.nii.gz",
+      "directory": false,
+      "bytes": 17229299,
+      "crc32": "f30d0c3b",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-7-4_label.nii.gz",
+      "directory": false,
+      "bytes": 74842,
+      "crc32": "b46e98ae",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-8-4_image.nii.gz",
+      "directory": false,
+      "bytes": 11032438,
+      "crc32": "50a25e5a",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-8-4_label.nii.gz",
+      "directory": false,
+      "bytes": 49228,
+      "crc32": "0767d511",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-9-4_image.nii.gz",
+      "directory": false,
+      "bytes": 10530243,
+      "crc32": "400718c1",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_G_29/patient-9-4_label.nii.gz",
+      "directory": false,
+      "bytes": 66902,
+      "crc32": "d3791e3c",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-11-4_image.nii.gz",
+      "directory": false,
+      "bytes": 4229917,
+      "crc32": "ba094887",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-11-4_label.nii.gz",
+      "directory": false,
+      "bytes": 33809,
+      "crc32": "508a8510",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-12-4_image.nii.gz",
+      "directory": false,
+      "bytes": 6262799,
+      "crc32": "798f3b30",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-12-4_label.nii.gz",
+      "directory": false,
+      "bytes": 44936,
+      "crc32": "32737039",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-13-4_image.nii.gz",
+      "directory": false,
+      "bytes": 5722793,
+      "crc32": "0274a199",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-13-4_label.nii.gz",
+      "directory": false,
+      "bytes": 33280,
+      "crc32": "d33c7b03",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-14-4_image.nii.gz",
+      "directory": false,
+      "bytes": 5962188,
+      "crc32": "69867380",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-14-4_label.nii.gz",
+      "directory": false,
+      "bytes": 44756,
+      "crc32": "d6f61408",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-15-4_image.nii.gz",
+      "directory": false,
+      "bytes": 5287294,
+      "crc32": "332a4432",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-15-4_label.nii.gz",
+      "directory": false,
+      "bytes": 37605,
+      "crc32": "572a4061",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-16-4_image.nii.gz",
+      "directory": false,
+      "bytes": 4962306,
+      "crc32": "ae100f00",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-16-4_label.nii.gz",
+      "directory": false,
+      "bytes": 44447,
+      "crc32": "71c7c151",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-17-4_image.nii.gz",
+      "directory": false,
+      "bytes": 5756561,
+      "crc32": "ca577ef2",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-17-4_label.nii.gz",
+      "directory": false,
+      "bytes": 32760,
+      "crc32": "9ba89a66",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-18-4_image.nii.gz",
+      "directory": false,
+      "bytes": 6804091,
+      "crc32": "c9bff47e",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-18-4_label.nii.gz",
+      "directory": false,
+      "bytes": 49045,
+      "crc32": "9a86d7ee",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-19-4_image.nii.gz",
+      "directory": false,
+      "bytes": 5816139,
+      "crc32": "a7066cda",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-19-4_label.nii.gz",
+      "directory": false,
+      "bytes": 38001,
+      "crc32": "7313151f",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-2-4_image.nii.gz",
+      "directory": false,
+      "bytes": 4519531,
+      "crc32": "52f2df79",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-2-4_label.nii.gz",
+      "directory": false,
+      "bytes": 37174,
+      "crc32": "2a1fd852",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-20-4_image.nii.gz",
+      "directory": false,
+      "bytes": 7189271,
+      "crc32": "079d5640",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-20-4_label.nii.gz",
+      "directory": false,
+      "bytes": 37933,
+      "crc32": "c4790297",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-21-4_image.nii.gz",
+      "directory": false,
+      "bytes": 7120068,
+      "crc32": "da34dc53",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-21-4_label.nii.gz",
+      "directory": false,
+      "bytes": 41373,
+      "crc32": "ad73cd32",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-22-4_image.nii.gz",
+      "directory": false,
+      "bytes": 8414696,
+      "crc32": "326a1265",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-22-4_label.nii.gz",
+      "directory": false,
+      "bytes": 42440,
+      "crc32": "8af3c492",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-23-4_image.nii.gz",
+      "directory": false,
+      "bytes": 8211268,
+      "crc32": "32980512",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-23-4_label.nii.gz",
+      "directory": false,
+      "bytes": 41296,
+      "crc32": "6f5df2f1",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-24-4_image.nii.gz",
+      "directory": false,
+      "bytes": 5220715,
+      "crc32": "4840aca4",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-24-4_label.nii.gz",
+      "directory": false,
+      "bytes": 42092,
+      "crc32": "b839a810",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-25-4_image.nii.gz",
+      "directory": false,
+      "bytes": 8826273,
+      "crc32": "f3dd7b4e",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-25-4_label.nii.gz",
+      "directory": false,
+      "bytes": 50519,
+      "crc32": "ac95ddd8",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-26-4_image.nii.gz",
+      "directory": false,
+      "bytes": 4415812,
+      "crc32": "7f8890eb",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-26-4_label.nii.gz",
+      "directory": false,
+      "bytes": 36460,
+      "crc32": "c928627b",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-27-4_image.nii.gz",
+      "directory": false,
+      "bytes": 7375217,
+      "crc32": "d82d843f",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-27-4_label.nii.gz",
+      "directory": false,
+      "bytes": 42795,
+      "crc32": "bd776250",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-28-4_image.nii.gz",
+      "directory": false,
+      "bytes": 4817537,
+      "crc32": "03ec5eca",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-28-4_label.nii.gz",
+      "directory": false,
+      "bytes": 36748,
+      "crc32": "820a6e97",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-29-4_image.nii.gz",
+      "directory": false,
+      "bytes": 6489666,
+      "crc32": "92848f4d",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-29-4_label.nii.gz",
+      "directory": false,
+      "bytes": 38841,
+      "crc32": "92b906e3",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-30-4_image.nii.gz",
+      "directory": false,
+      "bytes": 15122899,
+      "crc32": "8c7723ce",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-30-4_label.nii.gz",
+      "directory": false,
+      "bytes": 76160,
+      "crc32": "9ad1908b",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-31-4_image.nii.gz",
+      "directory": false,
+      "bytes": 8494636,
+      "crc32": "8d122bfc",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-31-4_label.nii.gz",
+      "directory": false,
+      "bytes": 45906,
+      "crc32": "983db2da",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-33-4_image.nii.gz",
+      "directory": false,
+      "bytes": 6316788,
+      "crc32": "67a60ae9",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-33-4_label.nii.gz",
+      "directory": false,
+      "bytes": 38050,
+      "crc32": "07bc9106",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-34-4_image.nii.gz",
+      "directory": false,
+      "bytes": 8554694,
+      "crc32": "b49b136a",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-34-4_label.nii.gz",
+      "directory": false,
+      "bytes": 46538,
+      "crc32": "15d5f4af",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-35-4_image.nii.gz",
+      "directory": false,
+      "bytes": 4662122,
+      "crc32": "10390323",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-35-4_label.nii.gz",
+      "directory": false,
+      "bytes": 27986,
+      "crc32": "48b4d9a4",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-36-4_image.nii.gz",
+      "directory": false,
+      "bytes": 7304077,
+      "crc32": "50071c55",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-36-4_label.nii.gz",
+      "directory": false,
+      "bytes": 38792,
+      "crc32": "9d50f4d1",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-37-4_image.nii.gz",
+      "directory": false,
+      "bytes": 6923314,
+      "crc32": "c794ae1c",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-37-4_label.nii.gz",
+      "directory": false,
+      "bytes": 50689,
+      "crc32": "202af969",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-38-4_image.nii.gz",
+      "directory": false,
+      "bytes": 8796029,
+      "crc32": "afd246bd",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-38-4_label.nii.gz",
+      "directory": false,
+      "bytes": 52432,
+      "crc32": "a262d57f",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-39-4_image.nii.gz",
+      "directory": false,
+      "bytes": 5760122,
+      "crc32": "6d46f63e",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-39-4_label.nii.gz",
+      "directory": false,
+      "bytes": 31975,
+      "crc32": "93a8cfae",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-4-4_image.nii.gz",
+      "directory": false,
+      "bytes": 5625139,
+      "crc32": "46ca569e",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-4-4_label.nii.gz",
+      "directory": false,
+      "bytes": 43008,
+      "crc32": "fb3f5cf3",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-40-4_image.nii.gz",
+      "directory": false,
+      "bytes": 7151338,
+      "crc32": "c131ebd8",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-40-4_label.nii.gz",
+      "directory": false,
+      "bytes": 42261,
+      "crc32": "43f701e3",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-41-4_image.nii.gz",
+      "directory": false,
+      "bytes": 5879232,
+      "crc32": "4f16965e",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-41-4_label.nii.gz",
+      "directory": false,
+      "bytes": 37532,
+      "crc32": "a68b14b0",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-42-4_image.nii.gz",
+      "directory": false,
+      "bytes": 6688265,
+      "crc32": "789c3e71",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-42-4_label.nii.gz",
+      "directory": false,
+      "bytes": 35783,
+      "crc32": "975d12d2",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-43-4_image.nii.gz",
+      "directory": false,
+      "bytes": 7754785,
+      "crc32": "198f73f0",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-43-4_label.nii.gz",
+      "directory": false,
+      "bytes": 49135,
+      "crc32": "0cc3ad0d",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-44-4_image.nii.gz",
+      "directory": false,
+      "bytes": 6319968,
+      "crc32": "3510afd6",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-44-4_label.nii.gz",
+      "directory": false,
+      "bytes": 35487,
+      "crc32": "0603e153",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-45-4_image.nii.gz",
+      "directory": false,
+      "bytes": 9530807,
+      "crc32": "8a3aa4be",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-45-4_label.nii.gz",
+      "directory": false,
+      "bytes": 47016,
+      "crc32": "34908478",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-46-4_image.nii.gz",
+      "directory": false,
+      "bytes": 5276703,
+      "crc32": "484a7c57",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-46-4_label.nii.gz",
+      "directory": false,
+      "bytes": 40140,
+      "crc32": "532193c2",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-47-4_image.nii.gz",
+      "directory": false,
+      "bytes": 5645687,
+      "crc32": "64d61078",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-47-4_label.nii.gz",
+      "directory": false,
+      "bytes": 37579,
+      "crc32": "0c6ea4e9",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-48-4_image.nii.gz",
+      "directory": false,
+      "bytes": 8976072,
+      "crc32": "dc931dcb",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-48-4_label.nii.gz",
+      "directory": false,
+      "bytes": 47441,
+      "crc32": "f84f0fab",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-5-4_image.nii.gz",
+      "directory": false,
+      "bytes": 4696681,
+      "crc32": "43534bb6",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-5-4_label.nii.gz",
+      "directory": false,
+      "bytes": 36103,
+      "crc32": "9d367c0d",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-52-4_image.nii.gz",
+      "directory": false,
+      "bytes": 4926826,
+      "crc32": "d1978721",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-52-4_label.nii.gz",
+      "directory": false,
+      "bytes": 39006,
+      "crc32": "6c0e9131",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-53-4_image.nii.gz",
+      "directory": false,
+      "bytes": 6995517,
+      "crc32": "ca1f5fdc",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-53-4_label.nii.gz",
+      "directory": false,
+      "bytes": 37953,
+      "crc32": "2fd065e5",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-54-4_image.nii.gz",
+      "directory": false,
+      "bytes": 6279449,
+      "crc32": "3ec6b929",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-54-4_label.nii.gz",
+      "directory": false,
+      "bytes": 38635,
+      "crc32": "6c7be58d",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-55-4_image.nii.gz",
+      "directory": false,
+      "bytes": 5730688,
+      "crc32": "05732b86",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-55-4_label.nii.gz",
+      "directory": false,
+      "bytes": 48074,
+      "crc32": "1ad6eae4",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-56-4_image.nii.gz",
+      "directory": false,
+      "bytes": 7474677,
+      "crc32": "a354b29f",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-56-4_label.nii.gz",
+      "directory": false,
+      "bytes": 42790,
+      "crc32": "43aba567",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-57-4_image.nii.gz",
+      "directory": false,
+      "bytes": 5346792,
+      "crc32": "665e8f33",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-57-4_label.nii.gz",
+      "directory": false,
+      "bytes": 38141,
+      "crc32": "ce75a6ab",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-58-4_image.nii.gz",
+      "directory": false,
+      "bytes": 8186688,
+      "crc32": "bd574f78",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-58-4_label.nii.gz",
+      "directory": false,
+      "bytes": 44034,
+      "crc32": "7ff287c2",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-59-4_image.nii.gz",
+      "directory": false,
+      "bytes": 6795368,
+      "crc32": "9ba9c381",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-59-4_label.nii.gz",
+      "directory": false,
+      "bytes": 37734,
+      "crc32": "78c433a6",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-6-4_image.nii.gz",
+      "directory": false,
+      "bytes": 3621437,
+      "crc32": "8bc17eb4",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-6-4_label.nii.gz",
+      "directory": false,
+      "bytes": 28822,
+      "crc32": "0de66aff",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-60-4_image.nii.gz",
+      "directory": false,
+      "bytes": 4967599,
+      "crc32": "37798056",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-60-4_label.nii.gz",
+      "directory": false,
+      "bytes": 26232,
+      "crc32": "000a420b",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-61-4_image.nii.gz",
+      "directory": false,
+      "bytes": 5097884,
+      "crc32": "0c2669cc",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-61-4_label.nii.gz",
+      "directory": false,
+      "bytes": 41905,
+      "crc32": "2368b7d8",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-62-4_image.nii.gz",
+      "directory": false,
+      "bytes": 6137099,
+      "crc32": "a69c6be8",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-62-4_label.nii.gz",
+      "directory": false,
+      "bytes": 42544,
+      "crc32": "5277fcfa",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-63-4_image.nii.gz",
+      "directory": false,
+      "bytes": 5187379,
+      "crc32": "5e5821af",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-63-4_label.nii.gz",
+      "directory": false,
+      "bytes": 43039,
+      "crc32": "0d758327",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-64-4_image.nii.gz",
+      "directory": false,
+      "bytes": 4018577,
+      "crc32": "9b691f4f",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-64-4_label.nii.gz",
+      "directory": false,
+      "bytes": 35164,
+      "crc32": "903b99f0",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-65-4_image.nii.gz",
+      "directory": false,
+      "bytes": 7167599,
+      "crc32": "09a400cf",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-65-4_label.nii.gz",
+      "directory": false,
+      "bytes": 54224,
+      "crc32": "d5a46425",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-66-4_image.nii.gz",
+      "directory": false,
+      "bytes": 3702835,
+      "crc32": "0d9f558a",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-66-4_label.nii.gz",
+      "directory": false,
+      "bytes": 31684,
+      "crc32": "ccf874c4",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-67-4_image.nii.gz",
+      "directory": false,
+      "bytes": 4176318,
+      "crc32": "f7faeb08",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-67-4_label.nii.gz",
+      "directory": false,
+      "bytes": 30433,
+      "crc32": "cae70b4d",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-68-4_image.nii.gz",
+      "directory": false,
+      "bytes": 5343014,
+      "crc32": "bcb95eb0",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-68-4_label.nii.gz",
+      "directory": false,
+      "bytes": 41290,
+      "crc32": "f293546d",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-69-4_image.nii.gz",
+      "directory": false,
+      "bytes": 4386679,
+      "crc32": "e8050ab1",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-69-4_label.nii.gz",
+      "directory": false,
+      "bytes": 30919,
+      "crc32": "db88c975",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-7-4_image.nii.gz",
+      "directory": false,
+      "bytes": 7077298,
+      "crc32": "0928cd78",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-7-4_label.nii.gz",
+      "directory": false,
+      "bytes": 48711,
+      "crc32": "d14d6d98",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-70-4_image.nii.gz",
+      "directory": false,
+      "bytes": 7738162,
+      "crc32": "05635857",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-70-4_label.nii.gz",
+      "directory": false,
+      "bytes": 47517,
+      "crc32": "d5f601ca",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-71-4_image.nii.gz",
+      "directory": false,
+      "bytes": 6703022,
+      "crc32": "34357314",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-71-4_label.nii.gz",
+      "directory": false,
+      "bytes": 42957,
+      "crc32": "6b00b7f1",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-72-4_image.nii.gz",
+      "directory": false,
+      "bytes": 5008054,
+      "crc32": "a2545079",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-72-4_label.nii.gz",
+      "directory": false,
+      "bytes": 42915,
+      "crc32": "a262d951",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-73-4_image.nii.gz",
+      "directory": false,
+      "bytes": 4553192,
+      "crc32": "584f8f1d",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-73-4_label.nii.gz",
+      "directory": false,
+      "bytes": 27824,
+      "crc32": "dd836a9f",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-74-4_image.nii.gz",
+      "directory": false,
+      "bytes": 7154428,
+      "crc32": "cb731e6a",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-74-4_label.nii.gz",
+      "directory": false,
+      "bytes": 46730,
+      "crc32": "e1fd954c",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-75-4_image.nii.gz",
+      "directory": false,
+      "bytes": 5353455,
+      "crc32": "9e4fd5de",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-75-4_label.nii.gz",
+      "directory": false,
+      "bytes": 34570,
+      "crc32": "7c073748",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-76-4_image.nii.gz",
+      "directory": false,
+      "bytes": 5279613,
+      "crc32": "71c23692",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-76-4_label.nii.gz",
+      "directory": false,
+      "bytes": 31935,
+      "crc32": "8055d6ab",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-77-4_image.nii.gz",
+      "directory": false,
+      "bytes": 7445145,
+      "crc32": "3f78b176",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-77-4_label.nii.gz",
+      "directory": false,
+      "bytes": 41824,
+      "crc32": "9c2a75f8",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-78-4_image.nii.gz",
+      "directory": false,
+      "bytes": 9618349,
+      "crc32": "4968ce75",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-78-4_label.nii.gz",
+      "directory": false,
+      "bytes": 49949,
+      "crc32": "5fbaf70f",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-79-4_image.nii.gz",
+      "directory": false,
+      "bytes": 9738444,
+      "crc32": "84cc2bf2",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-79-4_label.nii.gz",
+      "directory": false,
+      "bytes": 51975,
+      "crc32": "31f19b1e",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-8-4_image.nii.gz",
+      "directory": false,
+      "bytes": 4208178,
+      "crc32": "cd49fbe5",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-8-4_label.nii.gz",
+      "directory": false,
+      "bytes": 38409,
+      "crc32": "b5087250",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-80-4_image.nii.gz",
+      "directory": false,
+      "bytes": 5138019,
+      "crc32": "b2aed3bb",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-80-4_label.nii.gz",
+      "directory": false,
+      "bytes": 41359,
+      "crc32": "40dcbc96",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-81-4_image.nii.gz",
+      "directory": false,
+      "bytes": 6831844,
+      "crc32": "4bbc95b0",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-81-4_label.nii.gz",
+      "directory": false,
+      "bytes": 37246,
+      "crc32": "382a8654",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-82-4_image.nii.gz",
+      "directory": false,
+      "bytes": 5964989,
+      "crc32": "dc986bea",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-82-4_label.nii.gz",
+      "directory": false,
+      "bytes": 47017,
+      "crc32": "2d958b86",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-83-4_image.nii.gz",
+      "directory": false,
+      "bytes": 7767681,
+      "crc32": "b268f5f8",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-83-4_label.nii.gz",
+      "directory": false,
+      "bytes": 57023,
+      "crc32": "2dd8fcd6",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-84-4_image.nii.gz",
+      "directory": false,
+      "bytes": 5281184,
+      "crc32": "4084a408",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-84-4_label.nii.gz",
+      "directory": false,
+      "bytes": 35837,
+      "crc32": "3812fdf1",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-85-4_image.nii.gz",
+      "directory": false,
+      "bytes": 7405282,
+      "crc32": "f3b7f446",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-85-4_label.nii.gz",
+      "directory": false,
+      "bytes": 44655,
+      "crc32": "e4f2a8eb",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-86-4_image.nii.gz",
+      "directory": false,
+      "bytes": 7194520,
+      "crc32": "dc048edc",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-86-4_label.nii.gz",
+      "directory": false,
+      "bytes": 46306,
+      "crc32": "4410c75d",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-87-4_image.nii.gz",
+      "directory": false,
+      "bytes": 5553336,
+      "crc32": "c6ed8616",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-87-4_label.nii.gz",
+      "directory": false,
+      "bytes": 39532,
+      "crc32": "23f21297",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-88-4_image.nii.gz",
+      "directory": false,
+      "bytes": 4462338,
+      "crc32": "cfa3ee8d",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-88-4_label.nii.gz",
+      "directory": false,
+      "bytes": 34677,
+      "crc32": "9d7c4fa8",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-89-4_image.nii.gz",
+      "directory": false,
+      "bytes": 7430261,
+      "crc32": "3fc79881",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-89-4_label.nii.gz",
+      "directory": false,
+      "bytes": 46485,
+      "crc32": "c354bdde",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-9-4_image.nii.gz",
+      "directory": false,
+      "bytes": 5569839,
+      "crc32": "5097a0bf",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-9-4_label.nii.gz",
+      "directory": false,
+      "bytes": 41240,
+      "crc32": "5434af19",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-90-4_image.nii.gz",
+      "directory": false,
+      "bytes": 7430261,
+      "crc32": "960d8193",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-90-4_label.nii.gz",
+      "directory": false,
+      "bytes": 46436,
+      "crc32": "f5594565",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-91-4_image.nii.gz",
+      "directory": false,
+      "bytes": 5973938,
+      "crc32": "6dd8549a",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-91-4_label.nii.gz",
+      "directory": false,
+      "bytes": 42961,
+      "crc32": "2e443573",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-92-4_image.nii.gz",
+      "directory": false,
+      "bytes": 7888400,
+      "crc32": "553e4881",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_126/patient-92-4_label.nii.gz",
+      "directory": false,
+      "bytes": 42951,
+      "crc32": "4e3e205e",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-1-4_image.nii.gz",
+      "directory": false,
+      "bytes": 7584613,
+      "crc32": "7e1c5e26",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-1-4_label.nii.gz",
+      "directory": false,
+      "bytes": 47638,
+      "crc32": "3588d7a7",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-10-4_image.nii.gz",
+      "directory": false,
+      "bytes": 18642775,
+      "crc32": "c2f57165",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-10-4_label.nii.gz",
+      "directory": false,
+      "bytes": 81632,
+      "crc32": "d0cca5e8",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-11-4_image.nii.gz",
+      "directory": false,
+      "bytes": 19736644,
+      "crc32": "1faa4aa3",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-11-4_label.nii.gz",
+      "directory": false,
+      "bytes": 81426,
+      "crc32": "5dae19fe",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-12-4_image.nii.gz",
+      "directory": false,
+      "bytes": 11531690,
+      "crc32": "173e61a0",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-12-4_label.nii.gz",
+      "directory": false,
+      "bytes": 59641,
+      "crc32": "9e3979c8",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-13-4_image.nii.gz",
+      "directory": false,
+      "bytes": 16506659,
+      "crc32": "66008b58",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-13-4_label.nii.gz",
+      "directory": false,
+      "bytes": 70460,
+      "crc32": "56ab9594",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-14-4_image.nii.gz",
+      "directory": false,
+      "bytes": 8823533,
+      "crc32": "098bd9ed",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-14-4_label.nii.gz",
+      "directory": false,
+      "bytes": 42561,
+      "crc32": "cdb2dfa2",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-15-4_image.nii.gz",
+      "directory": false,
+      "bytes": 16449811,
+      "crc32": "69c4139b",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-15-4_label.nii.gz",
+      "directory": false,
+      "bytes": 60732,
+      "crc32": "3dd62729",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-16-4_image.nii.gz",
+      "directory": false,
+      "bytes": 18741053,
+      "crc32": "158a9b70",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-16-4_label.nii.gz",
+      "directory": false,
+      "bytes": 71144,
+      "crc32": "0d5a8b5e",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-17-4_image.nii.gz",
+      "directory": false,
+      "bytes": 7684018,
+      "crc32": "b406407f",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-17-4_label.nii.gz",
+      "directory": false,
+      "bytes": 38881,
+      "crc32": "acdfc231",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-18-4_image.nii.gz",
+      "directory": false,
+      "bytes": 33189746,
+      "crc32": "9a9a36d4",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-18-4_label.nii.gz",
+      "directory": false,
+      "bytes": 134064,
+      "crc32": "d7f6c422",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-19-4_image.nii.gz",
+      "directory": false,
+      "bytes": 13046351,
+      "crc32": "ed43dad3",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-19-4_label.nii.gz",
+      "directory": false,
+      "bytes": 55172,
+      "crc32": "0466b4e4",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-2-4_image.nii.gz",
+      "directory": false,
+      "bytes": 22014840,
+      "crc32": "14594044",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-2-4_label.nii.gz",
+      "directory": false,
+      "bytes": 87037,
+      "crc32": "a656e7c3",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-20-4_image.nii.gz",
+      "directory": false,
+      "bytes": 12180338,
+      "crc32": "759a42b9",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-20-4_label.nii.gz",
+      "directory": false,
+      "bytes": 56000,
+      "crc32": "81b5ef5e",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-21-4_image.nii.gz",
+      "directory": false,
+      "bytes": 16301235,
+      "crc32": "c641231b",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-21-4_label.nii.gz",
+      "directory": false,
+      "bytes": 67920,
+      "crc32": "32dfb2cc",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-22-4_image.nii.gz",
+      "directory": false,
+      "bytes": 16453128,
+      "crc32": "b2f9bad2",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-22-4_label.nii.gz",
+      "directory": false,
+      "bytes": 76594,
+      "crc32": "8cb103c3",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-23-4_image.nii.gz",
+      "directory": false,
+      "bytes": 10739824,
+      "crc32": "30e1456f",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-23-4_label.nii.gz",
+      "directory": false,
+      "bytes": 60252,
+      "crc32": "ee1b1e63",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-24-4_image.nii.gz",
+      "directory": false,
+      "bytes": 14129940,
+      "crc32": "d84a553d",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-24-4_label.nii.gz",
+      "directory": false,
+      "bytes": 56050,
+      "crc32": "5cc396ee",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-25-4_image.nii.gz",
+      "directory": false,
+      "bytes": 12245110,
+      "crc32": "13f4b023",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-25-4_label.nii.gz",
+      "directory": false,
+      "bytes": 52902,
+      "crc32": "624456d6",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-26-4_image.nii.gz",
+      "directory": false,
+      "bytes": 18990832,
+      "crc32": "f70424f8",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-26-4_label.nii.gz",
+      "directory": false,
+      "bytes": 67183,
+      "crc32": "795c8fec",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-27-4_image.nii.gz",
+      "directory": false,
+      "bytes": 12216391,
+      "crc32": "409eb46d",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-27-4_label.nii.gz",
+      "directory": false,
+      "bytes": 59876,
+      "crc32": "602ff5cc",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-28-4_image.nii.gz",
+      "directory": false,
+      "bytes": 14642642,
+      "crc32": "6ba6d5a2",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-28-4_label.nii.gz",
+      "directory": false,
+      "bytes": 60612,
+      "crc32": "134751c8",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-29-4_image.nii.gz",
+      "directory": false,
+      "bytes": 16086941,
+      "crc32": "38515dbd",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-29-4_label.nii.gz",
+      "directory": false,
+      "bytes": 60338,
+      "crc32": "a1ca226a",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-3-4_image.nii.gz",
+      "directory": false,
+      "bytes": 15483810,
+      "crc32": "7a2ddd54",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-3-4_label.nii.gz",
+      "directory": false,
+      "bytes": 62170,
+      "crc32": "c14d6906",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-30-4_image.nii.gz",
+      "directory": false,
+      "bytes": 9579718,
+      "crc32": "6a147a45",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-30-4_label.nii.gz",
+      "directory": false,
+      "bytes": 50443,
+      "crc32": "3247ba59",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-31-4_image.nii.gz",
+      "directory": false,
+      "bytes": 13850582,
+      "crc32": "eae9cb59",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-31-4_label.nii.gz",
+      "directory": false,
+      "bytes": 58815,
+      "crc32": "b66ce5d8",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-32-4_image.nii.gz",
+      "directory": false,
+      "bytes": 11732086,
+      "crc32": "1c27c593",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-32-4_label.nii.gz",
+      "directory": false,
+      "bytes": 52462,
+      "crc32": "02eb835c",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-33-4_image.nii.gz",
+      "directory": false,
+      "bytes": 6166847,
+      "crc32": "aaebcca7",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-33-4_label.nii.gz",
+      "directory": false,
+      "bytes": 36043,
+      "crc32": "008c234a",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-34-4_image.nii.gz",
+      "directory": false,
+      "bytes": 19494661,
+      "crc32": "dcb5841b",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-34-4_label.nii.gz",
+      "directory": false,
+      "bytes": 73916,
+      "crc32": "209b3777",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-35-4_image.nii.gz",
+      "directory": false,
+      "bytes": 19426000,
+      "crc32": "3c3e5d00",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-35-4_label.nii.gz",
+      "directory": false,
+      "bytes": 72062,
+      "crc32": "5ce361e3",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-36-4_image.nii.gz",
+      "directory": false,
+      "bytes": 20182314,
+      "crc32": "9715dfdc",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-36-4_label.nii.gz",
+      "directory": false,
+      "bytes": 96043,
+      "crc32": "226a15b9",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-37-4_image.nii.gz",
+      "directory": false,
+      "bytes": 11697833,
+      "crc32": "86d5fce5",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-37-4_label.nii.gz",
+      "directory": false,
+      "bytes": 62252,
+      "crc32": "d402a35e",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-38-4_image.nii.gz",
+      "directory": false,
+      "bytes": 15633686,
+      "crc32": "482c573e",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-38-4_label.nii.gz",
+      "directory": false,
+      "bytes": 85817,
+      "crc32": "f86d3488",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-39-4_image.nii.gz",
+      "directory": false,
+      "bytes": 15656269,
+      "crc32": "55345073",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-39-4_label.nii.gz",
+      "directory": false,
+      "bytes": 62010,
+      "crc32": "d49287f1",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-4-4_image.nii.gz",
+      "directory": false,
+      "bytes": 20319130,
+      "crc32": "fd928037",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-4-4_label.nii.gz",
+      "directory": false,
+      "bytes": 86127,
+      "crc32": "1df0ac39",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-40-4_image.nii.gz",
+      "directory": false,
+      "bytes": 11725478,
+      "crc32": "f0e8ac22",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-40-4_label.nii.gz",
+      "directory": false,
+      "bytes": 56630,
+      "crc32": "3ccdee10",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-41-4_image.nii.gz",
+      "directory": false,
+      "bytes": 19446177,
+      "crc32": "b27b2048",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-41-4_label.nii.gz",
+      "directory": false,
+      "bytes": 73348,
+      "crc32": "5b659ac7",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-42-4_image.nii.gz",
+      "directory": false,
+      "bytes": 13267240,
+      "crc32": "9769ab0a",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-42-4_label.nii.gz",
+      "directory": false,
+      "bytes": 66522,
+      "crc32": "a081b809",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-43-4_image.nii.gz",
+      "directory": false,
+      "bytes": 13048463,
+      "crc32": "6a7688b1",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-43-4_label.nii.gz",
+      "directory": false,
+      "bytes": 52275,
+      "crc32": "8f3eecfc",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-44-4_image.nii.gz",
+      "directory": false,
+      "bytes": 18650044,
+      "crc32": "dd6f45fd",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-44-4_label.nii.gz",
+      "directory": false,
+      "bytes": 67028,
+      "crc32": "4b85cce1",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-45-4_image.nii.gz",
+      "directory": false,
+      "bytes": 14484836,
+      "crc32": "ecc0b53c",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-45-4_label.nii.gz",
+      "directory": false,
+      "bytes": 66113,
+      "crc32": "4fa9f849",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-46-4_image.nii.gz",
+      "directory": false,
+      "bytes": 22998468,
+      "crc32": "7cff065b",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-46-4_label.nii.gz",
+      "directory": false,
+      "bytes": 76167,
+      "crc32": "1377b0ee",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-47-4_image.nii.gz",
+      "directory": false,
+      "bytes": 10445350,
+      "crc32": "0494da3b",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-47-4_label.nii.gz",
+      "directory": false,
+      "bytes": 46758,
+      "crc32": "363afc69",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-48-4_image.nii.gz",
+      "directory": false,
+      "bytes": 14524200,
+      "crc32": "d24d5920",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-48-4_label.nii.gz",
+      "directory": false,
+      "bytes": 62217,
+      "crc32": "99317fc0",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-49-4_image.nii.gz",
+      "directory": false,
+      "bytes": 12752752,
+      "crc32": "c4091e88",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-49-4_label.nii.gz",
+      "directory": false,
+      "bytes": 57444,
+      "crc32": "5eb2aa18",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-5-4_image.nii.gz",
+      "directory": false,
+      "bytes": 13728035,
+      "crc32": "772d1114",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-5-4_label.nii.gz",
+      "directory": false,
+      "bytes": 74324,
+      "crc32": "9f322dcd",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-50-4_image.nii.gz",
+      "directory": false,
+      "bytes": 20383555,
+      "crc32": "9fcd4a9f",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-50-4_label.nii.gz",
+      "directory": false,
+      "bytes": 90609,
+      "crc32": "407f57ec",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-51-4_image.nii.gz",
+      "directory": false,
+      "bytes": 15539945,
+      "crc32": "7634afa6",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-51-4_label.nii.gz",
+      "directory": false,
+      "bytes": 65354,
+      "crc32": "ec337841",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-52-4_image.nii.gz",
+      "directory": false,
+      "bytes": 21252101,
+      "crc32": "b681bf3f",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-52-4_label.nii.gz",
+      "directory": false,
+      "bytes": 78646,
+      "crc32": "17dad58f",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-6-4_image.nii.gz",
+      "directory": false,
+      "bytes": 7297223,
+      "crc32": "0b65bfca",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-6-4_label.nii.gz",
+      "directory": false,
+      "bytes": 44105,
+      "crc32": "df1ac9aa",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-7-4_image.nii.gz",
+      "directory": false,
+      "bytes": 9965688,
+      "crc32": "59d9b78e",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-7-4_label.nii.gz",
+      "directory": false,
+      "bytes": 55035,
+      "crc32": "c36fa51b",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-8-4_image.nii.gz",
+      "directory": false,
+      "bytes": 11791235,
+      "crc32": "c678814a",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-8-4_label.nii.gz",
+      "directory": false,
+      "bytes": 45813,
+      "crc32": "d58c5c37",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-9-4_image.nii.gz",
+      "directory": false,
+      "bytes": 26458846,
+      "crc32": "d8b5dd0b",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_52/patient-9-4_label.nii.gz",
+      "directory": false,
+      "bytes": 107968,
+      "crc32": "cd117c6c",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-100-4_image.nii.gz",
+      "directory": false,
+      "bytes": 28014918,
+      "crc32": "8cab9d0f",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-101-4_image.nii.gz",
+      "directory": false,
+      "bytes": 15217713,
+      "crc32": "5f715b9b",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-102-4_image.nii.gz",
+      "directory": false,
+      "bytes": 13760803,
+      "crc32": "c72a3320",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-103-4_image.nii.gz",
+      "directory": false,
+      "bytes": 17634248,
+      "crc32": "424f82cb",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-104-4_image.nii.gz",
+      "directory": false,
+      "bytes": 16046225,
+      "crc32": "509ec90c",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-105-4_image.nii.gz",
+      "directory": false,
+      "bytes": 19519712,
+      "crc32": "8f22c554",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-106-4_image.nii.gz",
+      "directory": false,
+      "bytes": 16136874,
+      "crc32": "ffdb235c",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-107-4_image.nii.gz",
+      "directory": false,
+      "bytes": 21014829,
+      "crc32": "b4d9c5b3",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-108-4_image.nii.gz",
+      "directory": false,
+      "bytes": 16140034,
+      "crc32": "1b49f61c",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-109-4_image.nii.gz",
+      "directory": false,
+      "bytes": 24329328,
+      "crc32": "cf121aec",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-110-4_image.nii.gz",
+      "directory": false,
+      "bytes": 10696088,
+      "crc32": "3492a495",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-111-4_image.nii.gz",
+      "directory": false,
+      "bytes": 9930548,
+      "crc32": "8a9d8f9b",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-112-4_image.nii.gz",
+      "directory": false,
+      "bytes": 24323821,
+      "crc32": "d647d9f1",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-113-4_image.nii.gz",
+      "directory": false,
+      "bytes": 28094541,
+      "crc32": "fb85fa45",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-115-4_image.nii.gz",
+      "directory": false,
+      "bytes": 26433051,
+      "crc32": "8989452d",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-116-4_image.nii.gz",
+      "directory": false,
+      "bytes": 12920058,
+      "crc32": "23980010",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-117-4_image.nii.gz",
+      "directory": false,
+      "bytes": 14516658,
+      "crc32": "5aa244ad",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-118-4_image.nii.gz",
+      "directory": false,
+      "bytes": 15026532,
+      "crc32": "26e2c130",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-119-4_image.nii.gz",
+      "directory": false,
+      "bytes": 10122470,
+      "crc32": "2dac3aac",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-120-4_image.nii.gz",
+      "directory": false,
+      "bytes": 5345334,
+      "crc32": "c1de8a70",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-121-4_image.nii.gz",
+      "directory": false,
+      "bytes": 12070713,
+      "crc32": "5f4f4b97",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-123-4_image.nii.gz",
+      "directory": false,
+      "bytes": 17367293,
+      "crc32": "7b250876",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-124-4_image.nii.gz",
+      "directory": false,
+      "bytes": 12180801,
+      "crc32": "567236ea",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-125-4_image.nii.gz",
+      "directory": false,
+      "bytes": 17576230,
+      "crc32": "e0cd3f59",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-126-4_image.nii.gz",
+      "directory": false,
+      "bytes": 15850624,
+      "crc32": "c33dd4cf",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-127-4_image.nii.gz",
+      "directory": false,
+      "bytes": 11423048,
+      "crc32": "bae43d3a",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-128-4_image.nii.gz",
+      "directory": false,
+      "bytes": 31252429,
+      "crc32": "c83b380b",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-53-4_image.nii.gz",
+      "directory": false,
+      "bytes": 22321381,
+      "crc32": "ad5e4bb0",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-54-4_image.nii.gz",
+      "directory": false,
+      "bytes": 22255497,
+      "crc32": "5ffa9c49",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-55-4_image.nii.gz",
+      "directory": false,
+      "bytes": 12843848,
+      "crc32": "a5da0851",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-56-4_image.nii.gz",
+      "directory": false,
+      "bytes": 15513013,
+      "crc32": "34133158",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-57-4_image.nii.gz",
+      "directory": false,
+      "bytes": 13912978,
+      "crc32": "6db85b4a",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-58-4_image.nii.gz",
+      "directory": false,
+      "bytes": 13294414,
+      "crc32": "c0f4024a",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-59-4_image.nii.gz",
+      "directory": false,
+      "bytes": 9262643,
+      "crc32": "53926523",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-60-4_image.nii.gz",
+      "directory": false,
+      "bytes": 14782974,
+      "crc32": "f4e0a6eb",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-61-4_image.nii.gz",
+      "directory": false,
+      "bytes": 22392843,
+      "crc32": "86ccd725",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-62-4_image.nii.gz",
+      "directory": false,
+      "bytes": 21178857,
+      "crc32": "055788a1",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-63-4_image.nii.gz",
+      "directory": false,
+      "bytes": 16006568,
+      "crc32": "75a9f6cb",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-64-4_image.nii.gz",
+      "directory": false,
+      "bytes": 25822323,
+      "crc32": "a9f22691",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-65-4_image.nii.gz",
+      "directory": false,
+      "bytes": 14545015,
+      "crc32": "d3860303",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-66-4_image.nii.gz",
+      "directory": false,
+      "bytes": 11558606,
+      "crc32": "784565b4",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-67-4_image.nii.gz",
+      "directory": false,
+      "bytes": 9818262,
+      "crc32": "87d4dba0",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-68-4_image.nii.gz",
+      "directory": false,
+      "bytes": 11869018,
+      "crc32": "b608748c",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-69-4_image.nii.gz",
+      "directory": false,
+      "bytes": 16235355,
+      "crc32": "7ffc660c",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-70-4_image.nii.gz",
+      "directory": false,
+      "bytes": 17088668,
+      "crc32": "52594a71",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-71-4_image.nii.gz",
+      "directory": false,
+      "bytes": 15482056,
+      "crc32": "2b3245cd",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-72-4_image.nii.gz",
+      "directory": false,
+      "bytes": 16825264,
+      "crc32": "338c45b8",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-73-4_image.nii.gz",
+      "directory": false,
+      "bytes": 16374049,
+      "crc32": "120520bc",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-74-4_image.nii.gz",
+      "directory": false,
+      "bytes": 8317138,
+      "crc32": "49c03e67",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-75-4_image.nii.gz",
+      "directory": false,
+      "bytes": 10377178,
+      "crc32": "bf963978",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-76-4_image.nii.gz",
+      "directory": false,
+      "bytes": 22016327,
+      "crc32": "68e31f89",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-77-4_image.nii.gz",
+      "directory": false,
+      "bytes": 31477690,
+      "crc32": "4eb4fe0c",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-78-4_image.nii.gz",
+      "directory": false,
+      "bytes": 21228615,
+      "crc32": "ae8c2dd9",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-79-4_image.nii.gz",
+      "directory": false,
+      "bytes": 6773743,
+      "crc32": "22febf5d",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-81-4_image.nii.gz",
+      "directory": false,
+      "bytes": 21872700,
+      "crc32": "fb536f25",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-82-4_image.nii.gz",
+      "directory": false,
+      "bytes": 26274887,
+      "crc32": "8d328e45",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-84-4_image.nii.gz",
+      "directory": false,
+      "bytes": 31253676,
+      "crc32": "426d82a6",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-85-4_image.nii.gz",
+      "directory": false,
+      "bytes": 16402770,
+      "crc32": "4e060e3c",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-86-4_image.nii.gz",
+      "directory": false,
+      "bytes": 13146427,
+      "crc32": "8e43181b",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-87-4_image.nii.gz",
+      "directory": false,
+      "bytes": 12957605,
+      "crc32": "70b21673",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-88-4_image.nii.gz",
+      "directory": false,
+      "bytes": 20914522,
+      "crc32": "96b94ff0",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-90-4_image.nii.gz",
+      "directory": false,
+      "bytes": 25592835,
+      "crc32": "fd6268ba",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-91-4_image.nii.gz",
+      "directory": false,
+      "bytes": 15074213,
+      "crc32": "deb1ce40",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-92-4_image.nii.gz",
+      "directory": false,
+      "bytes": 19869844,
+      "crc32": "ce1e22c8",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-93-4_image.nii.gz",
+      "directory": false,
+      "bytes": 25668499,
+      "crc32": "1aa6bb2d",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-95-4_image.nii.gz",
+      "directory": false,
+      "bytes": 24901701,
+      "crc32": "8cc73aec",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-96-4_image.nii.gz",
+      "directory": false,
+      "bytes": 18546295,
+      "crc32": "61cd3438",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-97-4_image.nii.gz",
+      "directory": false,
+      "bytes": 9416468,
+      "crc32": "3151b486",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-98-4_image.nii.gz",
+      "directory": false,
+      "bytes": 13276757,
+      "crc32": "99f725b5",
+      "disk_crc_verified": true
+    },
+    {
+      "path": "cardiacUDC_dataset/Site_R_73/patient-99-4_image.nii.gz",
+      "directory": false,
+      "bytes": 13571052,
+      "crc32": "022c0bc4",
+      "disk_crc_verified": true
+    }
+  ]
+}

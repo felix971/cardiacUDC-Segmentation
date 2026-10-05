@@ -1,0 +1,50 @@
+{
+  "status": "completed",
+  "started_at": "2026-09-23T00:04:33.948509+10:00",
+  "scope": "Only the 7 explicitly audited CardiacUDC download ZIPs",
+  "raw_file_count_reverified_before_delete": 658,
+  "raw_crc32_and_sha256_reverified": true,
+  "deleted_archives": [
+    {
+      "path_relative_to_project": "data/cardiacUDC_dataset.z01.zip",
+      "bytes": 734222490,
+      "original_volume_crc32": "6bb60d25"
+    },
+    {
+      "path_relative_to_project": "data/cardiacUDC_dataset.z02.zip",
+      "bytes": 734221668,
+      "original_volume_crc32": "a4cc6bcf"
+    },
+    {
+      "path_relative_to_project": "data/cardiacUDC_dataset.z03.zip",
+      "bytes": 734220928,
+      "original_volume_crc32": "c02fb494"
+    },
+    {
+      "path_relative_to_project": "data/cardiacUDC_dataset.z04.zip",
+      "bytes": 734220351,
+      "original_volume_crc32": "fb640436"
+    },
+    {
+      "path_relative_to_project": "data/cardiacUDC_dataset.z05.zip",
+      "bytes": 734225947,
+      "original_volume_crc32": "8e7ccd21"
+    },
+    {
+      "path_relative_to_project": "data/cardiacUDC_dataset.z06.zip",
+      "bytes": 734228252,
+      "original_volume_crc32": "5d3cf08d"
+    },
+    {
+      "path_relative_to_project": "data/cardiacUDC_dataset.change2zip.zip",
+      "bytes": 111861846,
+      "original_volume_crc32": "f8003d32"
+    }
+  ],
+  "deleted_bytes": 4517201482,
+  "finished_at": "2026-09-23T00:04:34.184701+10:00",
+  "deleted_archive_count": 7,
+  "deleted_GiB": 4.21,
+  "remaining_raw_files": 658,
+  "raw_files_untouched": true
+}

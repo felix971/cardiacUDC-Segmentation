@@ -1,0 +1,22 @@
+# Dataset bytes stay local; keep metadata and documentation trackable.
+/data/raw/*
+!/data/raw/.gitkeep
+/data/processed/*
+!/data/processed/.gitkeep
+
+# Prevent accidental addition of dataset archives and medical-image files.
+/data/**/*.zip
+/data/**/*.z[0-9][0-9]
+/data/**/*.change2zip
+/data/**/*.nii
+/data/**/*.nii.gz
+
+# Local environment and generated outputs.
+/.venv/
+__pycache__/
+*.pyc
+/outputs/
+
+# Personal experiments stay local; reusable project code lives in scripts/.
+/learn.ipynb
+.ipynb_checkpoints/
