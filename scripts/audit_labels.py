@@ -102,11 +102,24 @@ def audit_record(record):
 
     # TODO 1: foreground_pixels = number of nonzero label pixels in each frame,
     #         shape (total_frames,)
+    foreground_mask = labels > 0
+    foreground_pixels = np.count_nonzero(foreground_mask, axis=(0, 1))
 
     # TODO 2: annotated_frames = frame indices with at least MIN_ANNOTATION_PIXELS
     #         stray_frames = frame indices with more than 0 but fewer than
     #         MIN_ANNOTATION_PIXELS nonzero pixels
     #         (both as 1-D arrays of frame indices)
+    is_annotated = foreground_pixels >= MIN_ANNOTATION_PIXELS
+
+    annotated_frames = np.flatnonzero(is_annotated)
+
+    has_any_pixel = foreground_pixels > 0
+
+    below_threshold = foreground_pixels < MIN_ANNOTATION_PIXELS
+
+    is_stray = has_any_pixel & below_threshold
+
+    stray_frames = np.flatnonzero(is_stray)
 
     # TODO 3: label_values = sorted unique values in the whole label array, as a list
 
@@ -187,10 +200,25 @@ def main():
         default=DEFAULT_OUTPUT_PATH,
         help="CSV file to write (default: data/metadata/label_audit.csv)",
     )
+    parser.add_argument(
+        "--record-id",
+        help="Audit only this record and print its row; no CSV is written",
+    )
     args = parser.parse_args()
 
     with CASES_PATH.open(newline="") as stream:
         records = list(csv.DictReader(stream))
+
+    # Quick check on one record while writing the TODOs.
+    if args.record_id is not None:
+        for record in records:
+            if record["record_id"] == args.record_id:
+                row = audit_record(record)
+                for column in OUTPUT_COLUMNS:
+                    print(f"{column}: {row.get(column, '')}")
+                return
+
+        parser.error(f"Unknown record ID: {args.record_id}")
 
     rows = []
 
