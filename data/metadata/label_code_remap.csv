@@ -1,0 +1,4 @@
+record_id,stored_code,class_code,evidence
+label_all_frame/patient-5-4,5,1,"cross-tab with the same recording Site_R_126/patient-5-4 on frames [5, 6, 10, 11, 16]: every nonzero overlap of code 5 falls on class 1 (share 1.0); see label_code_crosstab.csv"
+label_all_frame/patient-5-4,6,4,"cross-tab with the same recording Site_R_126/patient-5-4 on frames [5, 6, 10, 11, 16]: code 6 falls mostly on class 4 (share 0.8937); see label_code_crosstab.csv"
+label_all_frame/normal-27-4,6,4,"inferred, weaker: no same recording exists for a cross-tab; stored values are 0, 1, 2, 3, 6 with no 4, and the mean position of code 6 (x 467, y 339) lies where code 4 lies in the other label_all_frame records; visual check of frame 0 agrees"
