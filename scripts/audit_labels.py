@@ -19,7 +19,8 @@ DEFAULT_OUTPUT_PATH = ROOT / "data/metadata/label_audit.csv"
 
 # A frame counts as annotated only with at least this many nonzero label pixels.
 # Stray marks left by the annotation tool have at most 60 pixels; real annotations
-# have hundreds to thousands. GraphEcho uses the same threshold of 100.
+# have at least 3000, except two frames of Site_G_20/patient-5-4 with about 300 pixels
+# of one class. GraphEcho also splits at 100, but on the sum of label values (> 100).
 MIN_ANNOTATION_PIXELS = 100
 
 # Share of foreground pixels whose four neighbours carry the same class.

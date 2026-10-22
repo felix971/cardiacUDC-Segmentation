@@ -66,8 +66,9 @@ def compare_images(image_a, image_b):
     b_nonzero = image_b != 0
     both_nonzero_mask = a_nonzero & b_nonzero
 
-    # Positions that are nonzero on both sides but differ. Compare with != rather than
-    # subtracting: uint8 subtraction wraps around (80 - 90 gives 246).
+    # Positions that are nonzero on both sides but differ. Compare with != directly; to
+    # measure how much two values differ, cast first, because uint8 subtraction wraps
+    # around (80 - 90 gives 246).
     values_differ = image_a != image_b
     conflict_mask = both_nonzero_mask & values_differ
 

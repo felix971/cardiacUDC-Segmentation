@@ -52,8 +52,10 @@ def read_rows(path):
 def choose_direction(audit_a, audit_b):
     """Return (source, reference): the codes of source are explained by reference.
 
-    A contour version is explained by its region version, because a contour pixel falls
-    inside or next to a region, while most region pixels are far from any contour line.
+    The codes in question belong to the contour version (label_all_frame holds the 5/6
+    codes), so each of them gets its own row and the region version is the reference.
+    The overlap counts are the same in either direction; the direction only decides whose
+    codes get rows. When both versions have the same form, the order is arbitrary.
     """
     if audit_a["label_form"] == "contour" and audit_b["label_form"] != "contour":
         return audit_a, audit_b
@@ -224,8 +226,11 @@ def main():
     print("Codes that do not keep their own number:")
     for row in rows:
         if row["source_code"] != row["matched_code"]:
+            # Name both records: when both versions are regions, either one may be the
+            # nonstandard one, so check their label_values in label_audit.csv.
             print(
-                f"  {row['source_record']}: {row['source_code']} -> {row['matched_code']} "
+                f"  {row['source_record']} code {row['source_code']} = "
+                f"{row['reference_record']} code {row['matched_code']} "
                 f"(share {row['matched_share']})"
             )
 
