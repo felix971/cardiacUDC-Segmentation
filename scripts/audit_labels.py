@@ -72,6 +72,7 @@ def measure_interior_fraction(labels, annotated_frames):
 
             # TODO 5: interior_mask = pixels where center, up, down, left and right
             #         are all True (combine the five views with &)
+            interior_mask = center & up & down & left & right
 
             foreground_total = foreground_total + np.count_nonzero(class_mask)
             interior_total = interior_total + np.count_nonzero(interior_mask)
@@ -122,10 +123,20 @@ def audit_record(record):
     stray_frames = np.flatnonzero(is_stray)
 
     # TODO 3: label_values = sorted unique values in the whole label array, as a list
-
+    label_values = np.unique(labels).tolist()
     # TODO 4: incomplete_frames = annotated frames that miss at least one class in
     #         CHAMBER_CLASSES, as a list of frame indices
+    incomplete_frames = []
+    for frame_index in annotated_frames:
+        frame_labels = labels[:, :, frame_index]
+        frame_unique_values = np.unique(frame_labels)
+        frame_values = frame_unique_values.tolist()
 
+        for class_value in CHAMBER_CLASSES:
+            if class_value not in frame_values:
+                incomplete_frames.append(int(frame_index))
+                break
+            
     if annotated_frames.size == 0:
         interior_fraction = None
         label_form = "none"
