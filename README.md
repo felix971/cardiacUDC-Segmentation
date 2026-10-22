@@ -10,7 +10,8 @@
 - 已实现：全量数据审计，包括逐文件的标注帧与标签形式（`scripts/audit_labels.py`）、同一录像检测（`scripts/find_same_videos.py`）和标签编号核对（`scripts/check_label_codes.py`）。结果在 `data/metadata/`，结论见下文“全量审计”。
 - 已验证：默认样本的检查脚本可以运行；依赖由 `uv.lock` 固定。
 - 已实现：固定的 train/val/test 划分（`scripts/make_split.py` → [baseline_v1.csv](data/splits/baseline_v1.csv)）。同一录像和同一站点同号的记录分在同一组，患者身份没有核实，规则见[划分说明](data/splits/README.md)。
-- 尚未实现：PyTorch 数据管线、模型训练、独立测试与视频分割。
+- 进行中：二维数据管线 `scripts/dataset_2d.py`，把 `baseline_v1` 中 `region` 记录的标注帧变成统一尺寸的 PyTorch 样本。骨架已写好，读取帧和缩放的 4 个 TODO 还没有填。
+- 尚未实现：模型训练、独立测试与视频分割。
 
 当前可视化展示原始影像和已有标签，不是模型预测。仓库尚无训练权重或分割性能结果。
 
@@ -41,7 +42,7 @@ pred:   [B, H, W]     argmax(logits, dim=1)
 
 ## 快速开始
 
-环境要求：Python 3.12、[uv](https://docs.astral.sh/uv/)。当前运行依赖为 NumPy、NiBabel 和 Matplotlib，不需要 GPU 或 PyTorch。
+环境要求：Python 3.12、[uv](https://docs.astral.sh/uv/)。运行依赖为 NumPy、NiBabel、Matplotlib 和 PyTorch。检查、审计和划分脚本不需要 GPU。在 Linux 上 `uv sync` 会同时下载 PyTorch 的 CUDA 13 运行库（约 3 GB）；用 GPU 训练需要 NVIDIA 驱动 580 或更新，可用 `uv run --locked python -c "import torch; print(torch.cuda.is_available())"` 确认。
 
 原始影像不包含在 Git 仓库中。先从[数据发布页](https://www.kaggle.com/datasets/xiaoweixumedicalai/cardiacudc-dataset)获取数据，按[数据目录说明](data/README.md)保留原始子目录，并确保 [cases.csv](data/metadata/cases.csv) 中相对于仓库根目录的路径能定位本地文件。默认检查需要：
 
@@ -107,7 +108,7 @@ uv run --locked python scripts/inspect_case.py --help
 
 ## 后续实验
 
-1. 建立二维分割数据管线：按 `baseline_v1` 取 `region` 记录的标注帧，跳过缺类的帧，把图像缩放到统一尺寸（`Site_R_52` 有 8 条不是 800×600），先用少量样本完成过拟合检查。标注覆盖、标签编号、同一录像和分组划分已经完成，见“全量审计”和[划分说明](data/splits/README.md)。
+1. 完成二维分割数据管线（`scripts/dataset_2d.py`）：按 `baseline_v1` 取 `region` 记录的标注帧，跳过缺类的帧，把图像缩放到 384×288（`Site_R_52` 有 8 条不是 800×600，都是 4:3），再用少量样本完成过拟合检查。标注覆盖、标签编号、同一录像和分组划分已经完成，见“全量审计”和[划分说明](data/splits/README.md)。
 2. 明确逐类别 Dice 及聚合口径，以验证集选择模型，再进行独立测试。
 3. 保存配置、权重和实验记录，在相同数据协议下比较二维与视频模型。
 
