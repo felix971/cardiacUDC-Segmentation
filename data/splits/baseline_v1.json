@@ -1,0 +1,64 @@
+{
+  "seed": 20261022,
+  "val_percent": 15,
+  "test_percent": 15,
+  "group_basis": [
+    "same recording: same_video=true in same_video_pairs.csv",
+    "same site and same patient number in the file name (not verified to be one patient)"
+  ],
+  "stratified_by": "site, then the number of region-labeled records in the group; groups without one all go to train",
+  "strata": {
+    "G, region-labeled records: 1": {
+      "groups": 70,
+      "train": 48,
+      "val": 11,
+      "test": 11
+    },
+    "G, region-labeled records: 2": {
+      "groups": 10,
+      "train": 6,
+      "val": 2,
+      "test": 2
+    },
+    "G, region-labeled records: 3": {
+      "groups": 19,
+      "train": 13,
+      "val": 3,
+      "test": 3
+    },
+    "R, region-labeled records: 0": {
+      "groups": 35,
+      "train": 35,
+      "val": 0,
+      "test": 0
+    },
+    "R, region-labeled records: 1": {
+      "groups": 43,
+      "train": 31,
+      "val": 6,
+      "test": 6
+    },
+    "R, region-labeled records: 2": {
+      "groups": 46,
+      "train": 32,
+      "val": 7,
+      "test": 7
+    },
+    "unknown, region-labeled records: 0": {
+      "groups": 2,
+      "train": 2,
+      "val": 0,
+      "test": 0
+    }
+  },
+  "records": 364,
+  "groups": 225,
+  "python_version": "3.12",
+  "inputs_sha256": {
+    "data/metadata/cases.csv": "73793c6623651e4e0f13c8db23620ed80053ff538694acbd99360762ab0abece",
+    "data/metadata/label_audit.csv": "440d141b13d5b6b0a3c16929e7e120e34ee90de9b00ac1474e83b69264be8964",
+    "data/metadata/same_video_pairs.csv": "cde22a07d7a3043c13f8a6e7701bea4f3c057c3ad0e051eeaa326478cd74fcaf"
+  },
+  "script_sha256": "58d8d5a36370a710c7cefce39e24c48e5109b3bedd21e85f531a1b7013977d50",
+  "output_sha256": "bcdf99588dbbc3cf3cfd61036072d384ae34b4b33adceb9992e6123009c31074"
+}
