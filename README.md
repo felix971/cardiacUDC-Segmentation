@@ -25,7 +25,7 @@
 | 3 | 右心房（RA） |
 | 4 | 右心室（RV） |
 
-该映射来自 GraphEcho，本仓库没有独立核实每个编号对应哪个心腔。已核实的是不同版本之间编号一致：同一录像的两个标签版本对照时，出现的编号 1–4 都落在对方的同号区域上。这种对照只在 `Site_R_126` 和 `label_all_frame` 之间做得到，`Site_G_*` 和 `Site_R_52` 没有同一录像可对照。两个文件是例外，`label_all_frame/patient-5-4` 用 5、6 代替 1、4，`label_all_frame/normal-27-4` 用 6 代替 4，重编号见 [label_code_remap.csv](data/metadata/label_code_remap.csv)。`inspect_case.py` 遇到 `0..4` 以外的标签仍会报错，不会自动重编号。
+该映射来自 GraphEcho，本仓库没有独立核实每个编号对应哪个心腔。已核实的是不同版本之间编号一致：同一录像的两个标签版本对照时，出现的编号 1–4 都落在对方的同号区域上。这种对照只覆盖 16 个文件：`label_all_frame` 的 7 个和 `Site_R_126` 的 9 个（含 `Site_R_126` 内部的 `patient-89-4` 与 `patient-90-4`）；其余文件，包括 `Site_R_126` 的另外 76 个、`label_all_frame` 的另外 3 个和全部 `Site_G_*`、`Site_R_52`，都没有同一录像可对照。两个文件是例外，`label_all_frame/patient-5-4` 用 5、6 代替 1、4，`label_all_frame/normal-27-4` 用 6 代替 4，重编号见 [label_code_remap.csv](data/metadata/label_code_remap.csv)。`inspect_case.py` 遇到 `0..4` 以外的标签仍会报错，不会自动重编号。
 
 计划中的二维模型接口为：
 
@@ -87,10 +87,10 @@ uv run --locked python scripts/inspect_case.py --help
 | --- | --- | --- |
 | 读得出来吗 | `audit_labels.py` → [label_audit.csv](data/metadata/label_audit.csv) | 294 个标签文件中 293 个可读；`Site_R_126/patient-73-4` 的标签文件被截断，读取时报 `EOFError`。 |
 | 哪些帧有标注 | 同上 | 一帧至少有 100 个非零标签像素才算有标注；更少的是标注工具留下的零星笔迹（最多 60 像素），完整的标注每帧至少 3000 像素。稀疏视频（5 个带标签的 `Site_*` 目录里每个只标少数几帧的视频，共 284 个）中，除去读不出的和全空的各 1 个，282 个有标注，其中 280 个各标 5 帧；`Site_G_20/patient-5-4` 标 7 帧（其中 2 帧各约 300 像素，只画了 4 号），`Site_R_126/patient-69-4` 标 3 帧；`label_all_frame` 的 10 个视频每帧都有标注。`Site_R_126/patient-60-4` 的标签全为 0。 |
-| 区域还是轮廓 | 同上 | 稀疏视频是填满的区域（内部像素比例，即上下左右都是同一类的前景像素占比，≥ 0.95），`label_all_frame` 是轮廓线（0.46–0.66），阈值取 0.8。轮廓要先填充才能当作区域监督。 |
+| 区域还是轮廓 | 同上 | 稀疏视频是填满的区域（内部像素比例，即上下左右都是同一类的前景像素占比，≥ 0.95），`label_all_frame` 是轮廓线（0.45–0.66），阈值取 0.8。轮廓要先填充才能当作区域监督。 |
 | 每帧四类齐不齐 | 同上 | 6 个标注帧缺类：`Site_G_100/patient40-4` 第 6 帧缺 4；`Site_G_100/patient44-4` 第 12、22 帧缺 2；`Site_G_20/patient-5-4` 第 13、16 帧只画了 4；`label_all_frame/patient-44-4` 第 50 帧（缺哪类未记录）。两个需要重编号的文件，重编号后还没有逐帧复查。 |
 | 同一段录像 | `find_same_videos.py` → `same_video_pairs.csv` | 形状相同的 558 对视频中有 9 对是同一段录像：`label_all_frame/X` = `Site_R_126/X`（X 为 patient-5-4、17-4、35-4、39-4、44-4、60-4、64-4、67-4），以及 `Site_R_126/patient-89-4` = `Site_R_126/patient-90-4`。同一录像的冲突比例都是 0；不同录像中最接近的一对（`label_all_frame/normal-27-4` 与 `label_all_frame/patient-5-4`）也有 0.649，远高于阈值 0.01。 |
-| 编号是什么意思 | `check_label_codes.py` → `label_code_crosstab.csv`；[label_code_remap.csv](data/metadata/label_code_remap.csv) | 8 对能对照的同一录像中（都在 `Site_R_126` 与 `label_all_frame` 之间），出现的编号 1–4 都对应对方的同号区域。`label_all_frame/patient-5-4` 的 5 对应 1、6 对应 4（像素对照）；`label_all_frame/normal-27-4` 的 6 对应 4（没有对照版本，按缺失的类别和位置推断，证据较弱）。 |
+| 编号是什么意思 | `check_label_codes.py` → `label_code_crosstab.csv`；[label_code_remap.csv](data/metadata/label_code_remap.csv) | 8 对能对照的同一录像中（7 对在 `label_all_frame` 与 `Site_R_126` 之间，1 对在 `Site_R_126` 内部），出现的编号 1–4 都对应对方的同号区域。`label_all_frame/patient-5-4` 的 5 对应 1、6 对应 4（像素对照）；`label_all_frame/normal-27-4` 的 6 对应 4（没有对照版本，按缺失的类别和位置推断，证据较弱）。 |
 
 使用这些数据时：
 
@@ -106,7 +106,7 @@ uv run --locked python scripts/inspect_case.py --help
 
 ## 后续实验
 
-1. 核实患者或检查分组。标注覆盖、标签编号和跨目录同一录像已经审计，见“全量审计”。
+1. 核实患者或检查分组。标注覆盖、标签编号和同一录像（只比较了形状相同的视频）已经审计，见“全量审计”。
 2. 建立二维分割数据管线，先用可靠标注完成小样本过拟合检查。
 3. 固定患者分组划分，明确逐类别 Dice 及聚合口径，以验证集选择模型，再进行独立测试。
 4. 保存配置、权重和实验记录，在相同数据协议下比较二维与视频模型。

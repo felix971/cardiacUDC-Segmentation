@@ -1,7 +1,8 @@
 """Find records that store the same ultrasound recording.
 
-Two records can only be the same recording if their image arrays have the same shape.
-Within each shape group every pair is compared. One export of a recording may have
+The pixel-by-pixel check needs equal shapes, so only records whose image arrays have the
+same shape are compared, every pair within each shape group. A trimmed or resized copy
+of a recording has a different shape and is not found. One export of a recording may have
 screen text and markers set to 0, so pixels where either side is 0 are ignored: a pair
 is the same recording when the pixels that are nonzero on both sides agree.
 
