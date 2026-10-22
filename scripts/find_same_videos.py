@@ -61,10 +61,18 @@ def compare_images(image_a, image_b):
     """Return (both_nonzero_pixels, conflict_pixels) for two arrays of the same shape."""
 
     # TODO 1: both_nonzero_mask = positions where image_a and image_b are both nonzero
+    a_nonzero = image_a != 0
+    b_nonzero = image_b != 0
+    both_nonzero_mask = a_nonzero & b_nonzero
 
     # TODO 2: conflict_mask = positions that are nonzero on both sides but differ
+    # Compare with != rather than subtraction: uint8 subtraction wraps around below 0.
+    values_differ = image_a != image_b
+    conflict_mask = both_nonzero_mask & values_differ
 
     # TODO 3: count both masks, named both_nonzero_pixels and conflict_pixels
+    both_nonzero_pixels = np.count_nonzero(both_nonzero_mask)
+    conflict_pixels = np.count_nonzero(conflict_mask)
 
     return both_nonzero_pixels, conflict_pixels
 
