@@ -20,12 +20,18 @@ data/
 ├── processed/                    # 以后生成的缩放、归一化、抽帧等结果；当前为空
 ├── metadata/
 │   ├── cases.csv                 # 按原始文件名前缀配对的影像/标签索引
+│   ├── label_audit.csv           # 逐个标签文件：能否读取、标注帧、标签值、区域还是轮廓
+│   ├── same_video_pairs.csv      # 形状相同的视频两两比较，哪些是同一段录像
+│   ├── label_code_crosstab.csv   # 同一录像的两个标签版本对照，每个编号落在对方哪个编号上
+│   ├── label_code_remap.csv      # 需要重编号的标签编号及证据（手工整理）
 │   ├── files.csv                 # 逐文件大小、CRC32、SHA256、NIfTI 头信息
 │   ├── inventory.json            # 盘点汇总及检查范围
 │   ├── unpack_report.json        # 首次解压时的历史校验记录
 │   └── cleanup_report.json       # 原下载 ZIP 的清理记录
 ├── splits/
-│   └── README.md                 # 后续划分约定；当前没有训练/验证/测试划分
+│   ├── README.md                 # 划分说明：分组和划分规则、用法、局限
+│   ├── baseline_v1.csv           # 每条记录的组和 train/val/test（make_split.py 生成）
+│   └── baseline_v1.json          # 随机种子、比例、分组依据，输入、脚本和输出的 SHA256
 └── README.md
 ```
 
@@ -52,7 +58,7 @@ data/
 - 294 个影像有同名前缀标签，影像/标签的 NIfTI shape 一致。
 - 70 个影像没有同名前缀标签文件，均在 `Site_R_73`。
 - 目录名末尾数字是发布者命名，**不要把它直接当成本地实际文件数**。
-- 未发现压缩文件字节完全相同的影像；这只是 `.nii.gz` 文件 SHA256 检查，**不能排除同一患者或相同影像数组的不同导出版本**。
+- 未发现压缩文件字节完全相同的影像；这只是 `.nii.gz` 文件 SHA256 检查，**不能排除同一患者或相同影像数组的不同导出版本**。之后逐像素比较找到了 9 对同一段录像的不同导出版本，见 `metadata/same_video_pairs.csv` 和根目录 README 的“全量审计”。
 - 没有修改、重采样、归一化、抽帧、重命名、删除任何原始 NIfTI 文件。
 
 ## 如何使用索引
@@ -70,18 +76,22 @@ data/
 - `image_shape` / `label_shape`：直接来自 NIfTI 头的维度数组；没有重新解释坐标轴。
 - `image_datatype_code` / `label_datatype_code`：NIfTI 头中的数据类型编号。
 - `image_sha256` / `label_sha256`：原始压缩文件的校验值。
-- `patient_group_id`：当前为空，待依据可靠患者/检查对应关系核实。
-- `label_coverage`：有标签文件的记录为 `not_audited`，无标签文件为 `no_label_file`。
-- `split`：全部为 `unassigned`，没有擅自划分训练集。
+- `patient_group_id`：当前为空，待依据可靠患者/检查对应关系核实。划分用的分组见 `splits/baseline_v1.csv` 的 `group_id`。
+- `label_coverage`：有标签文件的记录为 `not_audited`，无标签文件为 `no_label_file`。这一列是建索引时的占位，还没有回填；逐帧标注情况看 `metadata/label_audit.csv`。
+- `split`：全部为 `unassigned`，这一列不再更新。实际划分见 `splits/baseline_v1.csv`。
 
 CSV 布尔字段是文本。Python 的 `bool('false')` 仍为真，不要这样解析，应使用 `row['has_label_file'] == 'true'`。
+
+## 隐私
+
+`label_all_frame` 的影像画面上保留着病人姓名和检查日期。其中 8 个视频在 `Site_R_126` 里有同一录像的版本，那里这些文字已被置为 0。不要把 `label_all_frame` 的原始帧放进 README、GitHub、报告或幻灯片；要展示时，改用 `Site_R_126` 的版本，或只保留扇形区域。
 
 ## 后续工作约定
 
 1. **raw 只读使用**：不要在这里覆盖原始影像。`.nii.gz` 是需要保留的实际医学影像/标签格式，不是这次应清理的下载 ZIP。
 2. **处理结果写入 processed**：例如 `processed/baseline_v1/`；同时保存处理参数、代码版本和输入校验值，以便重建。不强制现在转换格式。
 3. **先核实标注，再选训练样本**：有标签文件不意味着每一帧都有有效标注；不要把未标注帧擅自当作背景真值。无标签记录不要伪造全零标签来凑配对。
-4. **划分写清单，不搬原始数据**：确认患者/检查对应关系和研究目标后，在 `splits/` 固定 train/val/test 或交叉验证清单。
+4. **划分写清单，不搬原始数据**：在 `splits/` 固定 train/val/test 或交叉验证清单。第一份是同分布基线 `splits/baseline_v1.csv`，见 `splits/README.md`。
 5. **同一患者、同一检查/视频的关联帧不跨集合**：否则测试集可能不再代表独立样本。不能把 364 行直接理解为 364 个独立患者，也不能仅凭局部文件名前缀认定跨目录患者身份。
 6. **保留来源信息**：做普通监督分割还是跨站点泛化，会影响划分方案；当前不把 G/R 目录直接指定为训练/测试。
 
