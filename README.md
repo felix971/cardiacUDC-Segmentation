@@ -10,7 +10,7 @@
 - 已实现：全量数据审计，包括逐文件的标注帧与标签形式（`scripts/audit_labels.py`）、同一录像检测（`scripts/find_same_videos.py`）和标签编号核对（`scripts/check_label_codes.py`）。结果在 `data/metadata/`，结论见下文“全量审计”。
 - 已验证：默认样本的检查脚本可以运行；依赖由 `uv.lock` 固定。
 - 已实现：固定的 train/val/test 划分（`scripts/make_split.py` → [baseline_v1.csv](data/splits/baseline_v1.csv)）。同一录像和同一站点同号的记录分在同一组，患者身份没有核实，规则见[划分说明](data/splits/README.md)。
-- 进行中：nnU-Net v2 二维基线。`scripts/export_nnunet.py` 把 `baseline_v1` 中 `region` 记录的标注帧导出成 nnU-Net 数据集，并按 `baseline_v1` 写好划分；挑帧和读帧复用 `scripts/dataset_2d.py` 的 `build_frame_index` 和 `load_frame`。这几处 TODO 还没有填，见下文“nnU-Net 二维基线”。
+- 进行中：nnU-Net v2 二维基线。`scripts/export_nnunet.py` 把 `baseline_v1` 中 `region` 记录的标注帧导出成 nnU-Net 数据集，并按 `baseline_v1` 写好划分；挑帧和读帧复用 `scripts/dataset_2d.py` 的 `build_frame_index` 和 `load_frame`。脚本已写完，还没有在真实数据上导出和训练，见下文“nnU-Net 二维基线”。
 - 暂缓：`scripts/dataset_2d.py` 里把帧缩放成 PyTorch 样本的部分（TODO 3、4），留到自己写视频模型时再用。
 - 尚未实现：训练结果、独立测试与视频分割。
 
@@ -114,8 +114,9 @@ nnU-Net 自动规划网络、预处理和训练，但它要求一帧一个文件
 - 每个标注帧存成一张二维 NIfTI 图像和一张标签，train、val 放进 `imagesTr`/`labelsTr`，test 放进 `imagesTs`/`labelsTs`，共 970 + 218 + 217 帧。挑哪些帧与 `dataset_2d.py` 相同：`region` 记录的标注帧，去掉缺类的帧。
 - 写 `splits_final.json`，只有一折：fold 0 的训练集和验证集就是 `baseline_v1` 的 train 和 val。没有这个文件，nnU-Net 会把所有帧随机分成 5 折，同一段视频的帧会同时出现在训练和验证里。
 - `Site_R_52` 的 8 条 1024×768 和 640×480 记录按像素大小存，nnU-Net 预处理时把它们重采样到 800×600，相当于假设每帧的视野相同；真实像素大小未知。
+- 写 `frame_manifest.csv`，每个病例一行：病例名、划分、记录、分组、帧号和原始尺寸。nnU-Net 按病例名报告结果，用这张表能查回是哪段视频的哪一帧。
 
-输出在 `data/processed/nnunet/` 和 `outputs/nnunet/`，都不进 Git。运行前先填好 `dataset_2d.py` 的 TODO 1、2 和 `export_nnunet.py` 的 TODO：
+输出在 `data/processed/nnunet/` 和 `outputs/nnunet/`，都不进 Git。重新导出时加 `--overwrite`，它会先删掉上一次的导出：
 
 ```bash
 uv run --locked python scripts/export_nnunet.py
@@ -142,7 +143,7 @@ uv run --locked nnUNetv2_evaluate_folder "$nnUNet_raw/Dataset501_CardiacUDC2D/la
 
 ## 后续实验
 
-1. 跑通 nnU-Net 二维基线：填好上文的 TODO，导出、预处理并训练 fold 0，看 val 上的 Dice。标注覆盖、标签编号、同一录像和分组划分已经完成，见“全量审计”和[划分说明](data/splits/README.md)。
+1. 跑通 nnU-Net 二维基线：按上文导出、预处理并训练 fold 0，看 val 上的 Dice。标注覆盖、标签编号、同一录像和分组划分已经完成，见“全量审计”和[划分说明](data/splits/README.md)。
 2. 明确逐类别 Dice 及聚合口径，以验证集选择模型，再进行独立测试。
 3. 保存配置、权重和实验记录，在相同数据协议下比较二维与视频模型。
 

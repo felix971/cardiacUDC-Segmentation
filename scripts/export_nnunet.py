@@ -11,18 +11,19 @@ writes one 2D image and one label per frame:
         labelsTs/<case>.nii.gz        test labels; nnU-Net never reads them, we use them
                                       to score the test predictions
         dataset.json
+        frame_manifest.csv            one row per case: split, record, group and frame
     data/processed/nnunet/preprocessed/Dataset501_CardiacUDC2D/splits_final.json
         fold 0 = the baseline_v1 train and val frames, so frames of one group never sit
         on both sides
 
 The frames are the same as in dataset_2d.py: build_frame_index picks them and load_frame
-reads them, so TODO 1 and TODO 2 there have to be filled in first. data/processed/ is
-ignored by git.
+reads them. data/processed/ is ignored by git.
 
     uv run --locked python scripts/export_nnunet.py
 """
 
 import argparse
+import csv
 import json
 import shutil
 from pathlib import Path
@@ -30,7 +31,7 @@ from pathlib import Path
 import nibabel as nib
 import numpy as np
 
-from dataset_2d import build_frame_index, load_frame
+from dataset_2d import SPLIT_PATH, build_frame_index, load_frame, read_rows
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -68,11 +69,13 @@ def save_frame(image, labels, image_path, label_path):
     spacing = REFERENCE_WIDTH / image.shape[1]
     affine = np.diag([spacing, spacing, 1.0, 1.0])
 
-    # TODO: write image to image_path and labels to label_path as NIfTI files.
-    #       - nib.Nifti1Image(array, affine) wraps a numpy array and its affine into a
-    #         NIfTI image; nib.save(nifti_image, path) writes it to disk.
-    #       - Keep image as uint8. Store labels as uint8 (labels.astype(np.uint8)), the
-    #         integer type nnU-Net expects for label files; 0..4 fit in it unchanged.
+    # Nifti1Image wraps an array and its affine; nib.save writes it to disk. Labels are
+    # stored as uint8, the integer type nnU-Net expects for label files; 0..4 fit in it
+    # unchanged.
+    image_file = nib.Nifti1Image(image, affine)
+    label_file = nib.Nifti1Image(labels.astype(np.uint8), affine)
+    nib.save(image_file, image_path)
+    nib.save(label_file, label_path)
 
 
 def write_dataset_json(training_count):
@@ -103,6 +106,18 @@ def write_splits(train_cases, val_cases):
         json.dump(splits, stream, indent=2)
 
 
+def write_manifest(rows):
+    """Write frame_manifest.csv, which maps each case name back to its record and frame.
+
+    nnU-Net reports results per case; with this table a case such as
+    "Site_G_100__patient1-4__f004" can be traced to its video, group and split.
+    """
+    with (RAW_DIR / "frame_manifest.csv").open("w", newline="") as stream:
+        writer = csv.DictWriter(stream, fieldnames=list(rows[0]))
+        writer.writeheader()
+        writer.writerows(rows)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--overwrite", action="store_true", help="Delete an earlier export first")
@@ -117,7 +132,12 @@ def main():
     for folder in ["imagesTr", "labelsTr", "imagesTs", "labelsTs"]:
         (RAW_DIR / folder).mkdir(parents=True)
 
+    group_of = {}
+    for split_row in read_rows(SPLIT_PATH):
+        group_of[split_row["record_id"]] = split_row["group_id"]
+
     cases_of = {}
+    manifest_rows = []
     for split in ["train", "val", "test"]:
         if split == "test":
             image_dir, label_dir = RAW_DIR / "imagesTs", RAW_DIR / "labelsTs"
@@ -131,12 +151,22 @@ def main():
             name = case_name(record, frame_index)
             save_frame(image, labels, image_dir / f"{name}_0000.nii.gz", label_dir / f"{name}.nii.gz")
             cases_of[split].append(name)
+            manifest_rows.append({
+                "case": name,
+                "split": split,
+                "record_id": record["record_id"],
+                "group_id": group_of[record["record_id"]],
+                "frame_index": frame_index,
+                "height": image.shape[0],
+                "width": image.shape[1],
+            })
 
             if count % 100 == 0 or count == len(samples):
                 print(f"{split}: {count}/{len(samples)} frames written")
 
     write_dataset_json(len(cases_of["train"]) + len(cases_of["val"]))
     write_splits(cases_of["train"], cases_of["val"])
+    write_manifest(manifest_rows)
 
     # With baseline_v1: train 970, val 218, test 217 frames.
     print(f"imagesTr: {len(cases_of['train'])} train + {len(cases_of['val'])} val frames")

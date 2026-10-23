@@ -15,6 +15,10 @@ NIfTI files are only read, never modified.
 Run it to check the pipeline on the first samples of a split:
 
     uv run --locked python scripts/dataset_2d.py --split train
+
+Resizing to tensors (TODO 3 and 4 in to_tensors) is on hold while the 2D baseline runs
+on nnU-Net, so this check stops at the first sample for now. export_nnunet.py uses only
+build_frame_index and load_frame, which are done.
 """
 
 import argparse
@@ -79,16 +83,28 @@ def build_frame_index(split):
         audit_of[audit["record_id"]] = audit
 
     samples = []
+    for split_row in read_rows(SPLIT_PATH):
+        if split_row["split"] != split:
+            continue
 
-    # TODO 1: go through the rows of baseline_v1.csv (read_rows(SPLIT_PATH)) and keep a
-    #         row only when its split is `split` and its label_form is TARGET_LABEL_FORM.
-    #         For a kept record, its audit row holds annotated_frames and
-    #         incomplete_frames as JSON text such as "[6, 7, 26, 27, 47]"; json.loads
-    #         turns that text into a list of ints. Append one (record, frame_index) pair
-    #         to samples for every annotated frame that is not incomplete, with
-    #         record = case_of[record_id].
-    #         Example: Site_G_100/patient40-4 (test) is annotated on [6, 7, 26, 27, 47]
-    #         and frame 6 misses a class, so it gives 4 samples: frames 7, 26, 27, 47.
+        if split_row["label_form"] != TARGET_LABEL_FORM:
+            continue
+
+        # annotated_frames and incomplete_frames are stored as JSON text such as
+        # "[6, 7, 26, 27, 47]"; json.loads turns that text into a list of ints.
+        record_id = split_row["record_id"]
+        audit = audit_of[record_id]
+        annotated_frames = json.loads(audit["annotated_frames"])
+        incomplete_frames = json.loads(audit["incomplete_frames"])
+
+        # A frame that misses one of the four chambers is left out. Example:
+        # Site_G_100/patient40-4 (test) is annotated on [6, 7, 26, 27, 47] and frame 6
+        # misses a class, so it gives 4 samples: frames 7, 26, 27, 47.
+        for frame_index in annotated_frames:
+            if frame_index in incomplete_frames:
+                continue
+
+            samples.append((case_of[record_id], frame_index))
 
     return samples
 
@@ -103,13 +119,11 @@ def load_frame(record, frame_index):
     image_file = nib.load(ROOT / record["image_path"])
     label_file = nib.load(ROOT / record["label_path"])
 
-    # TODO 2: image, labels = frame frame_index of image_file and of label_file, as numpy
-    #         arrays of shape (H0, W0), for example (600, 800).
-    #         - Read only that one frame: file.dataobj can be sliced like an array, so the
-    #           whole video does not have to be loaded.
-    #         - The stored arrays have shape (W0, H0, frames), so one frame comes out as
-    #           (W0, H0) and has to be transposed.
-    #         image is uint8 (0..255); labels is int8 (0..4).
+    # dataobj can be sliced like an array and reads only that one frame, not the whole
+    # video. A frame comes out as (W0, H0); .T turns it into (H0, W0), for example
+    # (600, 800). image is uint8 (0..255); labels is int8 (0..4).
+    image = np.asarray(image_file.dataobj[:, :, frame_index]).T
+    labels = np.asarray(label_file.dataobj[:, :, frame_index]).T
 
     # A value outside 0..4 means the label needs renumbering (label_code_remap.csv),
     # which region labels never do; stop rather than train on a wrong class.
