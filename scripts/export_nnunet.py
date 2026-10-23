@@ -16,8 +16,9 @@ writes one 2D image and one label per frame:
         fold 0 = the baseline_v1 train and val frames, so frames of one group never sit
         on both sides
 
-The frames are the same as in dataset_2d.py: build_frame_index picks them and load_frame
-reads them. data/processed/ is ignored by git.
+Only records with label_form "region" in data/splits/baseline_v1.csv are used, and of
+those only the annotated frames that contain all four chambers (label_audit.csv). Raw
+NIfTI files are only read, never modified; data/processed/ is ignored by git.
 
     uv run --locked python scripts/export_nnunet.py
 """
@@ -31,10 +32,11 @@ from pathlib import Path
 import nibabel as nib
 import numpy as np
 
-from dataset_2d import SPLIT_PATH, build_frame_index, load_frame, read_rows
-
 
 ROOT = Path(__file__).resolve().parents[1]
+CASES_PATH = ROOT / "data/metadata/cases.csv"
+AUDIT_PATH = ROOT / "data/metadata/label_audit.csv"
+SPLIT_PATH = ROOT / "data/splits/baseline_v1.csv"
 NNUNET_DIR = ROOT / "data/processed/nnunet"
 
 # nnU-Net finds a dataset by its number; 501 and up are free for your own datasets.
@@ -47,8 +49,87 @@ PREPROCESSED_DIR = NNUNET_DIR / "preprocessed" / DATASET_NAME
 # as if every frame showed the same field of view. The real pixel size is unknown.
 REFERENCE_WIDTH = 800
 
-# The names nnU-Net reports per class; the numbers are the stored label values.
+# Filled regions are the training targets; contour labels would have to be filled first.
+TARGET_LABEL_FORM = "region"
+
+# The names nnU-Net reports per class; the numbers are the stored label values
+# (README, task definition).
 LABELS = {"background": 0, "LV": 1, "LA": 2, "RA": 3, "RV": 4}
+
+
+def read_rows(path):
+    """Return the rows of a CSV file as a list of dicts."""
+    with path.open(newline="") as stream:
+        rows = list(csv.DictReader(stream))
+
+    return rows
+
+
+def build_frame_index(split):
+    """Return the samples of one split as a list of (record, frame_index) pairs.
+
+    record is the cases.csv row of the record, a dict that holds image_path and
+    label_path. frame_index is an int, counted from 0 along the last array axis.
+    """
+    case_of = {}
+    for case in read_rows(CASES_PATH):
+        case_of[case["record_id"]] = case
+
+    audit_of = {}
+    for audit in read_rows(AUDIT_PATH):
+        audit_of[audit["record_id"]] = audit
+
+    samples = []
+    for split_row in read_rows(SPLIT_PATH):
+        if split_row["split"] != split:
+            continue
+
+        if split_row["label_form"] != TARGET_LABEL_FORM:
+            continue
+
+        # annotated_frames and incomplete_frames are stored as JSON text such as
+        # "[6, 7, 26, 27, 47]"; json.loads turns that text into a list of ints.
+        record_id = split_row["record_id"]
+        audit = audit_of[record_id]
+        annotated_frames = json.loads(audit["annotated_frames"])
+        incomplete_frames = json.loads(audit["incomplete_frames"])
+
+        # A frame that misses one of the four chambers is left out. Example:
+        # Site_G_100/patient40-4 (test) is annotated on [6, 7, 26, 27, 47] and frame 6
+        # misses a class, so it gives 4 samples: frames 7, 26, 27, 47.
+        for frame_index in annotated_frames:
+            if frame_index in incomplete_frames:
+                continue
+
+            samples.append((case_of[record_id], frame_index))
+
+    return samples
+
+
+def load_frame(record, frame_index):
+    """Return (image, labels) of one frame as numpy arrays of shape (H0, W0).
+
+    H0 x W0 is the stored size, for example 600 x 800. The NIfTI arrays have shape
+    (W0, H0, frames): the first axis runs along the width, so a frame is transposed to
+    put rows first, the same way inspect_case.py displays it.
+    """
+    image_file = nib.load(ROOT / record["image_path"])
+    label_file = nib.load(ROOT / record["label_path"])
+
+    # dataobj can be sliced like an array and reads only that one frame, not the whole
+    # video. A frame comes out as (W0, H0); .T turns it into (H0, W0), for example
+    # (600, 800). image is uint8 (0..255); labels is int8 (0..4).
+    image = np.asarray(image_file.dataobj[:, :, frame_index]).T
+    labels = np.asarray(label_file.dataobj[:, :, frame_index]).T
+
+    # A value outside 0..4 means the label needs renumbering (label_code_remap.csv),
+    # which region labels never do; stop rather than train on a wrong class.
+    label_values = np.unique(labels).tolist()
+    for value in label_values:
+        if value not in LABELS.values():
+            raise ValueError(f"{record['record_id']} frame {frame_index}: label value {value}")
+
+    return image, labels
 
 
 def case_name(record, frame_index):

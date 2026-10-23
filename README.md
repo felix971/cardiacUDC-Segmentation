@@ -10,8 +10,7 @@
 - 已实现：全量数据审计，包括逐文件的标注帧与标签形式（`scripts/audit_labels.py`）、同一录像检测（`scripts/find_same_videos.py`）和标签编号核对（`scripts/check_label_codes.py`）。结果在 `data/metadata/`，结论见下文“全量审计”。
 - 已验证：默认样本的检查脚本可以运行；依赖由 `uv.lock` 固定。
 - 已实现：固定的 train/val/test 划分（`scripts/make_split.py` → [baseline_v1.csv](data/splits/baseline_v1.csv)）。同一录像和同一站点同号的记录分在同一组，患者身份没有核实，规则见[划分说明](data/splits/README.md)。
-- 进行中：nnU-Net v2 二维基线。`scripts/export_nnunet.py` 把 `baseline_v1` 中 `region` 记录的标注帧导出成 nnU-Net 数据集，并按 `baseline_v1` 写好划分；挑帧和读帧复用 `scripts/dataset_2d.py` 的 `build_frame_index` 和 `load_frame`。脚本已写完，还没有在真实数据上导出和训练，见下文“nnU-Net 二维基线”。
-- 暂缓：`scripts/dataset_2d.py` 里把帧缩放成 PyTorch 样本的部分（TODO 3、4），留到自己写视频模型时再用。
+- 进行中：nnU-Net v2 二维基线。模型、预处理和训练都交给 nnU-Net，仓库不写自己的模型或训练循环。`scripts/export_nnunet.py` 把 `baseline_v1` 中 `region` 记录的标注帧导出成 nnU-Net 数据集，并按 `baseline_v1` 写好划分。脚本已写完，还没有在真实数据上导出和训练，见下文“nnU-Net 二维基线”。
 - 尚未实现：训练结果、独立测试与视频分割。
 
 当前可视化展示原始影像和已有标签，不是模型预测。仓库尚无训练权重或分割性能结果。
@@ -30,20 +29,11 @@
 
 该映射来自 GraphEcho，本仓库没有独立核实每个编号对应哪个心腔。已核实的是不同版本之间编号一致：同一录像的两个标签版本对照时，出现的编号 1–4 都落在对方的同号区域上。这种对照只覆盖 16 个文件：`label_all_frame` 的 7 个和 `Site_R_126` 的 9 个（含 `Site_R_126` 内部的 `patient-89-4` 与 `patient-90-4`）；其余文件，包括 `Site_R_126` 的另外 76 个、`label_all_frame` 的另外 3 个和全部 `Site_G_*`、`Site_R_52`，都没有同一录像可对照。两个文件是例外，`label_all_frame/patient-5-4` 用 5、6 代替 1、4，`label_all_frame/normal-27-4` 用 6 代替 4，重编号见 [label_code_remap.csv](data/metadata/label_code_remap.csv)。`inspect_case.py` 遇到 `0..4` 以外的标签仍会报错，不会自动重编号。
 
-计划中的二维模型接口为：
-
-```text
-images: [B, 1, H, W]  float32
-logits: [B, 5, H, W]  float32
-targets:[B, H, W]     int64
-pred:   [B, H, W]     argmax(logits, dim=1)
-```
-
-这里的接口尚未实现为训练代码。GraphEcho 的跨医院域适应方法与文章中的 VNet 路线也不能视为同一实现。
+GraphEcho 的跨医院域适应方法与文章中的 VNet 路线不能视为同一实现。
 
 ## 快速开始
 
-环境要求：Python 3.12、[uv](https://docs.astral.sh/uv/)。运行依赖为 NumPy、NiBabel、Matplotlib、PyTorch 和 [nnU-Net v2](https://github.com/MIC-DKFZ/nnUNet)。检查、审计和划分脚本不需要 GPU。在 Linux 上 `uv sync` 会同时下载 PyTorch 的 CUDA 13 运行库（约 3 GB）；用 GPU 训练需要 NVIDIA 驱动 580 或更新，可用 `uv run --locked python -c "import torch; print(torch.cuda.is_available())"` 确认。
+环境要求：Python 3.12、[uv](https://docs.astral.sh/uv/)。运行依赖为 NumPy、NiBabel、Matplotlib 和 [nnU-Net v2](https://github.com/MIC-DKFZ/nnUNet)，PyTorch 随 nnU-Net 一起安装。检查、审计和划分脚本不需要 GPU。在 Linux 上 `uv sync` 会同时下载 PyTorch 的 CUDA 13 运行库（约 3 GB）；用 GPU 训练需要 NVIDIA 驱动 580 或更新，可用 `uv run --locked python -c "import torch; print(torch.cuda.is_available())"` 确认。
 
 原始影像不包含在 Git 仓库中。先从[数据发布页](https://www.kaggle.com/datasets/xiaoweixumedicalai/cardiacudc-dataset)获取数据，按[数据目录说明](data/README.md)保留原始子目录，并确保 [cases.csv](data/metadata/cases.csv) 中相对于仓库根目录的路径能定位本地文件。默认检查需要：
 
@@ -111,7 +101,7 @@ uv run --locked python scripts/inspect_case.py --help
 
 nnU-Net 自动规划网络、预处理和训练，但它要求一帧一个文件的固定目录结构，也不知道哪些帧来自同一段视频。`scripts/export_nnunet.py` 负责这两件事：
 
-- 每个标注帧存成一张二维 NIfTI 图像和一张标签，train、val 放进 `imagesTr`/`labelsTr`，test 放进 `imagesTs`/`labelsTs`，共 970 + 218 + 217 帧。挑哪些帧与 `dataset_2d.py` 相同：`region` 记录的标注帧，去掉缺类的帧。
+- 每个标注帧存成一张二维 NIfTI 图像和一张标签，train、val 放进 `imagesTr`/`labelsTr`，test 放进 `imagesTs`/`labelsTs`，共 970 + 218 + 217 帧。只取 `region` 记录的标注帧，去掉缺类的帧。
 - 写 `splits_final.json`，只有一折：fold 0 的训练集和验证集就是 `baseline_v1` 的 train 和 val。没有这个文件，nnU-Net 会把所有帧随机分成 5 折，同一段视频的帧会同时出现在训练和验证里。
 - `Site_R_52` 的 8 条 1024×768 和 640×480 记录按像素大小存，nnU-Net 预处理时把它们重采样到 800×600，相当于假设每帧的视野相同；真实像素大小未知。
 - 写 `frame_manifest.csv`，每个病例一行：病例名、划分、记录、分组、帧号和原始尺寸。nnU-Net 按病例名报告结果，用这张表能查回是哪段视频的哪一帧。
