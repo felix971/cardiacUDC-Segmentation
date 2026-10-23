@@ -10,8 +10,8 @@
 - 已实现：全量数据审计，包括逐文件的标注帧与标签形式（`scripts/audit_labels.py`）、同一录像检测（`scripts/find_same_videos.py`）和标签编号核对（`scripts/check_label_codes.py`）。结果在 `data/metadata/`，结论见下文“全量审计”。
 - 已验证：默认样本的检查脚本可以运行；依赖由 `uv.lock` 固定。
 - 已实现：固定的 train/val/test 划分（`scripts/make_split.py` → [baseline_v1.csv](data/splits/baseline_v1.csv)）。同一录像和同一站点同号的记录分在同一组，患者身份没有核实，规则见[划分说明](data/splits/README.md)。
-- 进行中：二维数据管线 `scripts/dataset_2d.py`，把 `baseline_v1` 中 `region` 记录的标注帧变成统一尺寸的 PyTorch 样本。骨架已写好，读取帧和缩放的 4 个 TODO 还没有填。
-- 尚未实现：模型训练、独立测试与视频分割。
+- 进行中：nnU-Net v2 二维基线。模型、预处理和训练都交给 nnU-Net，仓库不写自己的模型或训练循环。`scripts/export_nnunet.py` 把 `baseline_v1` 中 `region` 记录的标注帧导出成 nnU-Net 数据集，并按 `baseline_v1` 写好划分。脚本已写完，还没有在真实数据上导出和训练，见下文“nnU-Net 二维基线”。
+- 尚未实现：训练结果、独立测试与视频分割。
 
 当前可视化展示原始影像和已有标签，不是模型预测。仓库尚无训练权重或分割性能结果。
 
@@ -29,20 +29,11 @@
 
 该映射来自 GraphEcho，本仓库没有独立核实每个编号对应哪个心腔。已核实的是不同版本之间编号一致：同一录像的两个标签版本对照时，出现的编号 1–4 都落在对方的同号区域上。这种对照只覆盖 16 个文件：`label_all_frame` 的 7 个和 `Site_R_126` 的 9 个（含 `Site_R_126` 内部的 `patient-89-4` 与 `patient-90-4`）；其余文件，包括 `Site_R_126` 的另外 76 个、`label_all_frame` 的另外 3 个和全部 `Site_G_*`、`Site_R_52`，都没有同一录像可对照。两个文件是例外，`label_all_frame/patient-5-4` 用 5、6 代替 1、4，`label_all_frame/normal-27-4` 用 6 代替 4，重编号见 [label_code_remap.csv](data/metadata/label_code_remap.csv)。`inspect_case.py` 遇到 `0..4` 以外的标签仍会报错，不会自动重编号。
 
-计划中的二维模型接口为：
-
-```text
-images: [B, 1, H, W]  float32
-logits: [B, 5, H, W]  float32
-targets:[B, H, W]     int64
-pred:   [B, H, W]     argmax(logits, dim=1)
-```
-
-这里的接口尚未实现为训练代码。GraphEcho 的跨医院域适应方法与文章中的 VNet 路线也不能视为同一实现。
+GraphEcho 的跨医院域适应方法与文章中的 VNet 路线不能视为同一实现。
 
 ## 快速开始
 
-环境要求：Python 3.12、[uv](https://docs.astral.sh/uv/)。运行依赖为 NumPy、NiBabel、Matplotlib 和 PyTorch。检查、审计和划分脚本不需要 GPU。在 Linux 上 `uv sync` 会同时下载 PyTorch 的 CUDA 13 运行库（约 3 GB）；用 GPU 训练需要 NVIDIA 驱动 580 或更新，可用 `uv run --locked python -c "import torch; print(torch.cuda.is_available())"` 确认。
+环境要求：Python 3.12、[uv](https://docs.astral.sh/uv/)。运行依赖为 NumPy、NiBabel、Matplotlib 和 [nnU-Net v2](https://github.com/MIC-DKFZ/nnUNet)，PyTorch 随 nnU-Net 一起安装。检查、审计和划分脚本不需要 GPU。在 Linux 上 `uv sync` 会同时下载 PyTorch 的 CUDA 13 运行库（约 3 GB）；用 GPU 训练需要 NVIDIA 驱动 580 或更新，可用 `uv run --locked python -c "import torch; print(torch.cuda.is_available())"` 确认。
 
 原始影像不包含在 Git 仓库中。先从[数据发布页](https://www.kaggle.com/datasets/xiaoweixumedicalai/cardiacudc-dataset)获取数据，按[数据目录说明](data/README.md)保留原始子目录，并确保 [cases.csv](data/metadata/cases.csv) 中相对于仓库根目录的路径能定位本地文件。默认检查需要：
 
@@ -106,9 +97,43 @@ uv run --locked python scripts/inspect_case.py --help
 
 数据结构与索引字段见[数据说明](data/README.md)；固定划分见[划分说明](data/splits/README.md)。患者身份没有核实，报告测试集结果时要注明这个前提。
 
+## nnU-Net 二维基线
+
+nnU-Net 自动规划网络、预处理和训练，但它要求一帧一个文件的固定目录结构，也不知道哪些帧来自同一段视频。`scripts/export_nnunet.py` 负责这两件事：
+
+- 每个标注帧存成一张二维 NIfTI 图像和一张标签，train、val 放进 `imagesTr`/`labelsTr`，test 放进 `imagesTs`/`labelsTs`，共 970 + 218 + 217 帧。只取 `region` 记录的标注帧，去掉缺类的帧。
+- 写 `splits_final.json`，只有一折：fold 0 的训练集和验证集就是 `baseline_v1` 的 train 和 val。没有这个文件，nnU-Net 会把所有帧随机分成 5 折，同一段视频的帧会同时出现在训练和验证里。
+- `Site_R_52` 的 8 条 1024×768 和 640×480 记录按像素大小存，nnU-Net 预处理时把它们重采样到 800×600，相当于假设每帧的视野相同；真实像素大小未知。
+- 写 `frame_manifest.csv`，每个病例一行：病例名、划分、记录、分组、帧号和原始尺寸。nnU-Net 按病例名报告结果，用这张表能查回是哪段视频的哪一帧。
+
+输出在 `data/processed/nnunet/` 和 `outputs/nnunet/`，都不进 Git。重新导出时加 `--overwrite`，它会先删掉上一次的导出：
+
+```bash
+uv run --locked python scripts/export_nnunet.py
+
+# nnU-Net 通过这三个环境变量找目录，每开一个新终端都要重新设置
+export nnUNet_raw="$PWD/data/processed/nnunet/raw"
+export nnUNet_preprocessed="$PWD/data/processed/nnunet/preprocessed"
+export nnUNet_results="$PWD/outputs/nnunet/results"
+
+uv run --locked nnUNetv2_plan_and_preprocess -d 501 -c 2d --verify_dataset_integrity
+uv run --locked nnUNetv2_train 501 2d 0
+```
+
+默认训练 1000 轮，单卡也要很多小时。可以先加 `-tr nnUNetTrainer_5epochs` 只跑 5 轮，确认流程没问题再正式训练。训练结束时 nnU-Net 会在 val 上算一次 Dice。
+
+选定模型后才在 test 上评估，且只评估一次：
+
+```bash
+uv run --locked nnUNetv2_predict -i "$nnUNet_raw/Dataset501_CardiacUDC2D/imagesTs" -o outputs/nnunet/test_pred -d 501 -c 2d -f 0
+uv run --locked nnUNetv2_evaluate_folder "$nnUNet_raw/Dataset501_CardiacUDC2D/labelsTs" outputs/nnunet/test_pred -djfile outputs/nnunet/test_pred/dataset.json -pfile outputs/nnunet/test_pred/plans.json
+```
+
+`outputs/nnunet/test_pred/summary.json` 里有逐类和平均的 Dice。
+
 ## 后续实验
 
-1. 完成二维分割数据管线（`scripts/dataset_2d.py`）：按 `baseline_v1` 取 `region` 记录的标注帧，跳过缺类的帧，把图像缩放到 384×288（`Site_R_52` 有 8 条不是 800×600，都是 4:3），再用少量样本完成过拟合检查。标注覆盖、标签编号、同一录像和分组划分已经完成，见“全量审计”和[划分说明](data/splits/README.md)。
+1. 跑通 nnU-Net 二维基线：按上文导出、预处理并训练 fold 0，看 val 上的 Dice。标注覆盖、标签编号、同一录像和分组划分已经完成，见“全量审计”和[划分说明](data/splits/README.md)。
 2. 明确逐类别 Dice 及聚合口径，以验证集选择模型，再进行独立测试。
 3. 保存配置、权重和实验记录，在相同数据协议下比较二维与视频模型。
 
