@@ -17,7 +17,8 @@ data/
 │       ├── Site_R_52/
 │       ├── Site_R_73/
 │       └── label_all_frame/
-├── processed/                    # 以后生成的缩放、归一化、抽帧等结果；当前为空
+├── processed/                    # 可重建的处理结果，不进 Git
+│   └── nnunet/                   # export_nnunet.py 导出的 nnU-Net 数据集和预处理结果
 ├── metadata/
 │   ├── cases.csv                 # 按原始文件名前缀配对的影像/标签索引
 │   ├── label_audit.csv           # 逐个标签文件：能否读取、标注帧、标签值、区域还是轮廓
