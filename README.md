@@ -10,8 +10,9 @@
 - 已实现：全量数据审计，包括逐文件的标注帧与标签形式（`scripts/audit_labels.py`）、同一录像检测（`scripts/find_same_videos.py`）和标签编号核对（`scripts/check_label_codes.py`）。结果在 `data/metadata/`，结论见下文“全量审计”。
 - 已验证：默认样本的检查脚本可以运行；依赖由 `uv.lock` 固定。
 - 已实现：固定的 train/val/test 划分（`scripts/make_split.py` → [baseline_v1.csv](data/splits/baseline_v1.csv)）。同一录像和同一站点同号的记录分在同一组，患者身份没有核实，规则见[划分说明](data/splits/README.md)。
-- 进行中：nnU-Net v2 二维基线。模型、预处理和训练都交给 nnU-Net，仓库不写自己的模型或训练循环。`scripts/export_nnunet.py` 把 `baseline_v1` 中 `region` 记录的标注帧导出成 nnU-Net 数据集，并按 `baseline_v1` 写好划分。脚本已写完，还没有在真实数据上导出和训练，见下文“nnU-Net 二维基线”。
-- 尚未实现：训练结果、独立测试与视频分割。
+- 进行中：nnU-Net v2 二维基线。模型、预处理和训练都交给 nnU-Net，仓库不写自己的模型或训练循环。`scripts/export_nnunet.py` 把 `baseline_v1` 中 `region` 记录的标注帧导出成 nnU-Net 数据集，并按 `baseline_v1` 写好划分。已在真实数据上导出、试训练 5 轮，1000 轮正式训练进行中，见下文“nnU-Net 二维基线”。
+- 进行中：VNet2D 与 VNet3D。网络用 [MONAI](https://pypi.org/project/monai/) 现成的 `VNet`，训练仍交给 nnU-Net（`scripts/nnunet_vnet_trainer.py`）；三维数据把整段视频作为一个病例（`scripts/export_nnunet_3d.py`）。两者只在合成数据上验证过，见下文“VNet2D 与 VNet3D”。
+- 尚未实现：训练结果与独立测试。
 
 当前可视化展示原始影像和已有标签，不是模型预测。仓库尚无训练权重或分割性能结果。
 
@@ -33,7 +34,7 @@ GraphEcho 的跨医院域适应方法与文章中的 VNet 路线不能视为同�
 
 ## 快速开始
 
-环境要求：Python 3.12、[uv](https://docs.astral.sh/uv/)。运行依赖为 NumPy、NiBabel、Matplotlib 和 [nnU-Net v2](https://github.com/MIC-DKFZ/nnUNet)，PyTorch 随 nnU-Net 一起安装。检查、审计和划分脚本不需要 GPU。在 Linux 上 `uv sync` 会同时下载 PyTorch 的 CUDA 13 运行库（约 3 GB）；用 GPU 训练需要 NVIDIA 驱动 580 或更新，可用 `uv run --locked python -c "import torch; print(torch.cuda.is_available())"` 确认。
+环境要求：Python 3.12、[uv](https://docs.astral.sh/uv/)。运行依赖为 NumPy、NiBabel、Matplotlib、[nnU-Net v2](https://github.com/MIC-DKFZ/nnUNet) 和 MONAI，PyTorch 随 nnU-Net 一起安装。检查、审计和划分脚本不需要 GPU。在 Linux 上 `uv sync` 会同时下载 PyTorch 的 CUDA 13 运行库（约 3 GB）；用 GPU 训练需要 NVIDIA 驱动 580 或更新，可用 `uv run --locked python -c "import torch; print(torch.cuda.is_available())"` 确认。
 
 原始影像不包含在 Git 仓库中。先从[数据发布页](https://www.kaggle.com/datasets/xiaoweixumedicalai/cardiacudc-dataset)获取数据，按[数据目录说明](data/README.md)保留原始子目录，并确保 [cases.csv](data/metadata/cases.csv) 中相对于仓库根目录的路径能定位本地文件。默认检查需要：
 
@@ -131,11 +132,43 @@ uv run --locked nnUNetv2_evaluate_folder "$nnUNet_raw/Dataset501_CardiacUDC2D/la
 
 `outputs/nnunet/test_pred/summary.json` 里有逐类和平均的 Dice。
 
+## VNet2D 与 VNet3D
+
+VNet（Milletari 等，2016）用 MONAI 的实现 `monai.networks.nets.VNet`，不手写网络。`scripts/nnunet_vnet_trainer.py` 里的 `nnUNetTrainerVNet` 只把 nnU-Net 搭网络的那一步换成 VNet，预处理、裁块、增强、loss、预测和评分都不变，所以 VNet 和 nnU-Net 默认 U-Net 的差别只来自网络本身，包括 VNet 没有 deep supervision（U-Net 低层的额外输出和 loss）。同一个 trainer 按 patch 的维数决定建 VNet2D 还是 VNet3D。VNet 把输入缩小 4 次，每条边长必须是 16 的倍数；nnU-Net 规划出的 patch 满足这一点。
+
+nnU-Net 训练和预测时都只在自己的安装目录里按名字找 trainer，所以先把这个文件链接进去。重装环境后要重新链接：
+
+```bash
+ln -s "$PWD/scripts/nnunet_vnet_trainer.py" \
+    .venv/lib/python3.12/site-packages/nnunetv2/training/nnUNetTrainer/nnunet_vnet_trainer.py
+```
+
+VNet2D 直接用二维基线的 Dataset501：
+
+```bash
+uv run --locked nnUNetv2_train 501 2d 0 -tr nnUNetTrainerVNet
+```
+
+VNet3D 需要另一份数据。`scripts/export_nnunet_3d.py` 把每段 `region` 视频存成一个三维病例（高 × 宽 × 帧），写出 `Dataset502_CardiacUDC3D`，划分同样沿用 `baseline_v1`：train 194 段、val 44 段、test 44 段，参与评分的标注帧和二维相同（970、218、217 帧）。
+
+- 每段视频只有约 5% 的帧有标注。没标注的帧和缺类的帧在标签里记为 5，`dataset.json` 里叫 `ignore`；nnU-Net 训练和评分时跳过这些像素，但网络仍能看到它们的图像。
+- 时间方向每帧的间距记为 4。nnU-Net 把第三维当成空间，这个间距让它规划出时间方向较短的 patch（真实尺寸下约 32 帧 × 256 × 192），并且只在图像平面内旋转做增强。
+- `frame_manifest.csv` 每个评分帧一行，用来和二维结果逐帧对照。
+
+```bash
+uv run --locked python scripts/export_nnunet_3d.py
+uv run --locked nnUNetv2_plan_and_preprocess -d 502 -c 3d_fullres --verify_dataset_integrity
+uv run --locked nnUNetv2_train 502 3d_fullres 0 -tr nnUNetTrainerVNet
+```
+
+三维数据要存 train 和 val 全部约 2.4 万帧，预处理后占用几十 GB。
+
 ## 后续实验
 
 1. 跑通 nnU-Net 二维基线：按上文导出、预处理并训练 fold 0，看 val 上的 Dice。标注覆盖、标签编号、同一录像和分组划分已经完成，见“全量审计”和[划分说明](data/splits/README.md)。
 2. 明确逐类别 Dice 及聚合口径，以验证集选择模型，再进行独立测试。
-3. 保存配置、权重和实验记录，在相同数据协议下比较二维与视频模型。
+3. 训练 VNet2D 与 VNet3D，在 val 的同一批标注帧上与二维基线逐类比较 Dice。
+4. 保存配置、权重和实验记录，在相同数据协议下比较二维与视频模型。
 
 ## 参考资料
 
@@ -144,3 +177,4 @@ uv run --locked nnUNetv2_evaluate_folder "$nnUNet_raw/Dataset501_CardiacUDC2D/la
 - [Kaggle 数据发布页](https://www.kaggle.com/datasets/xiaoweixumedicalai/cardiacudc-dataset)
 - [GraphEcho 数据加载器](https://github.com/xmed-lab/GraphEcho/blob/main/datasets/cardiac_uda.py)
 - [NiBabel 文档](https://nipy.org/nibabel/gettingstarted.html)
+- [MONAI](https://pypi.org/project/monai/)
