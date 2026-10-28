@@ -16,8 +16,12 @@ reinstalled):
 
     uv run --locked nnUNetv2_train 501 2d 0 -tr nnUNetTrainerVNet
     uv run --locked nnUNetv2_train 502 3d_fullres 0 -tr nnUNetTrainerVNet
+
+nnUNetTrainerVNet_500epochs trains for 500 epochs instead of 1000; compare it with
+nnU-Net's own nnUNetTrainer_500epochs, not with epoch 500 of a 1000-epoch run.
 """
 
+import torch
 from monai.networks.nets import VNet
 from nnunetv2.training.nnUNetTrainer.variants.network_architecture.nnUNetTrainerNoDeepSupervision import (
     nnUNetTrainerNoDeepSupervision,
@@ -55,3 +59,15 @@ class nnUNetTrainerVNet(nnUNetTrainerNoDeepSupervision):
         nnU-Net's version sets network.decoder.deep_supervision, which only its own U-Net
         has; VNet has no decoder attribute.
         """
+
+
+class nnUNetTrainerVNet_500epochs(nnUNetTrainerVNet):
+    """nnUNetTrainerVNet with 500 epochs instead of 1000.
+
+    nnU-Net lowers the learning rate from 0.01 to 0 over num_epochs, so a 500-epoch run
+    ends fully annealed, while epoch 500 of a 1000-epoch run still trains at about 0.0054.
+    """
+
+    def __init__(self, plans, configuration, fold, dataset_json, device=torch.device("cuda")):
+        super().__init__(plans, configuration, fold, dataset_json, device)
+        self.num_epochs = 500
