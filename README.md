@@ -149,6 +149,8 @@ VNet2D 直接用二维基线的 Dataset501：
 uv run --locked nnUNetv2_train 501 2d 0 -tr nnUNetTrainerVNet
 ```
 
+默认训练 1000 轮。想只跑一半，用 `-tr nnUNetTrainerVNet_500epochs`，并和同样跑 500 轮的 U-Net（nnU-Net 自带的 `-tr nnUNetTrainer_500epochs`）比较。不能拿 1000 轮训练中的第 500 轮来比：学习率按总轮数从 0.01 降到 0，1000 轮训练到第 500 轮时学习率还有约 0.0054，而且 nnU-Net 不保存那一轮的权重。
+
 VNet3D 需要另一份数据。`scripts/export_nnunet_3d.py` 把每段 `region` 视频存成一个三维病例（高 × 宽 × 帧），写出 `Dataset502_CardiacUDC3D`，划分同样沿用 `baseline_v1`：train 194 段、val 44 段、test 44 段，参与评分的标注帧和二维相同（970、218、217 帧）。
 
 - 每段视频只有约 5% 的帧有标注。没标注的帧和缺类的帧在标签里记为 5，`dataset.json` 里叫 `ignore`；nnU-Net 训练和评分时跳过这些像素，但网络仍能看到它们的图像。
