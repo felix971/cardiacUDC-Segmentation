@@ -10,11 +10,11 @@
 - 已实现：全量数据审计，包括逐文件的标注帧与标签形式（`scripts/audit_labels.py`）、同一录像检测（`scripts/find_same_videos.py`）和标签编号核对（`scripts/check_label_codes.py`）。结果在 `data/metadata/`，结论见下文“全量审计”。
 - 已验证：默认样本的检查脚本可以运行；依赖由 `uv.lock` 固定。
 - 已实现：固定的 train/val/test 划分（`scripts/make_split.py` → [baseline_v1.csv](data/splits/baseline_v1.csv)）。同一录像和同一站点同号的记录分在同一组，患者身份没有核实，规则见[划分说明](data/splits/README.md)。
-- 进行中：nnU-Net v2 二维基线。模型、预处理和训练都交给 nnU-Net，仓库不写自己的模型或训练循环。`scripts/export_nnunet.py` 把 `baseline_v1` 中 `region` 记录的标注帧导出成 nnU-Net 数据集，并按 `baseline_v1` 写好划分。已在真实数据上导出、试训练 5 轮，1000 轮正式训练进行中，见下文“nnU-Net 二维基线”。
-- 进行中：VNet2D 与 VNet3D。网络用 [MONAI](https://pypi.org/project/monai/) 现成的 `VNet`，训练仍交给 nnU-Net（`scripts/nnunet_vnet_trainer.py`）；三维数据把整段视频作为一个病例（`scripts/export_nnunet_3d.py`）。两者只在合成数据上验证过，见下文“VNet2D 与 VNet3D”。
-- 尚未实现：训练结果与独立测试。
+- 进行中：nnU-Net v2 二维基线。模型、预处理和训练都交给 nnU-Net，仓库不写自己的模型或训练循环。`scripts/export_nnunet.py` 把 `baseline_v1` 中 `region` 记录的标注帧导出成 nnU-Net 数据集，并按 `baseline_v1` 写好划分。已在真实数据上训练，val 上逐帧平均 Dice：1000 轮 0.920，500 轮 0.918，见下文“nnU-Net 二维基线”。
+- 进行中：VNet2D 与 VNet3D。网络用 [MONAI](https://pypi.org/project/monai/) 现成的 `VNet`，训练仍交给 nnU-Net（`scripts/nnunet_vnet_trainer.py`）；三维数据把整段视频作为一个病例（`scripts/export_nnunet_3d.py`）。两者已在真实数据上各训练 500 轮，VNet3D 在 val 上按视频平均 Dice 为 0.792；和二维模型逐帧对比用 `scripts/compare_models.py`，见下文“VNet2D 与 VNet3D”。
+- 尚未实现：独立测试（test 集还没有用过）。
 
-当前可视化展示原始影像和已有标签，不是模型预测。仓库尚无训练权重或分割性能结果。
+当前可视化展示原始影像和已有标签，不是模型预测。训练权重和预测都在 `outputs/`，不进 Git。
 
 ## 任务定义
 
@@ -165,11 +165,26 @@ uv run --locked nnUNetv2_train 502 3d_fullres 0 -tr nnUNetTrainerVNet
 
 三维数据要存 train 和 val 全部约 2.4 万帧，预处理后占用几十 GB。
 
+### 和二维模型逐帧对比
+
+nnU-Net 给二维模型逐帧打分：val 的 218 帧各算一个 Dice，再取平均。给 VNet3D 却是按视频打分：一段视频里所有评分帧合起来算一个 Dice，再对 44 段视频取平均。两个平均的权重不同，不能直接比较。`scripts/compare_models.py` 把 VNet3D 对每段视频的预测切回那几个评分帧，用 nnU-Net 自己的计数方法逐帧打分，这样每个模型在同样的 218 帧上都有逐类 Dice。
+
+二维模型给 val 的 `summary.json`，三维模型给 val 的预测文件夹（里面有每段视频的预测和 nnU-Net 的 `summary.json`）。脚本会打印每个模型的逐类平均 Dice、按来源文件夹的平均 Dice 和得分最低的几帧，并把每帧每个模型的 Dice 写到 `outputs/nnunet/compare_val/frame_dice.csv`：
+
+```bash
+uv run --locked python scripts/compare_models.py \
+    --model-2d U-Net=outputs/nnunet/results/Dataset501_CardiacUDC2D/nnUNetTrainer_500epochs__nnUNetPlans__2d/fold_0/validation/summary.json \
+    --model-2d VNet2D=outputs/nnunet/colab/summary.json \
+    --model-3d VNet3D=outputs/nnunet/results/Dataset502_CardiacUDC3D/nnUNetTrainerVNet_500epochs__nnUNetPlans__3d_fullres/fold_0/validation
+```
+
+把逐帧的计数按视频加起来，应当正好得到 nnU-Net 自己的按视频 Dice。脚本会打印两者的最大差值，用来确认帧是沿时间轴切的；差值应为 0。
+
 ## 后续实验
 
 1. 跑通 nnU-Net 二维基线：按上文导出、预处理并训练 fold 0，看 val 上的 Dice。标注覆盖、标签编号、同一录像和分组划分已经完成，见“全量审计”和[划分说明](data/splits/README.md)。
 2. 明确逐类别 Dice 及聚合口径，以验证集选择模型，再进行独立测试。
-3. 训练 VNet2D 与 VNet3D，在 val 的同一批标注帧上与二维基线逐类比较 Dice。
+3. 训练 VNet2D 与 VNet3D，在 val 的同一批标注帧上与二维基线逐类比较 Dice（`scripts/compare_models.py`）。
 4. 保存配置、权重和实验记录，在相同数据协议下比较二维与视频模型。
 
 ## 参考资料
