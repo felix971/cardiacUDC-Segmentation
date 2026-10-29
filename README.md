@@ -136,6 +136,8 @@ uv run --locked nnUNetv2_evaluate_folder "$nnUNet_raw/Dataset501_CardiacUDC2D/la
 
 VNet（Milletari 等，2016）用 MONAI 的实现 `monai.networks.nets.VNet`，不手写网络。`scripts/nnunet_vnet_trainer.py` 里的 `nnUNetTrainerVNet` 只把 nnU-Net 搭网络的那一步换成 VNet，预处理、裁块、增强、loss、预测和评分都不变，所以 VNet 和 nnU-Net 默认 U-Net 的差别只来自网络本身，包括 VNet 没有 deep supervision（U-Net 低层的额外输出和 loss）。同一个 trainer 按 patch 的维数决定建 VNet2D 还是 VNet3D。VNet 把输入缩小 4 次，每条边长必须是 16 的倍数；nnU-Net 规划出的 patch 满足这一点。
 
+VNet 训练时会随机丢掉整张特征图（默认 50%），位置在最深的两个下采样块和每条 skip 连接上。MONAI 1.6.1 不管二维还是三维都把这些层建成 `Dropout3d`：`VNet` 有 `dropout_dim` 参数，但没有传给内部的模块。二维特征的形状是 (batch, 通道, 高, 宽)，`Dropout3d` 会把它当成一个不带 batch 的 (通道, 深, 高, 宽) 体积，把 batch 维当成通道维，于是一次清掉约一半图像的全部通道。`nnUNetTrainerVNet` 建好 VNet2D 后，把这些层换成同样比例的 `Dropout2d`，每次只丢单张图像的单个通道。2026-10-29 之前训练的 VNet2D 没有这个修正。
+
 nnU-Net 训练和预测时都只在自己的安装目录里按名字找 trainer，所以先把这个文件链接进去。重装环境后要重新链接：
 
 ```bash
