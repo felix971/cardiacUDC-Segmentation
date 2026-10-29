@@ -11,7 +11,7 @@
 - 已验证：默认样本的检查脚本可以运行；依赖由 `uv.lock` 固定。
 - 已实现：固定的 train/val/test 划分（`scripts/make_split.py` → [baseline_v1.csv](data/splits/baseline_v1.csv)）。同一录像和同一站点同号的记录分在同一组，患者身份没有核实，规则见[划分说明](data/splits/README.md)。
 - 进行中：nnU-Net v2 二维基线。模型、预处理和训练都交给 nnU-Net，仓库不写自己的模型或训练循环。`scripts/export_nnunet.py` 把 `baseline_v1` 中 `region` 记录的标注帧导出成 nnU-Net 数据集，并按 `baseline_v1` 写好划分。已在真实数据上训练，val 上逐帧平均 Dice：1000 轮 0.920，500 轮 0.918，见下文“nnU-Net 二维基线”。
-- 进行中：VNet2D 与 VNet3D。网络用 [MONAI](https://pypi.org/project/monai/) 现成的 `VNet`，训练仍交给 nnU-Net（`scripts/nnunet_vnet_trainer.py`）；三维数据把整段视频作为一个病例（`scripts/export_nnunet_3d.py`）。两者已在真实数据上各训练 500 轮，VNet3D 在 val 上按视频平均 Dice 为 0.792；和二维模型逐帧对比用 `scripts/compare_models.py`，见下文“VNet2D 与 VNet3D”。
+- 进行中：VNet2D 与 VNet3D。网络用 [MONAI](https://pypi.org/project/monai/) 现成的 `VNet`，训练仍交给 nnU-Net（`scripts/nnunet_vnet_trainer.py`）；三维数据把整段视频作为一个病例（`scripts/export_nnunet_3d.py`）。两者已在真实数据上各训练 500 轮，VNet3D 在 val 上按视频平均 Dice 为 0.792；和二维模型逐帧对比用 `scripts/compare_models.py`，见下文“VNet2D 与 VNet3D”。改进版 VNet3D（8 帧、整帧视野、浅层只在平面内卷积）的代码已写好，尚未训练，见下文。
 - 尚未实现：独立测试（test 集还没有用过）。
 
 当前可视化展示原始影像和已有标签，不是模型预测。训练权重和预测都在 `outputs/`，不进 Git。
@@ -181,6 +181,39 @@ uv run --locked python scripts/compare_models.py \
 ```
 
 把逐帧的计数按视频加起来，应当正好得到 nnU-Net 自己的按视频 Dice。脚本会打印两者的最大差值，用来确认帧是沿时间轴切的；差值应为 0。
+
+### 改进版 VNet3D：8 帧、整帧视野
+
+现在的 VNet3D 有两个问题：
+- **视野小**：patch 是 32 帧 × 256 × 192，只看到约 14% 的画面（裁剪后的帧中位尺寸是 699 × 517）。
+- **时间轴和平面一样处理**：MONAI 的 VNet3D 从第一层起就把每帧和前后各 2 帧混在一起，4 次下采样也都把帧数减半。
+
+改进版分别处理这两点：
+
+- **窗口**：patch 改成 8 帧，平面放大。`scripts/add_vnet_plans.py` 把 Dataset502 的 `nnUNetPlans.json` 复制成 `nnUNetPlans_vnet.json`，加两个配置：
+  - `3d_t8_768x512`：8 × 768 × 512，和二维模型的 patch 一样大，几乎是整帧。
+  - `3d_t8_512x384`：8 × 512 × 384，约半帧，显存约为前者的一半。
+
+  两者都继承 `3d_fullres`，直接用已经预处理好的三维数据。结果目录名里带 `nnUNetPlans_vnet`，不会和旧结果混在一起。
+- **时间轴**：`nnUNetTrainerVNetAniso_500epochs` 建好 MONAI 的 VNet3D 后，替换其中一部分卷积层：
+  - 最浅的两级用 1×5×5 卷积，只在平面内下采样（步长 (1, 2, 2)），每帧单独处理。
+  - 后三级用 3×5×5 卷积，三个方向一起下采样。
+
+  8 帧的 patch 在各级依次是 8 → 8 → 8 → 4 → 2 帧，所以帧数必须是 4 的倍数。nnU-Net 自己给 Dataset502 规划的三维 U-Net 也是前两级只在平面内卷积。通道数、残差连接、dropout 和 BatchNorm 都不变，参数从 4561 万降到 2733 万。
+
+```bash
+uv run --locked python scripts/add_vnet_plans.py
+uv run --locked nnUNetv2_train 502 3d_t8_768x512 0 -tr nnUNetTrainerVNetAniso_500epochs -p nnUNetPlans_vnet
+```
+
+在 CPU 上逐层估算，和旧 VNet3D 相比：
+
+| 配置 | 激活值 | 计算量 |
+|---|---|---|
+| `3d_t8_768x512` | 约 3 倍 | 约 2.1 倍 |
+| `3d_t8_512x384` | 约 1.5 倍 | 约 1 倍 |
+
+正式训练前，先在显卡上跑几分钟，量出显存和每轮秒数。
 
 ## 后续实验
 
