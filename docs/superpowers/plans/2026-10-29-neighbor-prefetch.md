@@ -17,6 +17,7 @@
 - Checkpoint stream state reflects the last consumed batch only.
 - CPU workers never initialize CUDA or modify the parent's RNG.
 - Keep batch size 2, queue depth 2, CPU threads 8; require measured Ubuntu throughput gain >= 5%.
+- Final proof binds the exact migration checkpoint SHA256, old/new code and data/split hashes, device/runtime; retest if checkpoint changes. Check free VRAM after SIGSTOP; terminate old process only with a durable checkpoint and rollback command if additional VRAM is necessary.
 
 ## Review Focus
 
