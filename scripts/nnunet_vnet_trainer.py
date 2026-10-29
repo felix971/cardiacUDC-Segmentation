@@ -28,6 +28,24 @@ from nnunetv2.training.nnUNetTrainer.variants.network_architecture.nnUNetTrainer
 )
 
 
+def use_2d_dropout(network):
+    """Replace every Dropout3d layer of a VNet2D with a Dropout2d of the same rate.
+
+    During training VNet drops whole feature maps, 50 % of them by default, in its two
+    deepest down blocks and on every skip connection. MONAI 1.6.1 builds these layers as
+    Dropout3d whatever spatial_dims is: VNet accepts a dropout_dim argument but never
+    passes it on to its blocks. A 2D feature batch has shape (batch, channels, height,
+    width). Dropout3d reads it as one unbatched (channels, depth, height, width) volume,
+    so it mistakes the batch axis for the channel axis and blanks every channel of about
+    half the images at once. Dropout2d blanks single channels of single images, which is
+    what the dropout is meant to do.
+    """
+    for module in network.modules():
+        for name, child in list(module.named_children()):
+            if isinstance(child, torch.nn.Dropout3d):
+                setattr(module, name, torch.nn.Dropout2d(child.p))
+
+
 class nnUNetTrainerVNet(nnUNetTrainerNoDeepSupervision):
     """nnU-Net training with VNet (Milletari et al., 2016) as the network.
 
@@ -47,9 +65,14 @@ class nnUNetTrainerVNet(nnUNetTrainerNoDeepSupervision):
 
         num_output_channels is 5: background and the four chambers. The ignore label of
         Dataset502 gets no output of its own.
+
+        VNet2D gets 2D dropout layers; see use_2d_dropout.
         """
         spatial_dims = len(configuration_manager.patch_size)
         network = VNet(spatial_dims=spatial_dims, in_channels=num_input_channels, out_channels=num_output_channels)
+
+        if spatial_dims == 2:
+            use_2d_dropout(network)
 
         return network
 
