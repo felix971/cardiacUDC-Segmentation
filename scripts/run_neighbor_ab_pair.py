@@ -18,6 +18,13 @@ DATASET = 'Dataset503_CardiacUDCNeighborAB'
 TRAINERS = {'A': 'nnUNetTrainerNeighborA_500epochs', 'B': 'nnUNetTrainerNeighborB_500epochs'}
 
 
+def execution_configuration():
+    value = os.environ.get('NEIGHBOR_AB_PREFETCH', '0')
+    if value not in ('0', '2'):
+        raise ValueError('NEIGHBOR_AB_PREFETCH must be 0 (serial) or 2 (prefetch)')
+    return {'prefetch': int(value), 'cpu_threads': 8}
+
+
 def write_json(path, value):
     temporary = path.with_suffix(path.suffix + '.tmp')
     temporary.write_text(json.dumps(value, indent=2) + '\n')
@@ -128,6 +135,7 @@ def main():
     args = parser.parse_args()
     if set(args.order) != {'A', 'B'}:
         raise ValueError('A pair must contain A and B exactly once')
+    execution = execution_configuration()
     data_root = args.nnunet_root.resolve()
     output = args.output_root.resolve() / f'seed_{args.seed}'
     output.mkdir(parents=True, exist_ok=True)
@@ -141,6 +149,7 @@ def main():
         'nnUNet_preprocessed': str(data_root / 'preprocessed'),
         'nnUNet_results': str(output),
         'NEIGHBOR_AB_SEED': str(args.seed),
+        'NEIGHBOR_AB_PREFETCH': str(execution['prefetch']),
         'nnUNet_n_proc_DA': '0', 'nnUNet_compile': 'false',
         'OMP_NUM_THREADS': '8', 'MKL_NUM_THREADS': '8', 'OPENBLAS_NUM_THREADS': '8',
         'CUBLAS_WORKSPACE_CONFIG': ':4096:8', 'PYTHONHASHSEED': str(args.seed),
@@ -151,6 +160,7 @@ def main():
     status = {'host_label': args.host_label, 'seed': args.seed, 'order': args.order,
               'code_sha256': code_fingerprint(), 'split_sha256': hashlib.sha256(split_path.read_bytes()).hexdigest(),
               'python': platform.python_version(), 'torch': torch.__version__,
+              'execution': execution,
               'started_utc': datetime.now(timezone.utc).isoformat(), 'runs': {}, 'status': 'validating' if args.verify_only else 'running'}
     status['data_sha256'] = data_fingerprint(data_root, split)
     if status_path.exists():
@@ -158,10 +168,21 @@ def main():
         for key in ('host_label', 'seed', 'order', 'code_sha256', 'split_sha256', 'data_sha256'):
             if previous.get(key) != status[key]:
                 raise ValueError(f'Existing pair provenance differs: {key}. Refusing to mix runs.')
+        if previous.get('execution', execution) != execution:
+            raise ValueError('Existing pair execution mode differs; refusing an unrecorded switch')
+    from prepare_neighbor_continuation import verify_continuation
+    continuation = verify_continuation(output, status)
+    if continuation is not None:
+        status['continuation_sha256'] = hashlib.sha256((output / 'continuation.json').read_bytes()).hexdigest()
     if not args.verify_only:
         if not torch.cuda.is_available():
             raise RuntimeError('CUDA unavailable; refusing CPU training')
         status['gpu'] = torch.cuda.get_device_name()
+        if continuation is not None:
+            report_path = output / 'continuation_evidence/equivalence_report.json'
+            report = json.loads(report_path.read_text())
+            if report['runtime'].get('device_name') != status['gpu']:
+                raise ValueError('Continuation GPU differs from the equivalence certificate')
         write_json(status_path, status)
     first_initial_hash = None
     for mode in args.order:
