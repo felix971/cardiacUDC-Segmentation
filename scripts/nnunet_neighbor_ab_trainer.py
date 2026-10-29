@@ -16,11 +16,14 @@ import copy
 import hashlib
 import json
 import math
+import multiprocessing
 import os
 from pathlib import Path
 import pickle
 import random
+import queue
 import socket
+import traceback
 
 import numpy as np
 import torch
@@ -281,6 +284,7 @@ class PairedSingleThreadedAugmenter(SingleThreadedAugmenter):
         self.batches_seen = 0
         self.audit_sha256 = hashlib.sha256(b"").hexdigest()
         self.audit_path = Path(audit_path) if audit_path is not None else None
+        self.last_audit = None
 
     def __next__(self):
         outside = capture_rng_state(include_cuda=False)
@@ -303,14 +307,18 @@ class PairedSingleThreadedAugmenter(SingleThreadedAugmenter):
         encoded = json.dumps(audit, sort_keys=True, separators=(",", ":")).encode()
         self.audit_sha256 = hashlib.sha256(self.audit_sha256.encode() + encoded).hexdigest()
         audit["cumulative_sha256"] = self.audit_sha256
-        if self.audit_path is not None and self.batches_seen < 8:
-            self.audit_path.parent.mkdir(parents=True, exist_ok=True)
-            # Restarting from a boundary replays any uncheckpointed audit records.
-            mode = "w" if self.batches_seen == 0 else "a"
-            with self.audit_path.open(mode) as handle:
-                handle.write(json.dumps(audit, sort_keys=True) + "\n")
+        self.last_audit = copy.deepcopy(audit)
+        self._write_audit(audit)
         self.batches_seen += 1
         return batch
+
+    def _write_audit(self, audit):
+        if self.audit_path is not None and audit["batch"] < 8:
+            self.audit_path.parent.mkdir(parents=True, exist_ok=True)
+            # Restarting from a boundary replays any uncheckpointed audit records.
+            mode = "w" if audit["batch"] == 0 else "a"
+            with self.audit_path.open(mode) as handle:
+                handle.write(json.dumps(audit, sort_keys=True) + "\n")
 
     def state_dict(self):
         return {"rng_state": copy.deepcopy(self.rng_state),
@@ -329,6 +337,154 @@ class PairedSingleThreadedAugmenter(SingleThreadedAugmenter):
             self.audit_path.write_text("".join(line + "\n" for line in keep))
 
 
+def neighbor_prefetch_depth():
+    value = os.environ.get("NEIGHBOR_AB_PREFETCH", "0")
+    if value not in ("0", "2"):
+        raise ValueError("NEIGHBOR_AB_PREFETCH must be 0 (serial) or 2 (prefetch)")
+    return int(value)
+
+
+def _prefetch_producer(data_loader, state, batches, slots, pending, stop, cpu_threads):
+    """Run the original serial stream in a spawned, CPU-only process."""
+    os.environ["CUDA_VISIBLE_DEVICES"] = ""
+    torch.set_num_threads(cpu_threads)
+    try:
+        if torch.cuda.is_initialized():
+            raise RuntimeError("CPU prefetch producer initialized CUDA before generation")
+        stream = PairedSingleThreadedAugmenter(data_loader, 0, audit_path=None)
+        stream.load_state_dict(state)
+        while not stop.is_set():
+            if not slots.acquire(timeout=0.1):
+                continue
+            if stop.is_set():
+                break
+            batch = next(stream)
+            if torch.cuda.is_initialized():
+                raise RuntimeError("CPU prefetch producer initialized CUDA during generation")
+            # Plain pickle owns tensor bytes: no tensor IPC descriptor depends on
+            # a live worker, and a reused loader buffer cannot change queued data.
+            payload = pickle.dumps((batch, stream.state_dict(), stream.last_audit), protocol=5)
+            with pending.get_lock():
+                pending.value += 1
+            batches.put(("batch", payload))
+    except BaseException:
+        batches.put(("error", traceback.format_exc()))
+    finally:
+        if stop.is_set():
+            # A full queue may have an unfinished feeder write during shutdown.
+            batches.cancel_join_thread()
+        batches.close()
+
+
+class PairedPrefetchAugmenter(PairedSingleThreadedAugmenter):
+    """One CPU producer, with checkpoint state committed only on consumption."""
+
+    def __init__(self, data_loader, seed, audit_path=None, prefetch=2):
+        if prefetch != 2:
+            raise ValueError("Paired prefetch requires exactly two pending batches")
+        super().__init__(data_loader, seed, audit_path)
+        self._prefetch_loader = data_loader
+        self._cpu_threads = torch.get_num_threads()
+        self._process = None
+        self._queue = None
+        self._stop = None
+        self._pending = None
+        self._slots = None
+        self._closed = False
+
+    @property
+    def pending_batches(self):
+        if self._pending is None:
+            return 0
+        with self._pending.get_lock():
+            return self._pending.value
+
+    def _start(self):
+        if self._closed:
+            raise RuntimeError("Prefetch stream is closed")
+        if self._process is not None:
+            return
+        context = multiprocessing.get_context("spawn")
+        self._queue = context.Queue(maxsize=2)
+        self._stop = context.Event()
+        # Reserve capacity before generation, so the worker cannot produce a
+        # third batch while two queued batches await consumption.
+        self._slots = context.Semaphore(2)
+        self._pending = context.Value("i", 0)
+        self._process = context.Process(
+            target=_prefetch_producer,
+            args=(self._prefetch_loader, self.state_dict(), self._queue,
+                  self._slots, self._pending, self._stop, self._cpu_threads),
+            daemon=True,
+        )
+        self._process.start()
+        # This process only reads. Closing its unused write endpoint ensures EOF
+        # reaches a partly completed get() if the sole producer dies mid-payload.
+        # Queue.get's timeout only covers waiting for the first bytes.
+        self._queue._writer.close()
+
+    def __next__(self):
+        self._start()
+        while True:
+            try:
+                kind, payload = self._queue.get(timeout=0.2)
+                break
+            except queue.Empty:
+                if not self._process.is_alive():
+                    raise RuntimeError(
+                        f"Prefetch producer exited with code {self._process.exitcode}"
+                    )
+            except (EOFError, OSError) as error:
+                self._process.join(timeout=0.2)
+                raise RuntimeError(
+                    "Prefetch producer closed an incomplete payload "
+                    f"(exit code {self._process.exitcode})"
+                ) from error
+        if kind == "error":
+            raise RuntimeError(f"Prefetch producer failed:\n{payload}")
+        batch, state, audit = pickle.loads(payload)
+        self._write_audit(audit)
+        self.rng_state = state["rng_state"]
+        self.batches_seen = state["batches_seen"]
+        self.audit_sha256 = state["audit_sha256"]
+        self.last_audit = audit
+        with self._pending.get_lock():
+            self._pending.value -= 1
+        self._slots.release()
+        return batch
+
+    def load_state_dict(self, state):
+        self.close()
+        super().load_state_dict(state)
+        self._process = None
+        self._closed = False
+        self.last_audit = None
+
+    def close(self):
+        if self._closed:
+            return
+        self._closed = True
+        if self._stop is not None:
+            self._stop.set()
+        process = self._process
+        if process is not None and process.pid is not None:
+            process.join(timeout=1)
+            if process.is_alive():
+                process.terminate()
+                process.join(timeout=1)
+            if process.is_alive():
+                process.kill()
+                process.join(timeout=1)
+        if self._queue is not None:
+            self._queue.cancel_join_thread()
+            self._queue.close()
+            self._queue = None
+        self._pending = None
+
+    def _finish(self):
+        self.close()
+
+
 class _nnUNetTrainerNeighborAB(nnUNetTrainerNoDeepSupervision):
     neighbor_mode = None
 
@@ -336,6 +492,7 @@ class _nnUNetTrainerNeighborAB(nnUNetTrainerNoDeepSupervision):
         if "NEIGHBOR_AB_SEED" not in os.environ:
             raise ValueError("NEIGHBOR_AB_SEED must be explicitly set")
         self.neighbor_seed = int(os.environ["NEIGHBOR_AB_SEED"])
+        self.prefetch_depth = neighbor_prefetch_depth()
         if not 0 <= self.neighbor_seed < 2**32 - 2:
             raise ValueError("NEIGHBOR_AB_SEED must be in [0, 2**32 - 3]")
         configure_determinism()
@@ -439,7 +596,8 @@ class _nnUNetTrainerNeighborAB(nnUNetTrainerNoDeepSupervision):
                 sampling_probabilities=None, pad_sides=None, transforms=transform,
                 probabilistic_oversampling=self.probabilistic_oversampling,
             )
-            stream = PairedSingleThreadedAugmenter(
+            stream_type = PairedPrefetchAugmenter if self.prefetch_depth else PairedSingleThreadedAugmenter
+            stream = stream_type(
                 loader, seed, Path(self.output_folder) / f"neighbor_ab_{name}_audit.jsonl",
             )
             streams.append(stream)
@@ -466,7 +624,30 @@ class _nnUNetTrainerNeighborAB(nnUNetTrainerNoDeepSupervision):
             if previous["seed"] != self.neighbor_seed or previous["mode"] != self.neighbor_mode:
                 raise ValueError("Output directory already contains a different seed/mode")
         manifest_path.write_text(json.dumps(manifest, indent=2) + "\n")
+        execution = {"prefetch_batches": self.prefetch_depth,
+                     "producer_processes_per_stream": int(bool(self.prefetch_depth)),
+                     "cpu_threads_per_process": torch.get_num_threads()}
+        execution_path = Path(self.output_folder) / "neighbor_ab_execution.json"
+        execution_path.write_text(json.dumps(execution, indent=2) + "\n")
         self.print_to_log_file("Neighbor A/B configuration:", manifest)
+
+    def _close_prefetch_streams(self):
+        for name in ("dataloader_train", "dataloader_val"):
+            stream = getattr(self, name, None)
+            if isinstance(stream, PairedPrefetchAugmenter):
+                stream.close()
+
+    def run_training(self):
+        try:
+            return super().run_training()
+        finally:
+            self._close_prefetch_streams()
+
+    def on_train_end(self):
+        try:
+            return super().on_train_end()
+        finally:
+            self._close_prefetch_streams()
 
     def perform_actual_validation(self, save_probabilities=False):
         configure_determinism()
