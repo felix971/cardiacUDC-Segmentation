@@ -102,14 +102,18 @@ class ContinuationTests(unittest.TestCase):
         fullsize_cases = []
         for mode in ("A", "B"):
             for phase in ("train", "val"):
-                case = {"mode": mode, "phase": phase, "batches": 8}
+                case = {"mode": mode, "phase": phase, "batches": 8,
+                        "batch_shape": [2, 8, 768, 512], "target_shape": [2, 1, 768, 512]}
                 for key in ("data_equal", "target_equal", "metadata_equal", "audit_equal",
                             "stream_rng_equal", "model_rng_equal"):
                     case[key] = True
                 fullsize_cases.append(case)
         samples = []
         for replicate in range(2):
-            for implementation, seconds in (("serial", 1.0), ("prefetch", 0.8)):
+            order = [("serial", 1.0), ("prefetch", 0.8)]
+            if replicate % 2:
+                order.reverse()
+            for implementation, seconds in order:
                 samples.append({"implementation": implementation, "replicate": replicate,
                                 "seconds_per_step": [seconds] * 20, "warmup_steps": 2,
                                 "peak_allocated_bytes": 100, "peak_reserved_bytes": 200})
