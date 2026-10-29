@@ -124,6 +124,35 @@ def state_dict_sha256(network):
     return digest.hexdigest()
 
 
+class DeterministicCrossEntropyLoss(torch.nn.Module):
+    """Unweighted mean CE without PyTorch's nondeterministic CUDA 2D NLL kernel.
+
+    Keep nnU-Net's integer targets and ignore-index semantics. The compound loss
+    already skips CE for an entirely ignored batch. Like CrossEntropyLoss itself,
+    a direct all-ignored call returns NaN and zero input gradients. FP32 arithmetic
+    for half logits matches CrossEntropyLoss's CUDA autocast policy.
+    """
+
+    def __init__(self, ignore_index=-100):
+        super().__init__()
+        self.ignore_index = ignore_index
+
+    def forward(self, logits, target):
+        if target.ndim == logits.ndim:
+            if target.shape[1] != 1:
+                raise ValueError("Cross entropy requires a single integer target channel")
+            target = target[:, 0]
+        target = target.long()
+        valid = target != self.ignore_index
+        safe_target = target.masked_fill(~valid, 0)
+        if logits.dtype in (torch.float16, torch.bfloat16):
+            logits = logits.float()
+        log_probabilities = F.log_softmax(logits, dim=1)
+        selected = log_probabilities.gather(1, safe_target.unsqueeze(1)).squeeze(1)
+        losses = -selected.masked_fill(~valid, 0)
+        return losses.sum() / valid.sum()
+
+
 class TargetFrameVNet(torch.nn.Module):
     def __init__(self, backbone, mode):
         super().__init__()
@@ -332,6 +361,14 @@ class _nnUNetTrainerNeighborAB(nnUNetTrainerNoDeepSupervision):
         # Keep model RNG draw semantics explicit and identical across fresh/resumed runs.
         return False
 
+    def _build_loss(self):
+        loss = super()._build_loss()
+        original_ce = loss.ce
+        if original_ce.weight is not None or original_ce.reduction != "mean" or original_ce.label_smoothing != 0:
+            raise ValueError("Neighbor A/B requires unweighted mean CE without label smoothing")
+        loss.ce = DeterministicCrossEntropyLoss(original_ce.ignore_index)
+        return loss
+
     def initialize(self):
         configure_determinism()
         seed_everything(self.neighbor_seed)
@@ -360,6 +397,7 @@ class _nnUNetTrainerNeighborAB(nnUNetTrainerNoDeepSupervision):
             "optimizer": {"name": "SGD", "lr": self.initial_lr, "momentum": 0.99,
                           "nesterov": True, "weight_decay": self.weight_decay},
             "scheduler": "polynomial", "augmentation": AUGMENTATION,
+            "cross_entropy": "log_softmax_gather_masked_mean",
             "ignore_label": self.label_manager.ignore_label,
             "oversample_foreground_percent": self.oversample_foreground_percent,
             "probabilistic_oversampling": self.probabilistic_oversampling,

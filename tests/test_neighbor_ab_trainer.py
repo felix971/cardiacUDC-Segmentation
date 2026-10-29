@@ -99,6 +99,29 @@ class NeighborABTests(unittest.TestCase):
             trainer.perform_actual_validation()
         self.assertEqual(observed, [(True, False)])
 
+    def test_deterministic_cross_entropy_matches_reference_value_and_gradient(self):
+        from nnunetv2.training.loss.robust_ce_loss import RobustCrossEntropyLoss
+
+        self.assertTrue(hasattr(self.ab, "DeterministicCrossEntropyLoss"))
+        for dtype in (torch.float32, torch.float64):
+            for ignore_index in (-100, 255):
+                for all_ignored in (False, True):
+                    with self.subTest(dtype=dtype, ignore_index=ignore_index, all_ignored=all_ignored):
+                        generator = torch.Generator().manual_seed(41)
+                        logits = torch.randn(2, 5, 4, 3, dtype=dtype, generator=generator)
+                        target = torch.arange(24).reshape(2, 1, 4, 3).remainder(5).to(torch.int16)
+                        target[:, :, 0] = ignore_index
+                        if all_ignored:
+                            target.fill_(ignore_index)
+                        original = logits.clone().requires_grad_(True)
+                        replacement = logits.clone().requires_grad_(True)
+                        expected = RobustCrossEntropyLoss(ignore_index=ignore_index)(original, target)
+                        actual = self.ab.DeterministicCrossEntropyLoss(ignore_index)(replacement, target)
+                        expected.backward()
+                        actual.backward()
+                        torch.testing.assert_close(actual, expected, equal_nan=True)
+                        torch.testing.assert_close(replacement.grad, original.grad, equal_nan=True)
+
     def test_actual_vnet_has_identical_initial_state_and_only_five_dimensional_dropout(self):
         config = SimpleNamespace(patch_size=[16, 16])
         self.ab.seed_everything(2026)
@@ -151,6 +174,16 @@ class NeighborABTests(unittest.TestCase):
         self.assertEqual(resumed.state_dict()["audit_sha256"], stream.state_dict()["audit_sha256"])
 
     def test_checkpoint_restores_sampling_augmentation_optimizer_and_model_rng(self):
+        self.assert_checkpoint_resume(torch.device("cpu"))
+
+    @unittest.skipUnless(os.environ.get("NEIGHBOR_AB_TEST_CUDA") == "1", "Explicit bounded GPU test opt-in")
+    def test_strict_cuda_train_step_and_checkpoint_resume(self):
+        self.assertTrue(torch.cuda.is_available())
+        self.assert_checkpoint_resume(torch.device("cuda"))
+        self.assertTrue(torch.are_deterministic_algorithms_enabled())
+        self.assertFalse(torch.is_deterministic_algorithms_warn_only_enabled())
+
+    def assert_checkpoint_resume(self, device):
         # A resumed optimizer update must exactly match the uninterrupted next update.
         ab = self.ab
 
@@ -168,7 +201,7 @@ class NeighborABTests(unittest.TestCase):
                    "NEIGHBOR_AB_SEED": "2026", "nnUNet_compile": "false"}
             with patch.dict(os.environ, env):
                 plans, dataset_json = self.make_dataset(tmp)
-                trainer = TinyTrainer(copy.deepcopy(plans), "2d", 0, dataset_json, torch.device("cpu"))
+                trainer = TinyTrainer(copy.deepcopy(plans), "2d", 0, dataset_json, device)
                 torch.backends.cudnn.deterministic = False
                 torch.backends.cudnn.benchmark = True
                 trainer.on_train_start()
@@ -183,7 +216,7 @@ class NeighborABTests(unittest.TestCase):
                 expected_state = copy.deepcopy(trainer.network.state_dict())
                 expected_rng = torch.rand(5)
 
-                resumed = TinyTrainer(copy.deepcopy(plans), "2d", 0, dataset_json, torch.device("cpu"))
+                resumed = TinyTrainer(copy.deepcopy(plans), "2d", 0, dataset_json, device)
                 resumed.load_checkpoint(checkpoint)
                 resumed.on_train_start()
                 actual_batch = next(resumed.dataloader_train)
@@ -203,7 +236,7 @@ class NeighborABTests(unittest.TestCase):
                 self.assertTrue((Path(resumed.output_folder) / "neighbor_ab_train_audit.jsonl").is_file())
 
                 with patch.dict(os.environ, {"NEIGHBOR_AB_SEED": "2027"}):
-                    wrong_seed = TinyTrainer(copy.deepcopy(plans), "2d", 0, dataset_json, torch.device("cpu"))
+                    wrong_seed = TinyTrainer(copy.deepcopy(plans), "2d", 0, dataset_json, device)
                     with self.assertRaisesRegex(ValueError, "seed"):
                         wrong_seed.load_checkpoint(checkpoint)
 
