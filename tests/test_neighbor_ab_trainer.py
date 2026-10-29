@@ -99,6 +99,29 @@ class NeighborABTests(unittest.TestCase):
             trainer.perform_actual_validation()
         self.assertEqual(observed, [(True, False)])
 
+    def test_network_forward_reasserts_policy_after_predictor_override(self):
+        # Predictor construction can overwrite flags after trainer validation entry.
+        model = self.ab.TargetFrameVNet(torch.nn.Identity(), mode="B")
+        observed = []
+
+        def inspect_backbone_entry(module, inputs):
+            observed.append((torch.are_deterministic_algorithms_enabled(),
+                             torch.is_deterministic_algorithms_warn_only_enabled(),
+                             torch.backends.cudnn.deterministic,
+                             torch.backends.cudnn.benchmark,
+                             torch.backends.cuda.matmul.allow_tf32,
+                             torch.backends.cudnn.allow_tf32))
+
+        model.backbone.register_forward_pre_hook(inspect_backbone_entry)
+        torch.use_deterministic_algorithms(False, warn_only=True)
+        torch.backends.cudnn.deterministic = False
+        torch.backends.cudnn.benchmark = True
+        torch.backends.cuda.matmul.allow_tf32 = True
+        torch.backends.cudnn.allow_tf32 = True
+        result = model(torch.ones(1, 8, 16, 16))
+        self.assertTrue(torch.equal(result, torch.ones(1, 1, 16, 16)))
+        self.assertEqual(observed, [(True, False, True, False, False, False)])
+
     def test_deterministic_cross_entropy_matches_reference_value_and_gradient(self):
         from nnunetv2.training.loss.robust_ce_loss import RobustCrossEntropyLoss
 

@@ -170,6 +170,15 @@ class TargetFrameVNet(torch.nn.Module):
         return data.unsqueeze(1)
 
     def forward(self, data):
+        # nnUNetPredictor's constructor can enable benchmarking after trainer
+        # validation setup. Enforce the same policy at the actual network boundary.
+        if (not torch.are_deterministic_algorithms_enabled()
+                or torch.is_deterministic_algorithms_warn_only_enabled()
+                or not torch.backends.cudnn.deterministic
+                or torch.backends.cudnn.benchmark
+                or torch.backends.cuda.matmul.allow_tf32
+                or torch.backends.cudnn.allow_tf32):
+            configure_determinism()
         volume = self.prepare_volume(data)
         logits = self.backbone(volume)
         return logits[:, :, TARGET_INDEX]
