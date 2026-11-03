@@ -20,3 +20,8 @@ __pycache__/
 # Personal experiments stay local; reusable project code lives in scripts/.
 /learn.ipynb
 .ipynb_checkpoints/
+
+# The shuffle scripts write predictions and summaries next to themselves; run copies outside the repo.
+/scripts/neighbor_ab_shuffle/*
+!/scripts/neighbor_ab_shuffle/probe.py
+!/scripts/neighbor_ab_shuffle/summarize.py

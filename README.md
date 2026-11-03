@@ -11,7 +11,8 @@
 - 已验证：默认样本的检查脚本可以运行；依赖由 `uv.lock` 固定。
 - 已实现：固定的 train/val/test 划分（`scripts/make_split.py` → [baseline_v1.csv](data/splits/baseline_v1.csv)）。同一录像和同一站点同号的记录分在同一组，患者身份没有核实，规则见[划分说明](data/splits/README.md)。
 - 进行中：nnU-Net v2 二维基线。模型、预处理和训练都交给 nnU-Net，仓库不写自己的模型或训练循环。`scripts/export_nnunet.py` 把 `baseline_v1` 中 `region` 记录的标注帧导出成 nnU-Net 数据集，并按 `baseline_v1` 写好划分。已在真实数据上训练，val 上逐帧平均 Dice：1000 轮 0.920，500 轮 0.918，见下文“nnU-Net 二维基线”。
-- 进行中：VNet2D 与 VNet3D。网络用 [MONAI](https://pypi.org/project/monai/) 现成的 `VNet`，训练仍交给 nnU-Net（`scripts/nnunet_vnet_trainer.py`）；三维数据把整段视频作为一个病例（`scripts/export_nnunet_3d.py`）。两者已在真实数据上各训练 500 轮，VNet3D 在 val 上按视频平均 Dice 为 0.792；和二维模型逐帧对比用 `scripts/compare_models.py`，见下文“VNet2D 与 VNet3D”。改进版 VNet3D（8 帧、整帧视野、浅层只在平面内卷积）的代码已写好，尚未训练，见下文。
+- 进行中：VNet2D 与 VNet3D。网络用 [MONAI](https://pypi.org/project/monai/) 现成的 `VNet`，训练仍交给 nnU-Net（`scripts/nnunet_vnet_trainer.py`）；三维数据把整段视频作为一个病例（`scripts/export_nnunet_3d.py`）。两者已在真实数据上各训练 500 轮，VNet3D 在 val 上按视频平均 Dice 为 0.792；和二维模型逐帧对比用 `scripts/compare_models.py`，见下文“VNet2D 与 VNet3D”。改进版 VNet3D（8 帧、整帧视野、浅层只在平面内卷积）没有在 Dataset502 上单独训练，而是用作下文邻帧 A/B 实验的网络。
+- 已完成一个配对种子：邻帧 A/B 实验。同一个 8 帧 VNet3D、同一套训练协议，A 组输入重复 8 次的目标帧，B 组输入真实邻帧，只监督目标帧。seed2026 在 val 218 帧上的前景宏平均 Dice：A 85.49%，B 85.80%，B − A 为 +0.31 个百分点，按视频配对检验没有显著差异（p = 0.553）。固定 B 的权重、推理时打乱邻帧顺序，Dice 下降 1.52 个百分点。见下文“邻帧 A/B 实验”。
 - 尚未实现：独立测试（test 集还没有用过）。
 
 当前可视化展示原始影像和已有标签，不是模型预测。训练权重和预测都在 `outputs/`，不进 Git。
@@ -215,12 +216,124 @@ uv run --locked nnUNetv2_train 502 3d_t8_768x512 0 -tr nnUNetTrainerVNetAniso_50
 
 正式训练前，先在显卡上跑几分钟，量出显存和每轮秒数。
 
+## 邻帧 A/B 实验
+
+前面的二维和三维模型同时改变了网络、输入窗口、监督方式和训练配置，分数高低回答不了“邻帧有没有帮助”。这个实验把其他条件都固定，只改输入内容：在同一个 8 帧 VNet3D、同一套训练协议下，把“重复的目标帧”换成“真实邻帧”，看目标帧的分割会不会变好。它不比较二维和三维哪个更好，也不检验运动顺序的机制。冻结的协议见 [neighbor-ab-protocol.md](docs/experiments/neighbor-ab-protocol.md)。
+
+### 设计
+
+- **数据**：`Dataset503_CardiacUDCNeighborAB`，每个病例是一个标注目标帧。8 个通道依次是偏移 −4、−3、−2、−1、0、+1、+2、+3 的帧，越过视频边界时取该视频最近的有效帧，目标帧固定在第 5 个通道（索引 4）。train 970 帧、val 218 帧，和二维基线是同一批目标帧，划分沿用 `baseline_v1`。每帧单独做 z-score 归一化，不用标签做掩膜，也不裁掉零值边框。
+- **A、B 两组**：两组的数据、裁块和增强完全相同，8 帧共用同一套空间增强。B 组把 8 张真实帧送进网络；A 组在送进网络前，把已经增强好的目标帧复制 8 次，丢掉邻帧。两组输入形状相同，差别只在是否保留真实邻帧的内容。
+- **网络**：上文的改进版 VNet3D，外面包一层 `TargetFrameVNet`：把 [N,8,H,W] 变成 [N,1,8,H,W]，只输出第 5 帧，只有目标帧的标签进入 loss。配置名里的 “2d” 指缓存、loss 和空间推理接口，模型本身是三维的。
+- **训练**：patch 768×512，batch 2，500 轮 × 每轮 250 次更新，SGD（学习率 0.01，动量 0.99，Nesterov），weight decay 3e-5，多项式学习率衰减，Dice + 交叉熵。交叉熵换成了数学上等价、能在 CUDA 上严格确定性运行的写法。两组共享初始参数和样本、增强序列，启用 PyTorch 严格确定性算法。
+- **推理**：Gaussian 滑窗，步长 0.5，不做镜像，也不在时间上平均。B 组读到了目标之后的 3 帧，所以这是离线分割实验，不能当作实时预测的结果。
+- **主指标**：第 500 轮的最终检查点，在全部 218 个 val 目标帧上的前景宏平均 Dice：每类先对 218 帧取平均，再对 4 个前景类取平均。
+
+### seed2026 结果
+
+seed2026 在同一台 Ubuntu 主机上先训练 A、再训练 B，各约 9 小时，通过了冻结协议的严格配对验收：初始参数、样本、增强参数和随机状态逐项核对一致。
+
+| 指标 | A：重复目标帧 | B：真实邻帧 | B − A（百分点） |
+| --- | ---: | ---: | ---: |
+| 前景宏平均 Dice | 85.4896% | 85.7954% | +0.3058 |
+| 前景宏平均 IoU | 77.5536% | 78.0731% | +0.5195 |
+| LV Dice | 84.4372% | 85.9400% | +1.5028 |
+| LA Dice | 83.4671% | 83.3495% | −0.1176 |
+| RA Dice | 89.2586% | 89.4638% | +0.2052 |
+| RV Dice | 84.7957% | 84.4284% | −0.3672 |
+
+换一种权重汇总，差值的符号会变：
+
+| 汇总方式 | 单位数 | A | B | B − A（百分点） |
+| --- | ---: | ---: | ---: | ---: |
+| 帧等权（主指标） | 218 | 85.4896% | 85.7954% | +0.3058 |
+| 视频等权 | 44 | 85.5420% | 85.8445% | +0.3025 |
+| 候选组等权 | 29 | 86.3067% | 86.2151% | −0.0916 |
+
+- 逐帧看，B 更高的有 121 帧，A 更高的有 92 帧，5 帧持平。按视频是 23 比 20，1 段持平。按候选组是 15 比 14。
+- 视频等权的探索性配对 t 检验 p = 0.553，B − A 的 95% 区间为 −0.7172 到 +1.3223 个百分点。
+- 候选组是按记录名线索合并的疑似同一患者，没有核实身份，不能当作患者层面的结果。
+
+### 固定 B 模型的乱序推理
+
+这一步检查训练好的 B 模型是否依赖邻帧的排列。用 seed2026 第 500 轮的 B 检查点，在同样的 218 帧上做 1 次原序推理和 5 次乱序推理。乱序时目标帧固定在第 5 个通道，其余 7 帧换位。每帧每次的排列由字符串 `seed2026-frame-order-v1:<次数>:<病例名>` 的 sha256 决定，可以复现。原序推理得到的 218 张预测，和原验证结果逐像素一致。
+
+| 条件 | 前景宏平均 Dice |
+| --- | ---: |
+| 原序 | 85.7954% |
+| 乱序（5 次平均） | 84.2767% |
+| 原序 − 乱序 | +1.5187 个百分点 |
+
+- 5 次乱序的 Dice 依次为 84.3376%、84.1160%、84.3286%、84.3807%、84.2210%，都低于原序。
+- 44 段视频中有 40 段原序更高。视频等权的差值为 +1.5263 个百分点，探索性 95% 区间为 0.8563 到 2.1963。
+- 这说明这个 B 检查点依赖邻帧的原始排列。但它和 A/B 是两种不同的干预，不能当作同一个效应的两次估计。要知道“有序输入比乱序输入在训练上好多少”，需要另训一个训练时就打乱邻帧的 C 组。
+
+脚本在 `scripts/neighbor_ab_shuffle/`。它们是当时实际运行的版本，原样保存，sha256 与运行记录一致，所以路径和常数都写死在代码里：
+
+- `probe.py`：在仓库根目录运行。它先核对 `outputs/neighbor_ab/formal/seed_2026/` 下 B 组 `checkpoint_final.pth` 的 sha256，然后把 `ordered/`、`shuffle_1/` … `shuffle_5/` 的预测、`permutations.json` 和 `complete.json` 写在**脚本自己所在的目录**。所以要先把它复制到仓库外的一个新目录，再从仓库根目录运行那个副本。每个病例对应哪个排列，依赖 nnU-Net 验证时按排好序的病例名逐个预测，这是 nnU-Net 的默认行为。
+- `summarize.py`：读整理过的结果目录（每个条件一个 `summary.json` 和 `permutations.json`），以及 seed2026 验收目录里的 `paired_frame_metrics.csv`，写出 `paired_dice.csv` 和 `dice_comparison.json`。
+
+### seed2027：严格配对验收没有通过
+
+seed2027 原计划在 Colab 上先训练 B、再训练 A。
+
+- B 完成了 500 轮和 218 帧验证。
+- A 经历了会话中断和更换 Colab 主机，最后迁到 Ubuntu，从第 482 轮的检查点续训了最后 18 轮。
+
+两组的预测都能独立逐像素复算，A 为 85.8078%，B 为 85.1186%，但两组的累计训练审计摘要不一致，严格配对验收没有通过。诊断发现，在不同主机上，CPU 预处理（DEFAULT 与 AVX2 两条数值路径、双线性 `grid_sample`）可能给出不逐位相同的增强结果，但根因没有完全定位。所以 seed2027 只作描述，不和 seed2026 合并成两个配对种子的平均效应。
+
+### 结论与局限
+
+- 在通过严格验收的这一个配对种子里，真实邻帧让主指标高了 0.31 个百分点，但没有检出统计显著差异；按候选组等权时，差值转为负。
+- 只有一个种子，无法估计种子之间的波动。
+- 乱序推理说明 B 模型在推理时用到了邻帧的排列。有序输入相对于乱序输入的训练收益，要靠 C 组来回答。
+- val 已经用于观察训练过程和做诊断，不能再当作没碰过的测试集；test 至今没有用过。
+- 验证帧来自 44 段视频，患者身份没有核实，不能把 218 帧当作 218 个独立患者。
+- 训练权重、预测，以及验收和审计记录都不进 Git。
+
+### 运行
+
+`scripts/register_neighbor_ab.py` 会把 `nnunet_vnet_trainer.py`、`nnunet_neighbor_ab_trainer.py` 和 `neighbor_ab_preprocessor.py` **复制**进已安装的 nnU-Net 包，替换掉上文 `nnunet_vnet_trainer.py` 的符号链接。所以最好在单独的 checkout 和环境里运行。下面的命令按各脚本的参数整理：
+
+```bash
+# 从二维基线的导出（Dataset501 及其 splits_final.json）生成 8 通道数据集
+uv run --locked python scripts/export_neighbor_ab.py
+
+# 注册 trainer、预处理器和冻结的 plans（configs/neighbor_ab_base_plans.json），再预处理
+uv run --locked python scripts/register_neighbor_ab.py --nnunet-root data/processed/nnunet
+export nnUNet_raw="$PWD/data/processed/nnunet/raw"
+export nnUNet_preprocessed="$PWD/data/processed/nnunet/preprocessed"
+uv run --locked nnUNetv2_preprocess -d 503 -c 2d
+
+# 在一张卡上依次训练一对 A、B，并在 val 上验证；结果在 outputs/neighbor_ab/formal/seed_2026/
+uv run --locked python scripts/run_neighbor_ab_pair.py \
+    --nnunet-root data/processed/nnunet --output-root outputs/neighbor_ab/formal \
+    --seed 2026 --host-label <主机名> --order A B
+```
+
+其余脚本：
+
+- `smoke_neighbor_ab.py`：正式训练前的有界验收，用真实缓存跑少量 A、B 更新，并做全尺寸导出。
+- `benchmark_neighbor_ab.py`：测量显存和速度。
+- `prepare_neighbor_continuation.py`：在新的输出目录里，从一个确定的检查点续训，并记录来源。
+- `validate_neighbor_prefetch.py`：验证 CPU 预取（`NEIGHBOR_AB_PREFETCH=2`）和串行版本逐位等价，并测量吞吐。
+
+单元测试只需要 CPU：
+
+```bash
+uv run --locked python -m unittest discover -s tests -p 'test_neighbor*.py'
+```
+
 ## 后续实验
 
 1. 跑通 nnU-Net 二维基线：按上文导出、预处理并训练 fold 0，看 val 上的 Dice。标注覆盖、标签编号、同一录像和分组划分已经完成，见“全量审计”和[划分说明](data/splits/README.md)。
 2. 明确逐类别 Dice 及聚合口径，以验证集选择模型，再进行独立测试。
 3. 训练 VNet2D 与 VNet3D，在 val 的同一批标注帧上与二维基线逐类比较 Dice（`scripts/compare_models.py`）。
 4. 保存配置、权重和实验记录，在相同数据协议下比较二维与视频模型。
+5. 邻帧 A/B 的后续：
+   - 先核实患者标识和划分，并事先定好主指标和统计单位。
+   - 如果要检验有序输入的训练收益，增加 C 组：用和 B 相同的真实帧，固定目标帧，训练时随机打乱其余邻帧，并在相应的乱序条件下评估。
+   - 补足能通过严格配对验收的种子。
 
 ## 参考资料
 
